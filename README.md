@@ -1,4 +1,6 @@
-# TangerineAdmin
+# TangerineAdmin (WORK IN PROGRESS)
+
+The TangerineAdmin tools are used to manage the tangerine instances in Kenya. Specifically, it will allow for advanced location list manageent and reporting.
 
 *Generated with [ng-poly](https://github.com/dustinspecker/generator-ng-poly/tree/v0.12.4) version 0.12.4*
 
