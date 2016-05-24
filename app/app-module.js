@@ -11,6 +11,8 @@
       'ngAria',
       'ui.router',
       'ui.bootstrap',
-      'home'
+      'home',
+      'location',
+      'data'
     ]);
 }());

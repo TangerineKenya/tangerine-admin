@@ -1,0 +1,10 @@
+<h2>Location</h2>
+<ul class="list-group" ng-repeat="(key, value) in vm.locationList.locations">
+	<li class="list-group-item">
+		<a data-ui-sref='editCounty({ countyID: value.id })'>{{value.label}}</a>
+			<span class="pull-right">
+					<a data-ui-sref='editCounty({ countyID: value.id })'><i class="fa fa-edit"></i></a>
+					<!--<a><i class="fa fa-plus"></i></a>-->
+			</span>
+	</li>
+</ul>
