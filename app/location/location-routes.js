@@ -11,7 +11,8 @@
         url: '/location',
         templateUrl: 'location/location.tpl.html',
         controller: 'LocationCtrl',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        bindToController: true
       })
       .state('editCounty', {
         url: '/edit-county/:countyID',

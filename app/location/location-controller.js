@@ -11,11 +11,14 @@
   angular
     .module('location')
     .controller('LocationCtrl', LocationCtrl);
-    LocationCtrl.$inject = ['DataService','$q'];
-  function LocationCtrl(DataService,$q) {
+    LocationCtrl.$inject = ['LocationService','$q'];
+  function LocationCtrl(LocationService,$q) {
     var vm = this;
+
+    //vm.locationList = LocationService.locationList;
+    vm.locationList = {};
     //vm.ctrlName = 'LocationCtrl';
-    vm.locationList={};
+    //console.log("log 1: ",vm);
     
     activate();
 
@@ -27,21 +30,19 @@
       vm.p = promises;
       return $q.all(promises).then(function() {
          console.log('Everything has been loaded');
+         //console.log("log 2: ",vm);
       });
     }
 
     function getLocations(){
-      return DataService.prod.get('location-list')
-        .then(success)
-        .catch(fail);
+      return LocationService.getLocations()
+        .then(success);
 
-        function success(response){
-          vm.locationList=response;
-          return vm.locationList;
-        }
-        function fail(error){
-          console.log(error);
-        }
+      function success(resp){
+        vm.locationList = resp;
+
+        return resp;
+      }
     }
   }
 }());
