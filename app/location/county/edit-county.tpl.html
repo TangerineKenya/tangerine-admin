@@ -1,0 +1,8 @@
+<h2>Edit County</h2>
+<div>
+<form name="myForm" ng-submit="county.save()">
+	<input type="text" name="county" ng-model="county.name" class="form-control" required>
+	<br/>
+	<button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Update</button>
+</form>
+</div>

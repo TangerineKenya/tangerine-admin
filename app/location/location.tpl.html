@@ -1,12 +1,23 @@
 <h2>Location</h2>
-<div class="locationView">
-	<ul class="list-group" ng-repeat="(key, value) in vm.locationList.locations">
-		<li class="list-group-item">
-			<a data-ui-sref='editCounty({ countyID: value.id })'>{{value.label}}</a>
-				<span class="pull-right">
-						<a data-ui-sref='editCounty({ countyID: value.id })'><i class="fa fa-edit"></i></a>
-						<!--<a><i class="fa fa-plus"></i></a>-->
-				</span>
-		</li>
-	</ul>
+<div class="row">
+	<div class="col-sm-6"><span class="pull-right"><a data-ui-sref='newCounty'><i class="fa fa-plus"></i></a></span></div>
+	<div class="col-sm-6"></div>
+</div>
+<div class="row">
+	<div class="col-sm-6">
+		<div id="locations" class="locationView">
+			<ul class="list-group" ng-repeat="(key, value) in vm.locationList.locations">
+				<li class="list-group-item">
+					<a data-ui-sref='editCounty({ countyID: value.id, name: value.label })'>{{value.label}}</a>
+						<span class="pull-right">
+							<a data-ui-sref='editCounty({ countyID: value.id , name: value.label  })'><i class="fa fa-edit"></i></a>
+							<a data-ui-sref='listSubcounty({ id: value.id, name: value.label })'><i class="fa fa-navicon"></i></a>
+						</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-6" id="main">
+		
+	</div>
 </div>
