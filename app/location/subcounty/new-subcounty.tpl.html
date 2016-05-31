@@ -1,2 +1,13 @@
-<h2>newSubcounty</h2>
-<p>{{newSubcounty.ctrlName}}</p>
+<h2>New Subcounty</h2>
+<div>
+	<form name="myForm" ng-submit="vm.save()">
+		<div class="form-group">
+			<input type="text" name="county" class="form-control" ng-model="vm.name" placeholder="Subcounty Name" autocomplete="off" required>
+		</div>
+		<div class="form-group">
+			<input type="text" name="code" class="form-control" ng-model="vm.code" placeholder="Subcounty Code" autocomplete="off" required>
+		</div>
+		<br/>
+		<button class="btn btn-primary" type="submit" ng-disabled="myForm.$invalid">Submit</button>
+	</form>
+</div>

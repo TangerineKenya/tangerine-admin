@@ -41,8 +41,6 @@
 
       LocationService.save(newDoc);
 
-      //redirect to location list
-
       //log 
       console.log('here',newDoc);
     }

@@ -14,33 +14,33 @@
         controllerAs: 'vm',
         bindToController: true
       })
-      .state('newCounty', {
+      .state('location.newCounty', {
         url: '/location/county/new-county',
         templateUrl: '/location/county/new-county.tpl.html',
         controller: 'NewCountyCtrl',
         controllerAs: 'vm'
       })
-      .state('editCounty', {
+      .state('location.editCounty', {
         url: '/location/county/edit-county/:countyID/:name',
         templateUrl: 'location/county/edit-county.tpl.html',
         controller: 'EditCountyCtrl',
         controllerAs: 'county',
         bindToController: true
       })
-      .state('listSubcounty', {
+      .state('location.listSubcounty', {
         url: '/subcounty/list-subcounty/:id/:name',
         templateUrl: 'location/subcounty/list-subcounty.tpl.html',
         controller: 'ListSubcountyCtrl',
         controllerAs: 'vm'
       })
-      .state('editSubcounty', {
+      .state('location.editSubcounty', {
         url: '/subcounty/edit-subcounty/:id/:name',
         templateUrl: 'location/subcounty/edit-subcounty.tpl.html',
         controller: 'EditSubcountyCtrl',
         controllerAs: 'vm'
       })
-      .state('newSubcounty', {
-        url: '/subcounty/new-subcounty',
+      .state('location.newSubcounty', {
+        url: '/subcounty/new-subcounty/:id',
         templateUrl: 'location/subcounty/new-subcounty.tpl.html',
         controller: 'NewSubcountyCtrl',
         controllerAs: 'vm'
