@@ -24,25 +24,25 @@
 
     function save(){
       vm.locationList=LocationService.locationList;
-      vm.key = '55599987';
+      vm.key = '96667777';
       var doc ={
-          locations:{
-              '55987799':{
-                code:vm.code,
+              locations:{}
+          };
+
+      doc[vm.key]={
                 id:vm.key,
+                code:vm.code,
                 label:vm.name,
                 quota:0,
                 children:{}
-              }
-          }
-        };
-
+              };
+      //console.log(doc);         
       var newDoc = _.merge(vm.locationList, doc);
 
       LocationService.save(newDoc);
 
       //log 
-      console.log('here',newDoc);
+      console.log('New County Added',newDoc);
     }
   }
 }());

@@ -32,6 +32,7 @@
          //console.log("log 2: ",vm);
       });
     }
+  
     //get list of sub counties
     function getSubcounties(){
       vm.locationList=LocationService.getLocations();

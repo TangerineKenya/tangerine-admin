@@ -1,0 +1,17 @@
+<h2>School List 
+<span class="pull-right">
+		<a class="btn btn-sm btn-primary">Back</a>&nbsp;
+		<a ui-sref="location.newSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId})" class="btn btn-sm btn-primary">Add School</a>
+	</span> 
+</h2>
+<hr>
+<div id="locations" class="zoneView">
+	<ul class="list-group" ng-repeat="(key, value) in vm.schools.children">
+		<li class="list-group-item">
+			<a >{{value.label}}</a>
+				<span class="pull-right">
+				<a ui-sref="location.editSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:value.id})"><i class="fa fa-edit"></i></a>
+			</span>
+		</li>
+	</ul>
+</div>

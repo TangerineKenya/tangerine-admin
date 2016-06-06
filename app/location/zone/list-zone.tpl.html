@@ -11,7 +11,7 @@
 			<a >{{value.label}}</a>
 				<span class="pull-right">
 				<a ui-sref="location.editZone({county:vm.countyId, subcounty:vm.subId, zone:value.id})" ><i class="fa fa-edit"></i></a>
-				<a><i class="fa fa-navicon"></i></a>
+				<a ui-sref="location.listSchools({county:vm.countyId, subcounty:vm.subId, zone:value.id})" ><i class="fa fa-navicon"></i></a>
 			</span>
 		</li>
 	</ul>

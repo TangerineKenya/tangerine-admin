@@ -28,19 +28,18 @@
    function save(){
       vm.locationList = LocationService.locationList;
 
-      //vm.key = LocationService.generateKey();
+      vm.key = '889943ER';
 
       var doc ={
-        children:{
-              88889949:{
+        children:{}
+      };
+      doc['children'][vm.key]={
                 id:vm.key,
                 label:vm.name,
                 code:vm.code,
                 quota:0,
                 children: {}
               }
-            }
-      };
       //get county object
       var path = 'locations.'+vm.countyID; 
       var county = _.get(vm.locationList, path);

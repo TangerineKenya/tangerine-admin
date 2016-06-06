@@ -35,17 +35,17 @@
 
     function save(){
       //create new sub doc
+      vm.key ='556644wd';
       var doc ={
-        children:{
-              48889949:{
+        children:{}
+      };
+      doc['children'][vm.key]={
                 id:vm.key,
                 label:vm.name,
                 code:vm.code,
                 quota:0,
                 children: {}
-              }
-            }
-      };
+              };
       //get location list
       vm.locationList=LocationService.locationList;
       var path = 'locations.'+vm.countyId+'.children.'+vm.subId; 

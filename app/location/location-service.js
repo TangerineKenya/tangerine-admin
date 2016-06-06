@@ -86,8 +86,17 @@
       vm.idHash[hash] = {};
       return hash;
     }
+    function getCounty(){
+
+    }
+    function getSubcounty(){
+
+    }
+    function getZone(){
+      
+    }
     //create object
-    
+
     //update quotas
     function updateQuota(){
 

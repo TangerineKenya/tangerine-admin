@@ -62,6 +62,24 @@
         templateUrl: 'location/zone/edit-zone.tpl.html',
         controller: 'EditZoneCtrl',
         controllerAs: 'vm'
+      })
+      .state('location.listSchools', {
+        url: '/school/list-schools/:county/:subcounty/:zone',
+        templateUrl: 'location/school/list-schools.tpl.html',
+        controller: 'ListSchoolsCtrl',
+        controllerAs: 'vm'
+      })
+      .state('location.editSchool', {
+        url: '/school/edit-school/:county/:subcounty/:zone/:school',
+        templateUrl: 'location/school/edit-school.tpl.html',
+        controller: 'EditSchoolCtrl',
+        controllerAs: 'vm'
+      })
+      .state('location.newSchool', {
+        url: '/school/new-school/:county/:subcounty/:zone',
+        templateUrl: 'location/school/new-school.tpl.html',
+        controller: 'NewSchoolCtrl',
+        controllerAs: 'vm'
       });
   }
 }());

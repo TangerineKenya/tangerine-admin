@@ -1,7 +1,12 @@
 <h2>Edit Zone</h2>
 <div>
 <form name="myForm" ng-submit="vm.save()">
-	<input type="text" name="name" ng-model="vm.name" class="form-control" autocomplete="off" required>
+	<div class="form-group">
+		<input type="text" name="name" ng-model="vm.name" class="form-control" autocomplete="off" required>
+	</div>
+	<div class="form-group">
+			<input type="number" name="quota" class="form-control" ng-model="vm.quota" placeholder="Quota" autocomplete="off" required>
+	</div>
 	<br/>
 	<button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Update</button>
 </form>
