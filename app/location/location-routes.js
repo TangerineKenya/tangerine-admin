@@ -34,7 +34,7 @@
         controllerAs: 'vm'
       })
       .state('location.editSubcounty', {
-        url: '/subcounty/edit-subcounty/:id/:name',
+        url: '/subcounty/edit-subcounty/:county/:id/:name',
         templateUrl: 'location/subcounty/edit-subcounty.tpl.html',
         controller: 'EditSubcountyCtrl',
         controllerAs: 'vm'
@@ -43,6 +43,24 @@
         url: '/subcounty/new-subcounty/:id',
         templateUrl: 'location/subcounty/new-subcounty.tpl.html',
         controller: 'NewSubcountyCtrl',
+        controllerAs: 'vm'
+      })
+      .state('location.listZone', {
+        url: '/zone/list-zone/:county/:subcounty',
+        templateUrl: 'location/zone/list-zone.tpl.html',
+        controller: 'ListZoneCtrl',
+        controllerAs: 'vm'
+      })
+      .state('location.newZone', {
+        url: '/zone/new-zone/:county/:subcounty',
+        templateUrl: 'location/zone/new-zone.tpl.html',
+        controller: 'NewZoneCtrl',
+        controllerAs: 'vm'
+      })
+      .state('location.editZone', {
+        url: '/zone/edit-zone/:county/:subcounty/:zone',
+        templateUrl: 'location/zone/edit-zone.tpl.html',
+        controller: 'EditZoneCtrl',
         controllerAs: 'vm'
       });
   }

@@ -75,7 +75,7 @@
     }
     //generate key
     function generateKey(){
-      /*var hashAlpha = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      var hashAlpha = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789";
       var hashLength = 8;
  
       var hash = rangen.id(hashLength, 'o', hashAlpha);
@@ -84,8 +84,10 @@
       }
  
       vm.idHash[hash] = {};
-      return hash;*/
+      return hash;
     }
+    //create object
+    
     //update quotas
     function updateQuota(){
 

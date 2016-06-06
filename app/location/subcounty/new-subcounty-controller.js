@@ -26,11 +26,14 @@
 
    ////////////////////////////////////////
    function save(){
-      vm.locationList=LocationService.locationList;
+      vm.locationList = LocationService.locationList;
+
+      //vm.key = LocationService.generateKey();
+
       var doc ={
         children:{
-              88889999:{
-                id:'88889999',
+              88889949:{
+                id:vm.key,
                 label:vm.name,
                 code:vm.code,
                 quota:0,
