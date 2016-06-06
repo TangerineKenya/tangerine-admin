@@ -15,7 +15,8 @@
     "lodash": "~3.9.0",
     "angular-pouchdb": "^4.1.0",
     "pouchdb-authentication": "^0.5.1",
-    "pouchdb-find": "^0.9.0"
+    "pouchdb-find": "^0.9.0",
+    "rangen": "^0.3.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*"
