@@ -144,7 +144,6 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.extDir))
       .pipe(jsFilter.restore);
   });
-
   // inject bower components into index.html
   gulp.task('bowerInject', ['bowerCopy'], function () {
     if (isProd) {

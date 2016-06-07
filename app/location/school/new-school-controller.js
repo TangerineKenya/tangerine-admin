@@ -40,7 +40,7 @@
     }
 
     function save(){
-      vm.key = 'TR76543214';
+      vm.key = LocationService.generateKey();
       var doc ={};
       doc[vm.key]={
                 id:vm.key,
@@ -52,13 +52,13 @@
                 tsc:vm.tsc,
                 tusome:vm.tusome,
                 address:vm.address
-              }
+              };
 
       vm.locationList =  LocationService.locationList;
 
       var path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.children';
 
-      var schools = _.get(vm.locationList,path)
+      var schools = _.get(vm.locationList,path);
       //merge new school with schools object
       var newDoc = _.merge(schools,doc);
 

@@ -3,52 +3,64 @@
 
   /**
    * @ngdoc object
-   * @name location.controller:EditSchoolCtrl
+   * @name location.controller:MoveSchoolCtrl
    *
    * @description
    *
    */
   angular
     .module('location')
-    .controller('EditSchoolCtrl', EditSchoolCtrl);
+    .controller('MoveSchoolCtrl', MoveSchoolCtrl);
+  
+  MoveSchoolCtrl.$inject = ['LocationService', '$q', '$stateParams'];
 
-  EditSchoolCtrl.$inject = ['LocationService','$stateParams','$q'];
-
-  function EditSchoolCtrl(LocationService,$stateParams,$q) {
+   function MoveSchoolCtrl(LocationService, $q, $stateParams) {
     var vm = this;
     vm.countyId = $stateParams.county;
     vm.subId = $stateParams.subcounty;
     vm.zoneId = $stateParams.zone;
     vm.schoolId = $stateParams.school;
     vm.school = {};
-    vm.save = save;
+    vm.counties = {};
+    vm.subcounties ={};
+    vm.zones = {};
+    vm.move =  move;
+    vm.getSubcounties = getSubcounties;
+    vm.getZones  = getZones;
 
     activate();
-
-    /////////////////////////////////////////////////////////
-
+    /////////////////////////////////////////////////
     function activate(){
-      var promises = [getSchool()];
+      var promises = [getSchool(), getCounties(), getSubcounties(), getZones()];
       vm.p = promises;
       return $q.all(promises).then(function() {
-         console.log('Load School Details');
+         console.log('Initialization completed');
       });
     }
 
     function getSchool(){
       vm.locationList =  LocationService.locationList;
 
-      var path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.children.'+vm.schoolId;
-
-      vm.school = _.get(vm.locationList,path);
-
-      //console.log('School Object',vm.school);
-
+      vm.school = _.get(vm.locationList, 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.children.'+vm.schoolId);
+      //console.log('Details', vm.school);
       return vm.school;
     }
 
-    function save(){
-      
+    function getCounties(){
+      vm.counties =  LocationService.locationList.locations;
+    }
+
+    function getSubcounties(){
+      vm.locationList =  LocationService.locationList;
+      vm.subcounties = _.get(vm.locationList, 'locations.'+vm.countyId+'.children.');
+    }
+
+    function getZones(){
+      vm.locationList =  LocationService.locationList;
+      vm.zones = _.get(vm.locationList, 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.');
+    }
+
+    function move() {
       var doc = {};
       doc[vm.schoolId]={
         id:vm.school.id,
@@ -72,8 +84,8 @@
       //merge new schools object to location list & save
       var locList = _.merge(vm.locationList,newDoc);
       LocationService.save(locList);
-      
-      console.log('School Updated',locList);
+
+      console.log('School Moved',locList);
     }
-  }
+   }
 }());

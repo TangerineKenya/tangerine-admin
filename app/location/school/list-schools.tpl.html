@@ -1,6 +1,6 @@
 <h2>School List 
 <span class="pull-right">
-		<a class="btn btn-sm btn-primary">Back</a>&nbsp;
+		<a ui-sref="location.listZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-primary">Back</a>&nbsp;
 		<a ui-sref="location.newSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId})" class="btn btn-sm btn-primary">Add School</a>
 	</span> 
 </h2>
@@ -11,6 +11,7 @@
 			<a >{{value.label}}</a>
 				<span class="pull-right">
 				<a ui-sref="location.editSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:value.id})"><i class="fa fa-edit"></i></a>
+				<a ui-sref="location.moveSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:value.id})"><i class="fa fa-navicon"></i> </a>
 			</span>
 		</li>
 	</ul>

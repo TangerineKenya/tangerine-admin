@@ -12,53 +12,57 @@
     .module('location')
     .controller('NewZoneCtrl', NewZoneCtrl);
 
-  NewZoneCtrl.$inject = ['LocationService','$stateParams'];
+  NewZoneCtrl.$inject = ['LocationService', '$stateParams'];
 
-  function NewZoneCtrl(LocationService,$stateParams) {
-    var vm = this;
-    vm.countyId = $stateParams.county;
-    vm.subId = $stateParams.subcounty;
-    vm.save = save;
-    vm.code = '';
-    vm.name = '';
-    vm.countyName = '';
-    vm.subName = '';
+    function NewZoneCtrl(LocationService, $stateParams) {
+      var vm = this;
+      var doc = { children: {}};
+      var path = '';
+      var subcounty, newDoc, locList = {};
+      vm.countyId = $stateParams.county;
+      vm.subId = $stateParams.subcounty;
+      vm.save = save;
+      vm.code = '';
+      vm.name = '';
+      vm.countyName = '';
+      vm.subName = '';
+      vm.quota = 0;
 
-    ////////////////////////////////////
-    function activate(){
+      ////////////////////////////////////    
 
-    }
-    //get county & sub county details
-    function getDetails(){
+      //get county & sub county details
+      function getDetails(){
 
-    }
+      }
 
-    function save(){
-      //create new sub doc
-      vm.key ='556644wd';
-      var doc ={
-        children:{}
-      };
-      doc['children'][vm.key]={
-                id:vm.key,
-                label:vm.name,
-                code:vm.code,
-                quota:0,
-                children: {}
-              };
-      //get location list
-      vm.locationList=LocationService.locationList;
-      var path = 'locations.'+vm.countyId+'.children.'+vm.subId; 
+      function save(){
+        //create new sub doc
+        vm.key = LocationService.generateKey();
+        
+        doc.children[vm.key]={
+                  id:vm.key,
+                  label:vm.name,
+                  code:vm.code,
+                  quota:vm.quota,
+                  children:{}
+                };
+        //get location list
 
-      //get & merge to sub county object
-      var subcounty = _.get(vm.locationList,path);
-      var newDoc = _.merge(subcounty,doc);
-      //merge to location list
-      var locList = _.merge(vm.locationList,newDoc);
-      //updated location list
-      LocationService.save(locList);
+        vm.locationList=LocationService.locationList;
+        path = 'locations.'+vm.countyId+'.children.'+vm.subId; 
 
-      console.log('Zone Saved',locList);
-    }
+        //get & merge to sub county object
+
+        subcounty = _.get(vm.locationList, path);
+        newDoc = _.merge(subcounty, doc);
+        //merge to location list
+
+        locList = _.merge(vm.locationList, newDoc);
+        //updated location
+
+        LocationService.save(locList);
+
+        console.log('Zone Saved', locList);
+      }
   }
 }());

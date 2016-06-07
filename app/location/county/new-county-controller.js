@@ -12,10 +12,12 @@
     .module('location')
     .controller('NewCountyCtrl', NewCountyCtrl);
 
-  NewCountyCtrl.$inject = ['LocationService','$q'];
+  NewCountyCtrl.$inject = ['LocationService', '$q'];
 
-  function NewCountyCtrl(LocationService,$q) {
+  function NewCountyCtrl(LocationService, $q) {
     var vm = this;
+    var newDoc ={};
+    var doc ={ locations:{}};
     vm.save = save;
     vm.name = '';
     vm.code ='';
@@ -24,12 +26,10 @@
 
     function save(){
       vm.locationList=LocationService.locationList;
-      vm.key = '96667777';
-      var doc ={
-              locations:{}
-          };
+      vm.key = LocationService.generateKey();
+      
 
-      doc[vm.key]={
+      doc['locations'][vm.key]={
                 id:vm.key,
                 code:vm.code,
                 label:vm.name,
@@ -37,12 +37,12 @@
                 children:{}
               };
       //console.log(doc);         
-      var newDoc = _.merge(vm.locationList, doc);
+      newDoc = _.merge(vm.locationList, doc);
 
       LocationService.save(newDoc);
 
-      //log 
-      console.log('New County Added',newDoc);
+      //log
+      console.log('New County Added', vm.key, newDoc);
     }
   }
 }());

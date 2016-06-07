@@ -80,6 +80,12 @@
         templateUrl: 'location/school/new-school.tpl.html',
         controller: 'NewSchoolCtrl',
         controllerAs: 'vm'
+      })
+      .state('location.moveSchool', {
+        url: '/school/move-school/:county/:subcounty/:zone/:school',
+        templateUrl: 'location/school/move-school.tpl.html',
+        controller: 'MoveSchoolCtrl',
+        controllerAs: 'vm'
       });
   }
 }());

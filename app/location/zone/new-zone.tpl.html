@@ -1,4 +1,5 @@
 <h2>Add Zone</h2>
+<hr>
 <div>
 	<form name="myForm" ng-submit="vm.save()">
 		<div class="form-group">
@@ -11,6 +12,11 @@
 			<input type="number" name="quota" class="form-control" ng-model="vm.quota" placeholder="Quota" autocomplete="off" required>
 		</div>
 		<br/>
-		<button class="btn btn-primary" type="submit" ng-disabled="myForm.$invalid">Submit</button>
+		<span class="pull-left">
+			<button class="btn btn-primary" type="submit" ng-disabled="myForm.$invalid">Submit</button>
+		</span>
+		<span class="pull-right">
+			<a ui-sref="location.listZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-default">Back</a>
+		</span>
 	</form>
 </div>

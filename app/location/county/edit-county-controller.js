@@ -12,9 +12,9 @@
     .module('location')
     .controller('EditCountyCtrl', EditCountyCtrl);
 
-  EditCountyCtrl.$inject = ['LocationService','$q','$stateParams'];
+  EditCountyCtrl.$inject = ['LocationService', '$q', '$stateParams'];
 
-  function EditCountyCtrl(LocationService,$q,$stateParams) {
+  function EditCountyCtrl(LocationService, $q, $stateParams) {
     var vm = this;
     vm.locationList = {};
     vm.countyID = $stateParams.countyID;
@@ -24,7 +24,8 @@
     init();
 
     //////////////////////////////////////////////////////////////
-    function init(){
+    
+    function init() {
       
     }
     //save new details
@@ -38,7 +39,7 @@
       console.log('New Object',doc);  
     }
     //delete
-    function deleteCounty(){
+    function deleteCounty() {
 
     }
   }

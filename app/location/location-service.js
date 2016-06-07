@@ -13,6 +13,7 @@
     .service('LocationService', LocationService);
   
   LocationService.$inject = ['DataService','$q'];
+
   function LocationService(DataService,$q) {
     var service = {
       init: init,
@@ -34,18 +35,18 @@
         .then(success)
         .catch(fail);
 
-      function success(response){
+      function success(response) {
         console.log("Location List Returned:", response);
         service.locationList=response;
         return response;
       }
-      function fail(error){
+      function fail(error) {
         console.log(error);
         return {};
       }
     }
     //return location object
-    function getLocations(){
+    function getLocations() {
       return service.locationList;
     }
     //search list
@@ -65,7 +66,7 @@
           service.getLocations();
         }
 
-        function fail(error){
+        function fail(error) {
           console.log(error);
         }
     }
@@ -74,28 +75,35 @@
 
     }
     //generate key
-    function generateKey(){
-      var hashAlpha = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789";
-      var hashLength = 8;
- 
-      var hash = rangen.id(hashLength, 'o', hashAlpha);
-      while (_.has(vm.idHash, hash)) {
-        hash = rangen.id(hashLength, 'o', hashAlpha);
+    function generateKey() {
+      var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+      /*Length of the Random String*/
+      var string_length = 8;
+      var randomstring = '';
+       
+      for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum, rnum + 1);
       }
- 
-      vm.idHash[hash] = {};
-      return hash;
+       
+      return randomstring;
     }
-    function getCounty(){
+
+    function getCounty(countyId){
 
     }
-    function getSubcounty(){
+
+    function getSubcounty(countyId,subcountyId){
 
     }
-    function getZone(){
-      
+
+    function getZone(countyId,subcountyId,zoneId){
+
     }
-    //create object
+
+    function getSchool(countyId,subcountyId,zoneId,schoolId){
+
+    }
 
     //update quotas
     function updateQuota(){
