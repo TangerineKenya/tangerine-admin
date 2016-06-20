@@ -27,7 +27,7 @@
       vm.countyName = '';
       vm.subName = '';
       vm.quota = 0;
-
+      vm.teachers = 0; 
       ////////////////////////////////////    
 
       //get county & sub county details
@@ -44,6 +44,7 @@
                   label:vm.name,
                   code:vm.code,
                   quota:vm.quota,
+                  teachers:vm.teachers,
                   children:{}
                 };
         //get location list
@@ -61,7 +62,8 @@
         //updated location
 
         LocationService.save(locList);
-
+        //update quota in subcounty & county
+        
         console.log('Zone Saved', locList);
       }
   }

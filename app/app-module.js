@@ -13,6 +13,7 @@
       'ui.bootstrap',
       'home',
       'location',
-      'data'
+      'data',
+      'dashboard'
     ]);
 }());

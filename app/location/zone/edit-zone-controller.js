@@ -24,16 +24,15 @@
     vm.name = '';
     vm.save = save;
     vm.zone = {};
-    vm.quota = 0;
-    
+
     activate();
 
     ///////////////////////////////////////////////////
     function activate(){
-      var promises = [getDetails(), getZone()]; //[getMessageCount(), getSchools(), ];
+      var promises = [getZone()]; //[getMessageCount(), getSchools(), ];
       vm.p = promises;
       return $q.all(promises).then(function() {
-         console.log('Initialization complete');
+         console.log('Initialization complete',vm.zone);
       });
     }
 
@@ -46,24 +45,31 @@
       return vm.zone;
     }
 
-    function getDetails(){
-      //get county & sub county details
-      vm.locationList = LocationService.locationList;
-      path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.label';
-    vm.name =_.get(vm.locationList, path);
-
-      console.log('Zone Details', vm.name);
-    }
-
     function save(){
-      vm.locationList = LocationService.locationList;
-      path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.label';
-     
-      doc =  _.set(vm.locationList, path, vm.name);
+      //update zone doc
+      doc[vm.zone.id] = {
+        id:vm.zone.id,
+        label:vm.zone.name,
+        code:vm.zone.code,
+        quota:vm.zone.quota,
+        teachers:vm.zone.teachers
+      }
 
-      LocationService.save(doc);
+      vm.locationList = LocationService.locationList;
+      path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children';
       
-      console.log('Zone Updated', vm.name, doc);
+      var zones = _.get(vm.locationList,path);
+      //merge zone object
+      var newDoc = _.merge(zones,doc);
+
+      //merge new schools object to location list & save
+      var locList = _.merge(vm.locationList,newDoc);
+      LocationService.save(locList);
+      //doc =  _.set(vm.locationList, path, vm.name);
+
+      //LocationService.save(doc);
+      
+      console.log('Zone Updated', locList);
     }
   }
 }());

@@ -9,25 +9,23 @@
 	</div>
 	<br>
 	<div class="form-group">
-		<select name="county" class="form-control">
-			<option ng-repeat="(key, value) in vm.counties" value="">{{value.label}}</option>}
+		<h4>Move To</h4>
+	</div>
+	<div class="form-group">
+		<select name="county" class="form-control" ng-options="county.label for county in vm.counties track by county.id" ng-model="vm.county" ng-change="vm.getSubcounties()" selected="vm.countyId" required>
 		</select>
 	</div>
 	<div class="form-group">
-		<select name="subcounty" class="form-control">
-			<option value="" ng-repeat="(key, value) in vm.subcounties">{{value.label}}</option>
-			
+		<select name="subcounty" class="form-control" ng-options="sub.label for sub in vm.subcounties track by sub.id" ng-model="vm.subcounty" ng-change="vm.getZones()" required>
 		</select>
 	</div>
 	<div class="form-group">
-		<select name="zone" class="form-control">
-			<option value="" ng-repeat="(key, value) in vm.zones">{{value.label}}</option>
-			
+		<select name="zone" class="form-control" ng-options="zone.label for zone in vm.zones track by zone.id" ng-model="vm.zone" required>
 		</select>
 	</div>
 	<br/>
 	<span class="pull-left">
-		<button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Move Zone</button>
+		<button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Move School</button>
 	</span>
 	<span class="pull-right">
 		<a ui-sref="location.listSchools({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId})" class="btn btn-default">Back</a>

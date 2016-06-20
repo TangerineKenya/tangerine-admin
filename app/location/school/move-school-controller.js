@@ -25,13 +25,17 @@
     vm.subcounties ={};
     vm.zones = {};
     vm.move =  move;
+    vm.county ={};
+    vm.subcounty={};
+    vm.zone = {};
     vm.getSubcounties = getSubcounties;
     vm.getZones  = getZones;
+
 
     activate();
     /////////////////////////////////////////////////
     function activate(){
-      var promises = [getSchool(), getCounties(), getSubcounties(), getZones()];
+      var promises = [getSchool(), getCounties()];
       vm.p = promises;
       return $q.all(promises).then(function() {
          console.log('Initialization completed');
@@ -40,30 +44,41 @@
 
     function getSchool(){
       vm.locationList =  LocationService.locationList;
-
       vm.school = _.get(vm.locationList, 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.children.'+vm.schoolId);
-      //console.log('Details', vm.school);
+      //vm.county = 
       return vm.school;
     }
 
     function getCounties(){
       vm.counties =  LocationService.locationList.locations;
+
+      return vm.counties;
     }
 
     function getSubcounties(){
-      vm.locationList =  LocationService.locationList;
-      vm.subcounties = _.get(vm.locationList, 'locations.'+vm.countyId+'.children.');
+      //console.log('Sub-County',vm.subcounties);
+      vm.subcounties = vm.county.children;
+      return vm.subcounties;
+    }
+
+    function getSubcounty(){
+
     }
 
     function getZones(){
-      vm.locationList =  LocationService.locationList;
-      vm.zones = _.get(vm.locationList, 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.');
+      vm.zones = vm.subcounty.children;
+      return vm.zones;
+    }
+
+    function getZone(){
+
     }
 
     function move() {
       var doc = {};
+      //school object
       doc[vm.schoolId]={
-        id:vm.school.id,
+        id:vm.schoolId,
         label:vm.school.label,
         code:vm.school.code,
         division:vm.school.division,
@@ -75,17 +90,15 @@
       };
       vm.locationList =  LocationService.locationList;
 
-      var path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children.'+vm.zoneId+'.children';
+      //remove school from orignal path
+      vm.locationList['locations'][vm.countyId]['children'][vm.subId]['children'][vm.zoneId]['children'] = _.omit(vm.locationList['locations'][vm.countyId]['children'][vm.subId]['children'][vm.zoneId]['children'],vm.schoolId);
+      //insert to new path
+      vm.locationList['locations'][vm.county.id]['children'][vm.subcounty.id]['children'][vm.zone.id]['children'] = _.merge(vm.locationList['locations'][vm.county.id]['children'][vm.subcounty.id]['children'][vm.zone.id]['children'],doc);
+      //save
+      LocationService.save(vm.locationList);
 
-      var schools = _.get(vm.locationList,path);
-      //merge new school with schools object
-      var newDoc = _.merge(schools,doc);
-
-      //merge new schools object to location list & save
-      var locList = _.merge(vm.locationList,newDoc);
-      LocationService.save(locList);
-
-      console.log('School Moved',locList);
+      getSchool();
+      console.log('New List',vm.locationList);
     }
    }
 }());

@@ -66,7 +66,7 @@
       var locList = _.merge(vm.locationList,newDoc);
       LocationService.save(locList);
 
-      console.log('School',obj);
+      console.log('School',doc);
     }
 
    

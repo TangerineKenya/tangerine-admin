@@ -109,6 +109,11 @@
     function updateQuota(){
 
     }
+
+    //update teacher count
+    function updateTeachers(){
+      
+    }
     //validate entry
     function validate(){
 
