@@ -62,6 +62,8 @@
 
         function success(response){
           console.log('Location List Updated');
+          //update quota & teacher count
+          
           //reload location list
           service.getLocations();
         }
@@ -90,19 +92,19 @@
     }
 
     function getCounty(countyId){
-
+      return service.locationList['locations'][countyId]; 
     }
 
     function getSubcounty(countyId,subcountyId){
-
+      return service.locationList['locations'][countyId]['children'][subcountyId];
     }
 
     function getZone(countyId,subcountyId,zoneId){
-
+      return service.locationList['locations'][countyId]['children'][subcountyId]['children'][zoneId];
     }
 
     function getSchool(countyId,subcountyId,zoneId,schoolId){
-
+      return service.locationList['locations'][countyId]['children'][subcountyId]['children'][zoneId]['children'][schoolId];
     }
 
     //update quotas

@@ -97,7 +97,7 @@
       //save
       LocationService.save(vm.locationList);
 
-      getSchool();
+      //getSchool();
       console.log('New List',vm.locationList);
     }
    }

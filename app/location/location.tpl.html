@@ -1,5 +1,39 @@
-<h2>Location</h2>
-<hr>
+<style type="text/css" media="screen">
+	/* Styles go here */
+
+
+.btn {
+    margin-right: 8px;
+}
+
+.angular-ui-tree-handle {
+    background: #f8faff;
+    border: 1px solid #dae2ea;
+    color: #7c9eb2;
+    padding: 10px 10px;
+}
+
+.angular-ui-tree-handle:hover {
+    color: #438eb9;
+    background: #f4f6f7;
+    border-color: #dce2e8;
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+.group-title {
+    background-color: #687074 !important;
+    color: #FFF !important;
+}
+</style>
+<link rel="stylesheet" href="vendor/angular-ui-tree/dist/angular-ui-tree.css">
 <div class="row">
 	<div class="col-sm-6">
 		<span class="pull-right"><a ui-sref='.newCounty' class="btn btn-primary"><i class="fa fa-plus"></i> Add</a></span>
@@ -12,6 +46,8 @@
 <div class="row">
 	<div class="col-sm-6">
 		<div id="locations" class="locationView">
+			<!--
+			Original list code
 			<ul class="list-group" ng-repeat="(key, value) in vm.locationList.locations">
 				<li class="list-group-item">
 					<a ui-sref='.listSubcounty({ id: value.id, name: value.label })'>{{value.label}}</a>
@@ -20,8 +56,59 @@
 						<a ui-sref='.listSubcounty({ id: value.id, name: value.label })'><i class="fa fa-navicon"></i></a>
 					</span>
 				</li>
-			</ul>
-			<span class="pull-right"><a>Top</a></span>
+			</ul>-->
+			<!--Testing tree-->
+			<div ui-tree data-drag-enabled="tree.enabled" data-max-depth="5" data-drag-delay="500">
+			  <ol ui-tree-nodes="" ng-model="vm.locationList.locations" >
+			    <li ng-repeat="(key, county) in vm.locationList.locations" ui-tree-node data-collapsed="true">
+			      	<div ui-tree-handle>
+	                  <a class="btn btn-success btn-xs"  ng-click="toggle(this)"><span class="fa" ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}"></span></a>
+	                  {{county.label}}
+	                  <a class="pull-right btn btn-danger btn-xs"  ng-click=""><span class="fa fa-remove"></span></a>
+	                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='.editCounty({ countyID: county.id , name: county.label  })' style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
+	                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='location.newSubcounty({id:county.id})' style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
+	                </div>
+	                <!--subcounty-->
+			      	<ol ui-tree-nodes="" ng-model="county.children" ng-class="{hidden: collapsed}">
+			        	<li ng-repeat="(key, subcounty) in county.children" ui-tree-node data-collapsed="true">
+			          		<div ui-tree-handle>
+	                  			<a class="btn btn-warning btn-xs"  ng-click="toggle(this)"><span class="fa" ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}"></span></a>
+	                  			{{subcounty.label}}
+	                  			<a class="pull-right btn btn-danger btn-xs"><span class="fa fa-remove"></span></a>
+	                  			<a class="pull-right btn btn-primary btn-xs"  ui-sref="location.editSubcounty({county:county.id,id:subcounty.id, name:subcounty.label})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
+	                  			<a class="pull-right btn btn-primary btn-xs"  ui-sref="location.newZone({county:county.id, subcounty:subcounty.id})" style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
+	                		</div>
+	                		<!--Zone-->
+		                	<ol ui-tree-nodes="" ng-model="subcounty.children" ng-class="{hidden: collapsed}">
+						        <li ng-repeat="(key, zone) in subcounty.children" ui-tree-node data-collapsed="true">
+						          <div ui-tree-handle>
+				                  		<a class="btn btn-success btn-xs"  ng-click="toggle(this)"><span class="fa" ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}"></span></a>
+				                  		{{zone.label}}
+				                  		<a class="pull-right btn btn-danger btn-xs" ui-sref="location.listSchools({county:county.id, subcounty:subcounty.id, zone:zone.id})"><span class="fa fa-remove"></span></a>
+				                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="location.editZone({county:county.id, subcounty:subcounty.id, zone:zone.id})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
+				                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="location.newSchool({county:county.id, subcounty:subcounty.id, zone:zone.id})" style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
+				                	</div>
+				                	<!--Schools-->
+				                		<ol ui-tree-nodes="" ng-model="zone.children" ng-class="{hidden: collapsed}">
+									        <li ng-repeat="(key, school) in zone.children" ui-tree-node data-collapsed="true">
+									          	<div ui-tree-handle>
+							                  		{{school.label}}
+							                  		<a class="pull-right btn btn-danger btn-xs"><span class="fa fa-remove"></span></a>
+							                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="location.editSchool({county:county.id, subcounty:subcounty.id, zone:zone.id, school:school.id})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
+							                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="location.moveSchool({county:county.id, subcounty:subcounty.id, zone:zone.id, school:school.id})" style="margin-right: 8px;"><span class="fa fa-navicon"></span></a>
+							                	</div>
+									        </li>
+								      	</ol>	
+								    <!--end-->
+						        </li>
+						      </ol>
+			        	</li>
+			      	</ol>
+			    </li>
+			  </ol>
+			</div>
+			<!--<br>
+			<span class="pull-right"><a>Top</a></span>-->
 		</div>
 	</div>
 	<div class="col-sm-6 well" ui-view>

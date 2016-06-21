@@ -17,6 +17,7 @@
 
     //vm.locationList = LocationService.locationList;
     vm.locationList = {};
+    vm.treedata = [];
     //vm.ctrlName = 'LocationCtrl';
     //console.log("log 1: ",vm);
     
@@ -40,9 +41,15 @@
 
       function success(resp){
         vm.locationList = resp;
-
+        
         return resp;
       }
     }
+    //tree uses array as model - convert object into array
+    /*function buildTreeArray(){
+      for (var x in vm.locationList) {
+        vm.treedata.push(vm.locationList[x]);
+      }
+    }*/
   }
 }());

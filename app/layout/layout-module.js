@@ -2,13 +2,13 @@
   'use strict';
 
   /* @ngdoc object
-   * @name location
+   * @name layout
    * @description
    *
    */
   angular
-    .module('location', [
+    .module('layout', [
       'ui.router',
-      'ui.tree'
+      'layout.sidebar'
     ]);
 }());

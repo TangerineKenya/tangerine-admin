@@ -11,9 +11,11 @@
       'ngAria',
       'ui.router',
       'ui.bootstrap',
+      'ui.tree',
       'home',
       'location',
       'data',
-      'dashboard'
+      'dashboard',
+      'layout'
     ]);
 }());
