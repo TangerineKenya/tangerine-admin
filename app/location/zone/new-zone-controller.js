@@ -12,9 +12,9 @@
     .module('location')
     .controller('NewZoneCtrl', NewZoneCtrl);
 
-  NewZoneCtrl.$inject = ['LocationService', '$stateParams'];
+  NewZoneCtrl.$inject = ['LocationService', '$stateParams','$location'];
 
-    function NewZoneCtrl(LocationService, $stateParams) {
+    function NewZoneCtrl(LocationService, $stateParams,$location) {
       var vm = this;
       var doc = { children: {}};
       var path = '';
@@ -58,13 +58,16 @@
         newDoc = _.merge(subcounty, doc);
         //merge to location list
 
-        locList = _.merge(vm.locationList, newDoc);
+        locList = _.set(vm.locationList,path, newDoc);
         //updated location
 
         LocationService.save(locList);
         //update quota in subcounty & county
         
         console.log('Zone Saved', locList);
+
+        //redirect
+        $location.path('/location');
       }
   }
 }());

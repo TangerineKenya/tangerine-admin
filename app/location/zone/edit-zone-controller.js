@@ -12,9 +12,9 @@
     .module('location')
     .controller('EditZoneCtrl', EditZoneCtrl);
 
-  EditZoneCtrl.$inject = ['LocationService', '$stateParams', '$q'];
+  EditZoneCtrl.$inject = ['LocationService', '$stateParams', '$q','$location'];
 
-  function EditZoneCtrl(LocationService, $stateParams, $q) {
+  function EditZoneCtrl(LocationService, $stateParams, $q,$location) {
     var vm = this;
     var path = '';
     var doc = {};
@@ -63,13 +63,16 @@
       var newDoc = _.merge(zones,doc);
 
       //merge new schools object to location list & save
-      var locList = _.merge(vm.locationList,newDoc);
-      LocationService.save(locList);
-      //doc =  _.set(vm.locationList, path, vm.name);
+      //var locList = _.merge(vm.locationList,newDoc);
+      //LocationService.save(locList);
+      var locList =  _.set(vm.locationList, path, newDoc);
 
-      //LocationService.save(doc);
+      LocationService.save(locList);
       
       console.log('Zone Updated', locList);
+
+      //redirect
+      $location.path('/location');
     }
   }
 }());

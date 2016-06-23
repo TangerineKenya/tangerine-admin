@@ -109,7 +109,24 @@
 
     //update quotas
     function updateQuota(){
+        console.log('Updating quotas...');
 
+        _.forIn(service.locationList.locations, function(county,key){
+            //subcounty
+            _.forIn(county.children, function(subcounty,key){
+              subcounty.quota = _.reduce(subcounty.children,function(sum,obj){
+                return sum + obj.quota
+              },0);
+              //county sum
+              county.quota = _.reduce(county.children,function(sum,obj){
+                return sum + obj.quota
+              },0);
+          });
+        });
+
+        //save(service.locationList);
+        
+        console.log('Quotas updated...',service.locationList);
     }
 
     //update teacher count

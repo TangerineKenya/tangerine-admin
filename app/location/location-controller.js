@@ -18,6 +18,8 @@
     //vm.locationList = LocationService.locationList;
     vm.locationList = {};
     vm.treedata = [];
+    vm.toggle = toggle;
+    vm.addProperty = addProperty;
     //vm.ctrlName = 'LocationCtrl';
     //console.log("log 1: ",vm);
     
@@ -41,9 +43,33 @@
 
       function success(resp){
         vm.locationList = resp;
-        
+
         return resp;
       }
+    }
+    
+    function toggle(){
+      
+    }
+
+    function addProperty(){
+      /*console.log('Adding property to location list..');
+
+      _.forIn(vm.locationList.locations, function(county, key) {
+        //add at county level
+        county['teachers'] = 0;
+        //add at subcounty level
+        _.forIn(county.children, function(subcounty, key){
+          subcounty['teachers'] = 0;
+          //add to zone 
+          _.forIn(subcounty.children, function(zone, key){
+            zone['teachers'] = 0;
+          });
+        });
+      });
+      LocationService.save(vm.locationList);
+
+      console.log('Property added to location list...', vm.locationList);*/
     }
     //tree uses array as model - convert object into array
     /*function buildTreeArray(){

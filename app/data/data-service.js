@@ -29,7 +29,7 @@
           if (err.name === 'unauthorized') {
             console.log('name or password incorrect');
           } else {
-            console.log('cosmic rays, a meteor, etc.');
+            console.log('All is ok');
           }
         }
       });
