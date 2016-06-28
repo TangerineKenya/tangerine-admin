@@ -15,7 +15,6 @@
       'home',
       'location',
       'data',
-      'dashboard',
-      'layout'
+      'dashboard'
     ]);
 }());
