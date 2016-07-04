@@ -17,7 +17,16 @@
     "angular-pouchdb": "^4.1.0",
     "pouchdb-authentication": "^0.5.1",
     "pouchdb-find": "^0.9.0",
-    "angular-ui-tree": "^2.16.0"
+    "angular-ui-tree": "^2.16.0",
+    "ngSanitize": "^0.0.2",
+    "angular-translate": "^2.11.0",
+    "angular-translate-storage-cookie": "^2.11.0",
+    "angular-translate-storage-local": "^2.11.0",
+    "angular-translate-loader-url": "^2.11.0",
+    "angular-translate-loader-static-files": "^2.11.0",
+    "angular-i18n": "^1.5.7",
+    "angular-route": "^1.5.7",
+    "ngstorage": "^0.3.10"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.*"
@@ -28,5 +37,8 @@
         "jquery": "*"
       }
     }
+  },
+  "resolutions": {
+    "angular": "~1.4.*"
   }
 }
