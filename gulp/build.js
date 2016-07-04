@@ -212,6 +212,18 @@ module.exports = function (gulp, $, config) {
       .pipe(gulp.dest(config.buildDir));
   });
 
+  // copy and optimize i18n files into build directory
+  gulp.task('i18n', ['clean'], function () {
+    return gulp.src(config.appI18nFiles)
+      .pipe(gulp.dest(config.buildI18n));
+  });
+
+   // copy and optimize assets files into build directory
+  gulp.task('assets', ['clean'], function () {
+    return gulp.src(config.appAssetFiles)
+      .pipe(gulp.dest(config.buildAssets));
+  });
+
   // copy and optimize images into build directory
   gulp.task('images', ['clean'], function () {
     return gulp.src(config.appImageFiles)
@@ -244,6 +256,8 @@ module.exports = function (gulp, $, config) {
           '!' + config.buildCss,
           '!' + config.buildFonts,
           '!' + config.buildImages,
+          '!' + config.buildAssets,
+          '!' + config.buildI18n,
           '!' + config.buildJs,
           '!' + config.extDir,
           '!' + config.buildDir + 'index.html'
@@ -254,5 +268,5 @@ module.exports = function (gulp, $, config) {
       });
   });
 
-  gulp.task('build', ['deleteTemplates', 'bowerAssets', 'images', 'favicon', 'fonts']);
+  gulp.task('build', ['deleteTemplates', 'bowerAssets', 'images','assets','i18n', 'favicon', 'fonts']);
 };

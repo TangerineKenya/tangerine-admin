@@ -29,6 +29,8 @@ _.merge(config, buildConfig);
 
 config.appFiles = path.join(config.appDir, '**/*');
 config.appFontFiles = path.join(config.appDir, 'fonts/**/*');
+config.appI18nFiles = path.join(config.appDir, 'i18n/**/*');
+config.appAssetFiles = path.join(config.appDir, 'assets/**/*');
 config.appImageFiles = path.join(config.appDir, 'images/**/*');
 config.appMarkupFiles = path.join(config.appDir, '**/*.html');
 config.appScriptFiles = path.join(config.appDir, '**/*.js');

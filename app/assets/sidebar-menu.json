@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Main Navigation",
+    "heading": "true",
+    "translate": "sidebar.heading.HEADER"
+  },
+  {
+    "text": "Dashboard",
+    "icon": "icon-speedometer",
+    "translate": "sidebar.nav.DASHBOARD"
+  },
+  {
+    "text": "Locations",
+    "sref": "app.location",
+    "icon": "icon-layers",
+    "translate": "sidebar.nav.locations.LOCATIONS",
+    "submenu": [{
+      "text": "Location Manager",
+      "translate": "sidebar.nav.locations.MANAGE"
+    }]
+  }
+]

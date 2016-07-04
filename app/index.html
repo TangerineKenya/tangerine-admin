@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang='en' data-ng-app='tangerineAdmin'>
-  <head>
-    <title>TangerineAdmin</title>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="{{tangerineAdmin.description}}">
-    <meta name="keywords" content="Tangerine, Tangerine Admin, Tangerine Tools, TangerineCentral">
-    <title data-ng-bind="::pageTitle()">Tangerine Tools</title>
+    <meta name="keywords" content="Tangerine, TangerineCentral, Tangerine Tools">
+    <title data-ng-bind="::pageTitle()">Tangerine Admin</title>
+    <base href="/">
+
+    <!-- TODO: Revisit these theme elements to enable LTR and RTL language support --->
+    <!-- Bootstrap styles-->
+    <!-- <link rel="stylesheet" href="app/css/bootstrap.css" data-ng-if="!app.layout.isRTL"> -->
+    <!-- <link rel="stylesheet" href="app/css/bootstrap-rtl.css" data-ng-if="app.layout.isRTL"> -->
+    <!-- Application styles-->
+    <!-- <link rel="stylesheet" href="app/css/app.css" data-ng-if="!app.layout.isRTL"> -->
+    <!-- <link rel="stylesheet" href="app/css/app-rtl.css" data-ng-if="app.layout.isRTL"> -->
+    <!-- Themes-->
+    <!-- <link rel="stylesheet" ng-href="{{app.layout.theme}}" data-ng-if="app.layout.theme"> -->
+
     <!-- inject:head:js -->
     <!-- endinject -->
     <!-- inject:html -->
@@ -13,43 +27,16 @@
     <!-- endbower -->
     <!-- inject:css -->
     <!-- endinject -->
-  </head>
-  <body>
+</head>
 
-    <div class='navbar navbar-inverse' role='navigation'>
-      <div class='container'>
-        <div class='navbar-header'>
-          <button class='navbar-toggle collapsed' type='button' data-ng-init='navCollapsed = true' data-ng-click='navCollapsed = !navCollapsed'>
-            <span class='sr-only'>Toggle Navigation</span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-          </button>
-          <a class='navbar-brand' href='#/'>Home</a>
-        </div>
-        <div class='navbar-collapse collapse' collapse='navCollapsed'>
-          <ul class='nav navbar-nav'>
-            <!--<li data-ui-sref-active='active'>
-              <a data-ui-sref='home'>Home</a>
-            </li>-->
-            <li>
-              <a ui-sref='location'>Locations</a>
-            </li>
-            <!--Navbar Links-->
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class='container'>
-      <div data-ui-view>
-
-      </div>
-    </div>
+<body data-ng-class="{ 'layout-fixed' : tangerineAdmin.layout.isFixed, 'aside-collapsed' : tangerineAdmin.layout.isCollapsed, 'layout-boxed' : tangerineAdmin.layout.isBoxed, 'layout-fs': tangerineAdmin.useFullLayout, 'hidden-footer': tangerineAdmin.hiddenFooter, 'layout-h': tangerineAdmin.layout.horizontal, 'aside-float': tangerineAdmin.layout.isFloat, 'offsidebar-open': tangerineAdmin.offsidebarOpen, 'aside-toggled': tangerineAdmin.asideToggled}">
+    <!-- TODO: Determine if any of these apply as body classes
+     data-ng-class="{ 'layout-fixed' : tangerineAdmin.layout.isFixed, 'aside-collapsed' : tangerineAdmin.layout.isCollapsed, 'layout-boxed' : tangerineAdmin.layout.isBoxed, 'layout-fs': tangerineAdmin.useFullLayout, 'hidden-footer': tangerineAdmin.hiddenFooter, 'layout-h': tangerineAdmin.layout.horizontal, 'aside-float': tangerineAdmin.layout.isFloat, 'offsidebar-open': tangerineAdmin.offsidebarOpen, 'aside-toggled': tangerineAdmin.asideToggled}"
+   -->
+    <div data-preloader></div>
+    <div data-ui-view data-autoscroll="false" class="wrapper"></div>
     <!-- bower:js -->
-    <script type="text/javascript" src="vendor/angular-ui-tree/dist/angular-ui-tree.js"></script>
     <!-- endbower -->
     <!-- inject:js -->
     <!-- endinject -->
-  </body>
-</html>
+</body>

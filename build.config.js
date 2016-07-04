@@ -19,6 +19,8 @@ module.exports = {
   buildDir: outDir + 'app/',
   buildCss: outDir + 'app/css/',
   buildFonts: outDir + 'app/fonts/',
+  buildI18n: outDir + 'app/i18n/',
+  buildAssets: outDir + 'app/assets/',
   buildImages: outDir + 'app/images/',
   buildJs: outDir + 'app/js/',
   extDir: outDir + 'app/vendor/',

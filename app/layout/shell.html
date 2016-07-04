@@ -1,0 +1,123 @@
+<!-- top navbar-->
+<header ng-include="'layout/header/top-navbar.html'" class="topnavbar-wrapper"></header>
+<!-- sidebar-->
+<aside ng-include="'layout/sidebar/sidebar.html'" ng-controller="SidebarController" class="aside"></aside>
+<!-- Main section-->
+<section>
+   <!-- Page content-->
+   <div ui-view="" autoscroll="false" ng-class="tangerineAdmin.viewAnimation" class="content-wrapper"></div>
+</section>
+<!-- Page footer-->
+<footer ng-include="'layout/footer/footer.html'"></footer>
+
+<!-- Menu Screen - Refer to sidebar.scss -->
+<!-- <ion-side-menus enable-menu-with-back-views="true" ng-controller="ShellController as vm">
+  <ion-side-menu-content>
+    <ion-nav-bar align-title="center" class="bar bb-bc bb-tc">
+      <ion-nav-back-button class='bb-tc'>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon ion-navicon bb-tc" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view>inside menu content</ion-nav-view>
+  </ion-side-menu-content> -->
+  
+  <!-- Left Menu Bar -->
+  <!-- <ion-side-menu side="left">
+    <ion-content class="menu-screen"> -->
+      <!-- Profile Section -->
+     <!--  <div class="profile-box">
+        <img src="images/profile-image.jpg" alt="" class="profile-box-thumb">
+        <div class="profile-box-details">
+          <h4 class="profile-name brand-base-text-color">Samuel L Jackson</h4>
+          <h6 class="profile-location brand-base-text-color"><i class="ion-compass"></i> A Tower, New York</h6>
+        </div>
+        <i class="profile-settings-icons"></i>
+      </div> -->
+      <!-- End Profile Section -->
+
+      <!-- Group Header -->
+     <!--  <h6 class="group-header">Action Items</h6> -->
+      <!-- End Group Header -->
+
+      <!-- Ionic List -->
+      <!-- <ion-list>
+        <ion-item nav-clear menu-close href="#" class="item item-icon-right">
+          Sync
+          <span class="item-note brand-base-text-color text-assertive">
+            Last sync on 24th Jan 2015
+          </span>
+          <i class="icon ion-android-sync"></i>
+        </ion-item>
+        <ion-item nav-clear menu-close href="#" class="item item-icon-right">
+          Begin Assessment
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+      </ion-list> -->
+      <!-- End Ionic List -->
+
+      <!-- Group Header -->
+     <!--  <h6 class="group-header">Menu</h6> -->
+      <!-- End Group Header -->
+
+      <!-- Ionic List -->
+      <!-- <ion-list>
+        <ion-item nav-clear menu-close  ui-sref="dashboard" class="item item-icon-left brand-base-text-color">
+          <i class="icon ion-home"></i>
+          Dashboard
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="students" class="item item-icon-left brand-base-text-color">
+          <i class="icon ion-ios-people"></i>
+          Students
+          <span class="badge badge-positive">5</span>
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="reporting" class="item item-icon-left brand-base-text-color">
+          <i class="icon ion-arrow-graph-up-right"></i>
+          Reporting
+        </ion-item>
+        <ion-item nav-clear menu-close ui-sref="account.profile" class="item item-icon-left brand-base-text-color">
+          <i class="icon ion-person"></i>
+          Profile
+        </ion-item
+      </ion-list> -->
+      <!-- End Ionic List -->
+<!--     </ion-content> -->
+    <!-- Footer Bar and Buttons -->
+    <!-- <ion-footer-bar class="auto-height bar-assertive menu-footer-bar">
+      <div class="row">
+        <button ui-sref="settings" menu-close class="col button button-dark"><i class="ion-gear-b"></i> Settings</button>
+        <button ui-sref="logout" menu-close class="col button button-clear"><i class="ion-log-out"></i> Logout</button>
+      </div>
+    </ion-footer-bar> -->
+    <!-- End Footer Bar and Buttons -->
+  <!-- </ion-side-menu> -->
+  <!-- End Left Menu Bar -->
+
+<!-- </ion-side-menus> -->
+
+
+<!--
+<div ng-controller="ShellController as vm">
+    start
+    <header class="clearfix">
+        <ht-top-nav navline="vm.navline"></ht-top-nav>
+    </header>
+    <section id="content" class="content">
+        <div ng-include="'app/layout/sidebar/sidebar.html'"></div>
+
+        <div ui-view class="shuffle-animation"></div>
+
+        <div ngplus-overlay
+             ngplus-overlay-delay-in="50"
+             ngplus-overlay-delay-out="700"
+             ngplus-overlay-animation="dissolve-animation">
+            <img src="images/busy.gif"/>
+
+            <div class="page-spinner-message overlay-message">{{vm.busyMessage}}</div>
+        </div>
+    </section>
+    end
+</div>
+-->
