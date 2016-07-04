@@ -7,7 +7,7 @@
    *
    */
   angular
-    .module('tangerineAdmin', [
+    .module('app', [
       'ngCookies',
       'ngAnimate',
       'ngRoute',

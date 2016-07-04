@@ -7,7 +7,7 @@ describe('core', function() {
         };
 
         beforeEach(function() {
-            module('tangerineAdmin', bard.fakeToastr);
+            module('app', bard.fakeToastr);
             bard.inject('$location', '$rootScope', '$state', '$templateCache');
             $templateCache.put(views.core, '');
         });

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var core = angular.module('tangerineAdmin');
+    var core = angular.module('app');
 
     core.config(toastrConfig);
 

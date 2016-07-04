@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('tangerineAdmin')
+  angular.module('app')
     .config(menuConfig);
 
   //menuConfig.$inject = ['menuService'];

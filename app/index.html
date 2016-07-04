@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang='en' data-ng-app='tangerineAdmin'>
+<html lang='en' data-ng-app='app'>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="{{tangerineAdmin.description}}">
+    <meta name="description" content="{{app.description}}">
     <meta name="keywords" content="Tangerine, TangerineCentral, Tangerine Tools">
     <title data-ng-bind="::pageTitle()">Tangerine Admin</title>
     <base href="/">
@@ -29,9 +29,9 @@
     <!-- endinject -->
 </head>
 
-<body data-ng-class="{ 'layout-fixed' : tangerineAdmin.layout.isFixed, 'aside-collapsed' : tangerineAdmin.layout.isCollapsed, 'layout-boxed' : tangerineAdmin.layout.isBoxed, 'layout-fs': tangerineAdmin.useFullLayout, 'hidden-footer': tangerineAdmin.hiddenFooter, 'layout-h': tangerineAdmin.layout.horizontal, 'aside-float': tangerineAdmin.layout.isFloat, 'offsidebar-open': tangerineAdmin.offsidebarOpen, 'aside-toggled': tangerineAdmin.asideToggled}">
+<body data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat, 'offsidebar-open': app.offsidebarOpen, 'aside-toggled': app.asideToggled}">
     <!-- TODO: Determine if any of these apply as body classes
-     data-ng-class="{ 'layout-fixed' : tangerineAdmin.layout.isFixed, 'aside-collapsed' : tangerineAdmin.layout.isCollapsed, 'layout-boxed' : tangerineAdmin.layout.isBoxed, 'layout-fs': tangerineAdmin.useFullLayout, 'hidden-footer': tangerineAdmin.hiddenFooter, 'layout-h': tangerineAdmin.layout.horizontal, 'aside-float': tangerineAdmin.layout.isFloat, 'offsidebar-open': tangerineAdmin.offsidebarOpen, 'aside-toggled': tangerineAdmin.asideToggled}"
+     data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat, 'offsidebar-open': app.offsidebarOpen, 'aside-toggled': app.asideToggled}"
    -->
     <div data-preloader></div>
     <div data-ui-view data-autoscroll="false" class="wrapper"></div>

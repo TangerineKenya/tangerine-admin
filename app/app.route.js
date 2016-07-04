@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('tangerineAdmin')
+        .module('app')
         .run(appRun);
 
     appRun.$inject = ['routerHelper', 'logger', '$rootScope'];

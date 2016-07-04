@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('tangerineAdmin')
+        .module('app')
         .constant('toastr', toastr)
         .constant('moment', moment)
         .constant('APP_MEDIAQUERY', {
