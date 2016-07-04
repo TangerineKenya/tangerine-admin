@@ -6,17 +6,25 @@
   },
   {
     "text": "Dashboard",
-    "icon": "icon-speedometer",
+    "icon": "fa fa-tachometer",
     "translate": "sidebar.nav.DASHBOARD"
   },
   {
     "text": "Locations",
     "sref": "app.location",
-    "icon": "icon-layers",
-    "translate": "sidebar.nav.locations.LOCATIONS",
-    "submenu": [{
-      "text": "Location Manager",
-      "translate": "sidebar.nav.locations.MANAGE"
-    }]
+    "icon": "fa fa-file-o",
+    "translate": "sidebar.nav.locations.LOCATIONS"
+  },
+  {
+    "text": "Menu",
+    "sref": "#",
+    "icon": "fa fa-folder-o",
+    "submenu": [
+      { "text": "Sub Menu", 
+        "sref": "#", 
+        "translate": "sidebar.nav.menu.SUBMENU" 
+      }    
+    ],
+    "translate": "sidebar.nav.menu.MENU"
   }
 ]

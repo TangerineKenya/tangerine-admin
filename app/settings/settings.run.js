@@ -12,12 +12,12 @@
       // Global Settings
       // -----------------------------------
       $rootScope.app = {
-        name: 'Tangerine Tools',
+        name: 'Tangerine Admin Tools',
         description: 'Tangerine Local Administration Tools',
         year: ((new Date()).getFullYear()),
         layout: {
           isFixed: true,
-          isCollapsed: false,
+          isCollapsed: true,
           isBoxed: false,
           isRTL: false,
           horizontal: false,
