@@ -6,25 +6,30 @@
   },
   {
     "text": "Dashboard",
+    "sref": "app.dashboard",
     "icon": "fa fa-tachometer",
-    "translate": "sidebar.nav.DASHBOARD"
+    "translate": ""
   },
   {
     "text": "Locations",
     "sref": "app.location",
     "icon": "fa fa-file-o",
-    "translate": "sidebar.nav.locations.LOCATIONS"
+    "translate": ""
   },
   {
-    "text": "Menu",
+    "text": "Reports",
     "sref": "#",
-    "icon": "fa fa-folder-o",
+    "icon": "fa fa-pie-chart",
     "submenu": [
-      { "text": "Sub Menu", 
+      { "text": "Reimbursement", 
         "sref": "#", 
-        "translate": "sidebar.nav.menu.SUBMENU" 
-      }    
+        "translate": "" 
+      },
+      { "text": "Observations", 
+        "sref": "#", 
+        "translate": "" 
+      }     
     ],
-    "translate": "sidebar.nav.menu.MENU"
+    "translate": ""
   }
 ]
