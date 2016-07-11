@@ -17,6 +17,12 @@
     "translate": ""
   },
   {
+    "text": "Users",
+    "sref": "app.users",
+    "icon": "fa fa-users",
+    "translate": ""
+  },
+  {
     "text": "Reports",
     "sref": "#",
     "icon": "fa fa-pie-chart",

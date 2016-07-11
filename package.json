@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.2.3",
+    "connect-history-api-fallback": "^1.2.0",
     "del": "^2.0.0",
     "eslint-config-angular": "^0.2.0",
     "eslint-config-dustinspecker": "^0.1.0",

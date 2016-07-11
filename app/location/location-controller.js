@@ -29,11 +29,11 @@
 		 * Activate the Locations Controller
 		 */
 		function activate() {
-			var promises = [getLocations()]; //[getMessageCount(), getSchools(), ];
-			vm.p = promises;
+			var promises = [LocationService.getLocations()]; //[getMessageCount(), getSchools(), ];
+			vm.p= promises;
 			return $q.all(promises).then(function() {
-				 console.log('Everything has been loaded');
-				 //console.log("log 2: ",vm);
+				 vm.locationList = LocationService.getLocations();
+				 console.log('Everything has been loaded..');
 			});
 		}
     	

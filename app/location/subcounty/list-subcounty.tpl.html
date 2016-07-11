@@ -1,7 +1,7 @@
 <h2>{{vm.name}} County 
 	<span class="pull-right">
 		<!--<a ui-sref="location" class="btn btn-sm btn-primary">Back</a>&nbsp;-->
-		<a ui-sref="location.newSubcounty({id:vm.id})" class="btn btn-sm btn-primary">New</a>
+		<a ui-sref="app.location.newSubcounty({id:vm.id})" class="btn btn-sm btn-primary">New</a>
 	</span> 
 </h2>
 <hr>
@@ -10,8 +10,8 @@
 		<li class="list-group-item">
 			<a >{{value.label}}</a>
 				<span class="pull-right">
-				<a ui-sref="location.editSubcounty({county:vm.id,id:value.id, name:value.label})" ><i class="fa fa-edit"></i></a>
-				<a ui-sref="location.listZone({county:vm.id, subcounty:value.id})"><i class="fa fa-navicon"></i></a>
+				<a ui-sref="app.location.editSubcounty({county:vm.id,id:value.id, name:value.label})" ><i class="fa fa-edit"></i></a>
+				<a ui-sref="app.location.listZone({county:vm.id, subcounty:value.id})"><i class="fa fa-navicon"></i></a>
 			</span>
 		</li>
 	</ul>

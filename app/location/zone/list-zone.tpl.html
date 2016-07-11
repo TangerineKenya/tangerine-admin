@@ -1,7 +1,7 @@
 <h2>{{vm.subName}} Zones	
 	<span class="pull-right">
-		<a ui-sref="location.listZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-default">Back</a>&nbsp;
-		<a ui-sref="location.newZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-primary">New Zone</a>
+		<a ui-sref="app.location.listZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-default">Back</a>&nbsp;
+		<a ui-sref="app.location.newZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-primary">New Zone</a>
 	</span> 
 </h2>
 <hr>
@@ -10,8 +10,8 @@
 		<li class="list-group-item">
 			<a >{{value.label}}</a>
 				<span class="pull-right">
-				<a ui-sref="location.editZone({county:vm.countyId, subcounty:vm.subId, zone:value.id})" ><i class="fa fa-edit"></i></a>
-				<a ui-sref="location.listSchools({county:vm.countyId, subcounty:vm.subId, zone:value.id})" ><i class="fa fa-navicon"></i></a>
+				<a ui-sref="app.location.editZone({county:vm.countyId, subcounty:vm.subId, zone:value.id})" ><i class="fa fa-edit"></i></a>
+				<a ui-sref="app.location.listSchools({county:vm.countyId, subcounty:vm.subId, zone:value.id})" ><i class="fa fa-navicon"></i></a>
 			</span>
 		</li>
 	</ul>

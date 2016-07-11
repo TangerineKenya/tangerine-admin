@@ -18,18 +18,18 @@
       'ui.router',
       'ui.bootstrap',
       'ui.tree',
-      'home',
       'location',
-      'data',
       'dashboard',
       'preloader',
       'layout',
-      'colors',
-      'exception',
-      'logger',
-      'router',
-      'settings',
-      'translate',
-      'utils'
+      'core.colors',
+      'core.exception',
+      'core.logger',
+      'core.router',
+      'core.settings',
+      'core.translate',
+      'core.utils',
+      'core.data',
+      'users'
     ]);
 }());
