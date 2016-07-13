@@ -11,7 +11,7 @@
         url: '/users',
         templateUrl: 'users/users.tpl.html',
         controller: 'UsersCtrl',
-        controllerAs: 'users'
+        controllerAs: 'vm'
       });
   }
 }());

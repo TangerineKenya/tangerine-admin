@@ -1,1 +1,31 @@
 <h3>Users</h3>
+<div class="panel">
+	<div class="panel-header">
+		
+	</div>
+	<div class="panel-body">
+			<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Names</th>
+								<th>Role</th>
+								<th>Email</th>
+								<th>County</th>
+								<th>Zone</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key, user) in vm.userList.rows">
+								<td>{{user.doc.first}} {{user.doc.last}}</td>
+								<td>{{user.doc.role}}</td>
+								<td>{{user.doc.email}}</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+						<tfoot></tfoot>
+					</table>
+			</div>
+	</div>
+</div>
