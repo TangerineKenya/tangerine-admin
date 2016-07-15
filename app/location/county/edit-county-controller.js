@@ -35,7 +35,7 @@
       var doc =  _.set(vm.locationList, path, vm.name);
 
       LocationService.save(doc);
-
+      vm.locationList = LocationService.getLocations();
       console.log('New Object',doc);  
     }
     //delete

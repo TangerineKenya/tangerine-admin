@@ -47,12 +47,22 @@
 
     function save(){
       //update zone doc
-      doc[vm.zone.id] = {
+
+      /*doc[vm.zone.id] = {
         id:vm.zone.id,
         label:vm.zone.name,
         code:vm.zone.code,
         quota:vm.zone.quota,
-        teachers:vm.zone.teachers
+        teachers:vm.zone.teachers,
+        educationQuota: vm.zone.educationQuota,
+        healthQuota: vm.zone.healthQuota
+      }*/
+      doc[vm.zone.id] = {
+        id:vm.zone.id,
+        label:vm.zone.name,
+        code:vm.zone.code,
+        educationQuota: vm.zone.educationQuota,
+        healthQuota: vm.zone.healthQuota
       }
 
       vm.locationList = LocationService.locationList;
@@ -69,10 +79,11 @@
 
       LocationService.save(locList);
       
-      console.log('Zone Updated', locList);
+      vm.locationList = LocationService.getLocations();
+      console.log('Zone Updated', vm.locationList);
 
       //redirect
-      $location.path('/location');
+      $location.path('/locations');
     }
   }
 }());

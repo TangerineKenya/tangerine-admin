@@ -31,12 +31,15 @@
     
     ///////////////////////////////////////////////
     function init(){
+      var options = {
+        rev: '10-df6c165b481ef345e49cf4a390df8224'
+      }
       service.locationList = DataService.prod.get('location-list')
         .then(success)
         .catch(fail);
 
       function success(response) {
-        console.log("Location List Returned");
+        console.log("Location List Returned", response);
         service.locationList=response;
         return response;
       }
@@ -56,7 +59,7 @@
     }
     //save location object
     function save(obj){
-      DataService.prod.put(obj)
+      DataService.prod.put(obj,obj._rev)
         .then(success)
         .catch(fail);
 
@@ -65,7 +68,7 @@
           //update quota & teacher count
           
           //reload location list
-          service.getLocations();
+          service.init();
         }
 
         function fail(error) {

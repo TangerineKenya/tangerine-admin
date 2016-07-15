@@ -40,7 +40,7 @@
       newDoc = _.merge(vm.locationList, doc);
 
       LocationService.save(newDoc);
-
+      vm.locationList = LocationService.getLocations();
       //log
       console.log('New County Added', vm.key, newDoc);
     }

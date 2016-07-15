@@ -53,23 +53,24 @@
 		}
 		
 		function addProperty(){
-			/*console.log('Adding property to location list..');
+			console.log('Adding property to location list..');
 
 			_.forIn(vm.locationList.locations, function(county, key) {
 				//add at county level
-				county['teachers'] = 0;
+				//county['teachers'] = 0;
 				//add at subcounty level
 				_.forIn(county.children, function(subcounty, key){
-					subcounty['teachers'] = 0;
+					//subcounty['teachers'] = 0;
 					//add to zone 
 					_.forIn(subcounty.children, function(zone, key){
-						zone['teachers'] = 0;
+						zone['healthQuota'] = 0;
+						zone['educationQuota'] = 0;
 					});
 				});
 			});
 			LocationService.save(vm.locationList);
-
-			console.log('Property added to location list...', vm.locationList);*/
+			vm.locationList = LocationService.getLocations();
+			console.log('Property added to location list...', vm.locationList);
 		}
 		//tree uses array as model - convert object into array
 		/*function buildTreeArray(){

@@ -30,7 +30,7 @@
       var doc =  _.set(vm.locationList, path, vm.name);
 
       LocationService.save(doc);
-      
+      vm.locationList = LocationService.getLocations();
       console.log('Subcounty Saved',vm.subId,path,doc);
 
     }

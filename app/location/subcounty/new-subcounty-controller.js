@@ -48,7 +48,7 @@
       //merge new county object with location list object & save
       var locList = _.merge(vm.locationList,newDoc);
       LocationService.save(locList);
-
+      vm.locationList = LocationService.getLocations();
       console.log('Subcounty Added',locList);
    }
   }
