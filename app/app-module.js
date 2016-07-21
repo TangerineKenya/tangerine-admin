@@ -30,6 +30,8 @@
       'core.translate',
       'core.utils',
       'core.data',
-      'users'
+      'core.login',
+      'users',
+      'feedback'
     ]);
 }());

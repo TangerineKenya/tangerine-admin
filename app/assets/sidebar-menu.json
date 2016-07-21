@@ -23,6 +23,12 @@
     "translate": ""
   },
   {
+    "text": "Feedback",
+    "sref": "app.feedback",
+    "icon": "fa fa-comments",
+    "translate": ""
+  },
+  {
     "text": "Reports",
     "sref": "#",
     "icon": "fa fa-pie-chart",

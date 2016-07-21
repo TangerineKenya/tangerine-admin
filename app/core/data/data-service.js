@@ -13,6 +13,7 @@
     .service('DataService', DataService);
   
   DataService.$inject = ['pouchDB'];
+  
   function DataService(pouchDB) {
     var service = {
       db: null, 
@@ -23,13 +24,15 @@
     return service;
 
     function init(){
-      service.prod = pouchDB('http://localhost:5984/group-national_tablet_program_test');      
+
+      service.prod = pouchDB('http://localhost:5984/group-tayari_test');
+     
       service.prod.login('admin', 'admin', function (err, resp){
         if(err){
           if (err.name === 'unauthorized') {
             console.log('name or password incorrect');
           } else {
-            console.log('All is ok');
+            console.log('Connected',service.prod.info());
           }
         }
       });

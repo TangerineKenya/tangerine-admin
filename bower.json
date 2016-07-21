@@ -16,7 +16,7 @@
     "rangen": "^0.3.0",
     "angular-pouchdb": "^4.1.0",
     "pouchdb-authentication": "^0.5.1",
-    "pouchdb-find": "^0.9.0",
+    "pouchdb-find": "^0.10.3",
     "angular-ui-tree": "^2.16.0",
     "ngSanitize": "^0.0.2",
     "angular-translate": "^2.11.0",
