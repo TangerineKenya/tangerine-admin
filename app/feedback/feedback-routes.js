@@ -11,7 +11,14 @@
         url: '/feedback',
         templateUrl: 'feedback/feedback.tpl.html',
         controller: 'FeedbackCtrl',
-        controllerAs: 'feedback'
+        controllerAs: 'vm',
+        bindToController: true
+      })
+      .state('app.view', {
+        url: '/feedback/view/:id',
+        templateUrl: 'feedback/view/view.tpl.html',
+        controller: 'ViewCtrl',
+        controllerAs: 'vm'
       });
   }
 }());

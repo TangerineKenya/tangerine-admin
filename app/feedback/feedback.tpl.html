@@ -4,6 +4,32 @@
 		
 	</div>
 	<div class="panel-body">
-		
+	<div class="table-responsive">
+
+		<table class="table table-stripped">
+			<caption>Observations</caption>
+			<thead>
+				<tr>
+					<th>Assessment Name</th>
+					<th>Enumerator</th>
+					<th>Date & Time</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(key, observation) in vm.observations">
+					<td>{{observation.assessmentName}}</td>
+					<td>{{observation.enumerator}}</td>
+					<td>{{observation.updated}}</td>
+					<td></td>
+					<td><a ui-sref="app.view({ id: observation._id})" ><i class="fa fa-navicon"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
+	</div>
+	<div class="panel-footer">
+
+  </div>
 </div>

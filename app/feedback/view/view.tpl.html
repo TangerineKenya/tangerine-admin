@@ -1,0 +1,22 @@
+<h3>Assessment - {{vm.assessment.assessmentName}} 
+	<span class="pull-right">
+		<a ui-sref="app.feedback" ><i class="fa fa-angle-left"></i></a>
+	</span>
+</h3>
+<div class="panel">
+  <div class="panel-header">
+    <span class="pull-right">
+    	<h5><i class="fa fa-clock-o"></i> Assessment Date - {{vm.assessment.updated}} &nbsp;</h5>
+    </span>		
+  </div>
+  <div class="panel-body">
+	
+	<textarea name=" comments" placeholder="Comments" rows="7" class="form-control"></textarea>
+  </div>
+  <div class="panel-footer">
+  	<span>
+  		<button class="btn btn-primary">Save Comments</button>
+  		<button class="btn btn-warning">Send Email</button>
+  	</span>
+  </div>
+</div>

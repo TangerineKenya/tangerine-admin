@@ -25,7 +25,7 @@
 
     function init(){
 
-      service.prod = pouchDB('http://localhost:5984/group-tayari_test');
+      service.prod = pouchDB('http://localhost:5984/group-national_tablet_program');
      
       service.prod.login('admin', 'admin', function (err, resp){
         if(err){

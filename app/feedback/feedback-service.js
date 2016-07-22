@@ -17,8 +17,10 @@
   function FeedbackService(DataService) {
     var service ={
       init: init,
+      trips: {},
       observations: {},
-      getObservations: getObservations
+      getObservations: getObservations,
+      getAssessment: getAssessment
     };
     
     service.init();
@@ -27,34 +29,40 @@
 
     ///////////////////////////////////
     function init(){
-      var ddoc = {
-        _id: '_design/my_index',
-        views: {
-          by_name: {
-            map: function (doc) { emit(doc.assessmentName); }.toString()
-          }
-        }
-      };
-      // save it
-      DataService.prod.put(ddoc).then(function () {
-        // success!
-        console.log(ddoc);
-      }).catch(function (err) {
-        // some error (maybe a 409, because it already exists?)
-      });
+      service.trips = DataService.prod.query('t/tutorTrips', {
+        startkey: 'trip',
+        reduce: false,
+        include_docs: true
+      })
+      .then(success)
+      .catch(fail);
 
-      DataService.prod.query('my_index/by_name',{
-          include_docs: true
-      }).then(function (res) {
-        // got the query results
-        console.log(res);
-      }).catch(function (err) {
-        // some error
-      });
+      function success(response){
+        rtiObservations(response);
+      }
+
+      function fail(err){
+        console.log('Could not load assessments', err);
+      }
     }
 
+    function rtiObservations(trip){
+      _.forEach(trip.rows, function(value, key) {
+          if(value.doc.assessmentName==='Tusome Worldreader Observation Tool for NTT and RTI'){
+            service.observations[value.id] = value.doc;
+          }
+          
+        });
+      return service.observations;
+    }
+    
     function getObservations(){
       return service.observations;
+    }
+
+    function getAssessment(assessmentId){
+      console.log('Assessment', assessmentId);
+      return _.get(service.observations, assessmentId);
     }
   }
 }());

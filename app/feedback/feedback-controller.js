@@ -29,7 +29,6 @@
       vm.p= promises;
       return $q.all(promises).then(function() {
          vm.observations = FeedbackService.getObservations();
-         console.log('Observations has been loaded..',vm.observations);
       });
     }
   }
