@@ -38,7 +38,7 @@
       .catch(fail);
 
       function success(response){
-        rtiObservations(response);
+        rtiObservations(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
       }
 
       function fail(err){
@@ -46,16 +46,16 @@
       }
     }
 
-    function rtiObservations(trip){
+    function rtiObservations(trip, assessment){
       _.forEach(trip.rows, function(value, key) {
-          if(value.doc.assessmentName==='Tusome Worldreader Observation Tool for NTT and RTI'){
+          if(value.doc.assessmentName===assessment){
             service.observations[value.id] = value.doc;
           }
           
         });
       return service.observations;
     }
-    
+
     function getObservations(){
       return service.observations;
     }

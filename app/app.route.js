@@ -17,7 +17,7 @@
             {
                 state: 'app',
                 config: {
-                    templateUrl: 'layout/shell.html'
+                    templateUrl: 'core/login/login.tpl.html'
                 }
             },
             {
@@ -27,8 +27,15 @@
                     templateUrl: 'layout/404.html',
                     title: '404'
                 }
+            },
+            {
+                state: 'app.home',
+                config: {
+                    url: '/home',
+                    templateUrl: 'layout/shell.html',
+                    title: 'Home'
+                }
             }
-
         ];
     }
 })();
