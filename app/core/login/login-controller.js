@@ -12,8 +12,19 @@
     .module('core.login')
     .controller('LoginCtrl', LoginCtrl);
 
-  function LoginCtrl() {
+  LoginCtrl.$inject = ['AuthService'];
+
+  function LoginCtrl(AuthService) {
     var vm = this;
-    vm.ctrlName = 'LoginCtrl';
+    vm.login = login;
+    vm.user = {};
+    vm.username;
+    vm.password;
+
+    ////////////////////////
+
+    function login(){
+      AuthService.login(vm.username, vm.password);
+    }
   }
 }());

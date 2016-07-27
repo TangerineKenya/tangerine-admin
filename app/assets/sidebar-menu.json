@@ -6,25 +6,25 @@
   },
   {
     "text": "Dashboard",
-    "sref": "app.dashboard",
+    
     "icon": "fa fa-tachometer",
     "translate": ""
   },
   {
     "text": "Locations",
-    "sref": "app.location",
+    "sref": "home.location",
     "icon": "fa fa-file-o",
     "translate": ""
   },
   {
     "text": "Users",
-    "sref": "app.users",
+    "sref": "home.users",
     "icon": "fa fa-users",
     "translate": ""
   },
   {
     "text": "Feedback",
-    "sref": "app.feedback",
+    "sref": "home.feedback",
     "icon": "fa fa-comments",
     "translate": ""
   },

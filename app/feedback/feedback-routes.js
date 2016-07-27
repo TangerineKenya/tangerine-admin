@@ -7,14 +7,14 @@
 
   function config($stateProvider) {
     $stateProvider
-      .state('app.feedback', {
+      .state('home.feedback', {
         url: '/feedback',
         templateUrl: 'feedback/feedback.tpl.html',
         controller: 'FeedbackCtrl',
         controllerAs: 'vm',
         bindToController: true
       })
-      .state('app.view', {
+      .state('home.view', {
         url: '/feedback/view/:id',
         templateUrl: 'feedback/view/view.tpl.html',
         controller: 'ViewCtrl',

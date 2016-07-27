@@ -40,7 +40,7 @@
 	<div class="col-sm-6">
 		<!--<span class="pull-left"><input type="text" name="criteria" class="form-control"></span>-->
 		<!--<span class="pull-left"><button type="submit" class="btn btn-danger" ng-click="vm.addProperty()">Property</button></span>-->
-		<span class="pull-right"><a ui-sref='app.location.newCounty' class="btn btn-primary"><i class="fa fa-plus"></i> Add</a></span>
+		<span class="pull-right"><a ui-sref='home.location.newCounty' class="btn btn-primary"><i class="fa fa-plus"></i> Add</a></span>
 	</div>
 	<div class="col-sm-6">
 		
@@ -70,7 +70,7 @@
 	                  {{county.label}}
 	                  <!--<a class="pull-right btn btn-danger btn-xs"  ng-click=""><span class="fa fa-remove"></span></a>-->
 	                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='app.location.editCounty({ countyID: county.id , name: county.label  })' style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
-	                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='app.location.newSubcounty({id:county.id})' style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
+	                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='home.location.newSubcounty({id:county.id})' style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
 	                </div>
 	                <!--subcounty-->
 			      	<ol ui-tree-nodes="" ng-model="county.children" ng-class="{hidden: collapsed}">
@@ -80,7 +80,7 @@
 	                  			{{subcounty.label}}
 	                  			<!--<a class="pull-right btn btn-danger btn-xs"><span class="fa fa-remove"></span></a>-->
 	                  			<a class="pull-right btn btn-primary btn-xs"  ui-sref="app.location.editSubcounty({county:county.id,id:subcounty.id, name:subcounty.label})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
-	                  			<a class="pull-right btn btn-primary btn-xs"  ui-sref="app.location.newZone({county:county.id, subcounty:subcounty.id})" style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
+	                  			<a class="pull-right btn btn-primary btn-xs"  ui-sref="home.location.newZone({county:county.id, subcounty:subcounty.id})" style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
 	                		</div>
 	                		<!--Zone-->
 		                	<ol ui-tree-nodes="" ng-model="subcounty.children" ng-class="{hidden: collapsed}">
@@ -89,7 +89,7 @@
 				                  		<!--<a class="btn btn-success btn-xs"  ng-click="toggle(this)"><span class="fa" ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}"></span></a>-->
 				                  		{{zone.label}}
 				                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="app.location.listSchools({county:county.id, subcounty:subcounty.id, zone:zone.id})"><span class="fa fa-navicon"></span></a>
-				                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="app.location.editZone({county:county.id, subcounty:subcounty.id, zone:zone.id})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
+				                  		<a class="pull-right btn btn-primary btn-xs" ui-sref="home.location.editZone({county:county.id, subcounty:subcounty.id, zone:zone.id})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
 				                  		<!--<a class="pull-right btn btn-primary btn-xs" ui-sref="location.newSchool({county:county.id, subcounty:subcounty.id, zone:zone.id})" style="margin-right: 8px;"><span class="fa fa-plus"></span></a>-->
 				                	</div>
 				                	<!--Schools-->

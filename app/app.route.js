@@ -17,23 +17,25 @@
             {
                 state: 'app',
                 config: {
-                    templateUrl: 'core/login/login.tpl.html'
+                    templateUrl: 'core/login/login.tpl.html',
+                    controller: 'LoginCtrl',
+                    controllerAs: 'vm'
                 }
             },
             {
-                state: 'app.404',
+                state: 'home',
+                config: {
+                    url: '/app',
+                    templateUrl: 'layout/shell.html',
+                    title: 'Home'
+                }
+            },
+            {
+                state: '404',
                 config: {
                     url: '/404',
                     templateUrl: 'layout/404.html',
                     title: '404'
-                }
-            },
-            {
-                state: 'app.home',
-                config: {
-                    url: '/home',
-                    templateUrl: 'layout/shell.html',
-                    title: 'Home'
                 }
             }
         ];
