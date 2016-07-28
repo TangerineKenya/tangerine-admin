@@ -6,15 +6,18 @@
     .config(config);
 
   function config($stateProvider) {
+    
+    //$locationProvider.html5Mode(true);
+
     $stateProvider
-      .state('home.feedback', {
-        url: '/feedback',
+      .state('home.assessments', {
+        url: '/assessments',
         templateUrl: 'feedback/feedback.tpl.html',
         controller: 'FeedbackCtrl',
         controllerAs: 'vm',
         bindToController: true
       })
-      .state('home.view', {
+      .state('home.assessment', {
         url: '/feedback/view/:id',
         templateUrl: 'feedback/view/view.tpl.html',
         controller: 'ViewCtrl',

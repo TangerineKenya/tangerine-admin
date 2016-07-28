@@ -20,7 +20,8 @@
       trips: {},
       observations: {},
       getObservations: getObservations,
-      getAssessment: getAssessment
+      getAssessment: getAssessment,
+      postAssessment: postAssessment
     };
     
     service.init();

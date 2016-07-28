@@ -23,14 +23,14 @@
     "translate": ""
   },
   {
-    "text": "Feedback",
-    "sref": "home.feedback",
+    "text": "Assessments",
+    "sref": "home.assessments",
     "icon": "fa fa-comments",
     "translate": ""
   },
   {
     "text": "Reports",
-    "sref": "#",
+    "sref": "/",
     "icon": "fa fa-pie-chart",
     "submenu": [
       { "text": "Reimbursement", 
@@ -43,5 +43,12 @@
       }     
     ],
     "translate": ""
+  },
+  {
+    "text": "Logout",
+    "sref": "",
+    "icon": "fa fa-sign-out",
+    "translate": ""
   }
+
 ]

@@ -1,6 +1,6 @@
-<h3>My Observations</h3>
+<h3>My Assessments</h3>
 <div class="panel">
-	<div class="panel-header">
+	<div class="panel-heading">
 		
 	</div>
 	<div class="panel-body">
@@ -19,11 +19,11 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="(key, observation) in vm.observations">
-					<td>{{observation.assessmentName}}</td>
+					<td><a ui-sref="home.assessment({ id: observation._id})" >{{observation.assessmentName}}</a></td>
 					<td>{{observation.enumerator}}</td>
 					<td>{{observation.updated}}</td>
 					<td></td>
-					<td><a ui-sref="home.view({ id: observation._id})" ><i class="fa fa-navicon"></i></a></td>
+					<td><a ui-sref="home.assessment({ id: observation._id})" ><i class="fa fa-navicon"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

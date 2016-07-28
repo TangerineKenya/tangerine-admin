@@ -17,6 +17,7 @@
             {
                 state: 'app',
                 config: {
+                    url: '/',
                     templateUrl: 'core/login/login.tpl.html',
                     controller: 'LoginCtrl',
                     controllerAs: 'vm'

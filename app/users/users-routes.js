@@ -12,6 +12,12 @@
         templateUrl: 'users/users.tpl.html',
         controller: 'UsersCtrl',
         controllerAs: 'vm'
+      })
+      .state('home.user', {
+        url: '/view/:id',
+        templateUrl: 'users/view/view.tpl.html',
+        controller: 'ViewCtrl',
+        controllerAs: 'vm'
       });
   }
 }());

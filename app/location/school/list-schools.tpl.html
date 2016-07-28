@@ -1,7 +1,7 @@
 <h2>School List 
 	<span class="pull-right">
-		<a ui-sref="app.location.listZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-default">Back</a>&nbsp;
-		<a ui-sref="app.location.newSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId})" class="btn btn-sm btn-primary">Add School</a>
+		<a ui-sref="home.location.listZone({county:vm.countyId, subcounty:vm.subId})" class="btn btn-sm btn-default">Back</a>&nbsp;
+		<a ui-sref="home.location.newSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId})" class="btn btn-sm btn-primary">Add School</a>
 	</span> 
 </h2>
 <hr>
@@ -24,8 +24,8 @@
 	                  {{school.label}}
 	                  <!--<a class="pull-right btn btn-danger btn-xs"  ng-click=""><span class="fa fa-remove"></span></a>-->
 	                  
-	                <a class="pull-right btn btn-primary btn-xs"  ui-sref="app.location.moveSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:school.id})" style="margin-right: 8px;"><span class="fa fa-navicon"></span></a>
-	            	<a class="pull-right btn btn-primary btn-xs"  ui-sref="app.location.editSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:school.id})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
+	                <a class="pull-right btn btn-primary btn-xs"  ui-sref="home.location.moveSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:school.id})" style="margin-right: 8px;"><span class="fa fa-navicon"></span></a>
+	            	<a class="pull-right btn btn-primary btn-xs"  ui-sref="home.location.editSchool({county:vm.countyId, subcounty:vm.subId, zone:vm.zoneId, school:school.id})" style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
 	            </div>
 	        </li>
 	    </ol>

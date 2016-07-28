@@ -19,7 +19,6 @@
       'ui.bootstrap',
       'ui.tree',
       'location',
-      'dashboard',
       'preloader',
       'layout',
       'core.colors',
