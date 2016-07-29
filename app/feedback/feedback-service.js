@@ -80,5 +80,9 @@
           console.log(error);
         }
     }
+
+    function sendMail(){
+      
+    }
   }
 }());

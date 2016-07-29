@@ -16,7 +16,7 @@
       .state('home.user', {
         url: '/view/:id',
         templateUrl: 'users/view/view.tpl.html',
-        controller: 'ViewCtrl',
+        controller: 'UserCtrl',
         controllerAs: 'vm'
       });
   }

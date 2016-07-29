@@ -18,7 +18,8 @@
     var service ={
       init: init,
       userList: {},
-      getUsers: getUsers
+      getUsers: getUsers,
+      getUser: getUser
     };
     
     service.init();
@@ -49,6 +50,21 @@
 
     function getUsers(){
       return service.userList;
+    }
+
+    function getUser(id){
+      DataService.prod.get(id)
+        .then(success)
+        .catch(fail);
+
+      function success(response) {
+        //console.log("User serv", response);
+        return response;
+      }
+      function fail(error) {
+        console.log(error);
+        return {};
+      }
     }
   }
 }());
