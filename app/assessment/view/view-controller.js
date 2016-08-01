@@ -9,13 +9,13 @@
    *
    */
   angular
-    .module('feedback')
+    .module('assessment')
     .controller('ViewCtrl', ViewCtrl);
 
 
-  ViewCtrl.$inject = ['FeedbackService','$stateParams','$q', '$location'];
+  ViewCtrl.$inject = ['AssessmentService','$stateParams','$q', '$location'];
 
-  function ViewCtrl(FeedbackService, $stateParams, $q, $location) {
+  function ViewCtrl(AssessmentService, $stateParams, $q, $location) {
     var vm = this;
     vm.assessmentId = $stateParams.id;
     vm.assessment = {};
@@ -31,10 +31,10 @@
 
     /////////////////
     function activate(){
-      var promises = [FeedbackService.getAssessment(vm.assessmentId)]; 
+      var promises = [AssessmentService.getAssessment(vm.assessmentId)]; 
       vm.p= promises;
       return $q.all(promises).then(function() {
-         vm.assessment = FeedbackService.getAssessment(vm.assessmentId);
+         vm.assessment = AssessmentService.getAssessment(vm.assessmentId);
          vm.notes = vm.assessment.notes;
          getSubtests();
          console.log('Observation loaded..',vm.subtests);
@@ -54,10 +54,10 @@
       vm.assessment['notes'] = vm.notes;
 
       //console.log(vm.assessment);
-      FeedbackService.postAssessment(vm.assessment);
+      AssessmentService.postAssessment(vm.assessment);
 
       activate();
-      //$location.path('feedback');
+      //$location.path('feedback'); 
     }
 
     function allowSend(){

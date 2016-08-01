@@ -7,7 +7,7 @@
    *
    */
   angular
-    .module('feedback', [
+    .module('assessment', [
       'ui.router'
     ]);
 }());

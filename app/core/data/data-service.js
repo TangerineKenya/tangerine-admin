@@ -12,20 +12,26 @@
     .module('core.data')
     .service('DataService', DataService);
   
-  DataService.$inject = ['pouchDB'];
+  DataService.$inject = ['pouchDB','$http'];
   
-  function DataService(pouchDB) {
+  function DataService(pouchDB,$http) {
     var service = {
       db: null, 
       remote: null,
       init: init
     };
+
+    var config = {};
+
+    getSettings('tayari');
+
     service.init();
+    
     return service;
 
     function init(){
-
-      service.prod = pouchDB('http://localhost:5984/group-national_tablet_program');
+      
+      service.prod = pouchDB('http://localhost:5984/group-tayari_test');
      
       service.prod.login('admin', 'admin', function (err, resp){
         if(err){
@@ -47,6 +53,21 @@
             }
           }
       });*/
+    }
+    function getSettings(group){
+      var configJson = 'assets/settings.json';
+      $http.get(configJson)
+        .success(success)
+        .error(fail);
+        
+      function success(response){
+        config = response.settings[group].prod;
+        console.log('Settings',config);
+      }
+
+      function fail(error){
+        console.log(error);
+      }
     }
   }
 }());

@@ -9,14 +9,14 @@
    *
    */
   angular
-    .module('feedback')
-    .controller('FeedbackCtrl', FeedbackCtrl);
+    .module('assessment')
+    .controller('AssessmentCtrl', AssessmentCtrl);
 
-  FeedbackCtrl.$inject = ['FeedbackService','$q']
+  AssessmentCtrl.$inject = ['AssessmentService','$q']
 
-  function FeedbackCtrl(FeedbackService,$q) {
+  function AssessmentCtrl(AssessmentService,$q) {
     var vm = this;
-    vm.ctrlName = 'FeedbackCtrl';
+    vm.ctrlName = 'AssessmentCtrl';
     vm.observations = {};
 
     activate();
@@ -25,10 +25,10 @@
      * Activate the Feedback Controller
      */
     function activate() {
-      var promises = [FeedbackService.getObservations()]; 
+      var promises = [AssessmentService.getAssessments()]; 
       vm.p= promises;
       return $q.all(promises).then(function() {
-         vm.observations = FeedbackService.getObservations();
+         vm.observations = AssessmentService.getAssessments();
       });
     }
   }

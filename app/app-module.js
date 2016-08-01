@@ -31,6 +31,6 @@
       'core.data',
       'core.login',
       'users',
-      'feedback'
+      'assessment'
     ]);
 }());

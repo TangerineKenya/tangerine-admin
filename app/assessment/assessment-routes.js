@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('feedback')
+    .module('assessment')
     .config(config);
 
   function config($stateProvider) {
@@ -12,14 +12,14 @@
     $stateProvider
       .state('home.assessments', {
         url: '/assessments',
-        templateUrl: 'feedback/feedback.tpl.html',
-        controller: 'FeedbackCtrl',
+        templateUrl: 'assessment/assessment.tpl.html',
+        controller: 'AssessmentCtrl',
         controllerAs: 'vm',
         bindToController: true
       })
       .state('home.assessment', {
-        url: '/feedback/view/:id',
-        templateUrl: 'feedback/view/view.tpl.html',
+        url: '/assessment/view/:id',
+        templateUrl: 'assessment/view/view.tpl.html',
         controller: 'ViewCtrl',
         controllerAs: 'vm'
       });
