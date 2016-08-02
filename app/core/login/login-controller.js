@@ -12,9 +12,9 @@
     .module('core.login')
     .controller('LoginCtrl', LoginCtrl);
 
-  LoginCtrl.$inject = ['AuthService'];
+  LoginCtrl.$inject = ['AuthService','$rootScope'];
 
-  function LoginCtrl(AuthService) {
+  function LoginCtrl(AuthService,$rootScope) {
     var vm = this;
     vm.login = login;
     vm.user = {};

@@ -53,12 +53,12 @@
     }
 
     function getUser(id){
-      DataService.prod.get(id)
+      return DataService.prod.get(id)
         .then(success)
         .catch(fail);
 
       function success(response) {
-        //console.log("User serv", response);
+        service.user = response;
         return response;
       }
       function fail(error) {

@@ -29,7 +29,7 @@
 
         function success(response){
           //set session on successful authentication
-          //return response;
+          //console.log(response);
           if(response.ok==true){
             $rootScope.loggedIn = true;
             getUser(user);

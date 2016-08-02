@@ -1,6 +1,11 @@
 
 	{
 		"settings":{
+			"default":{
+				"db":"http://localhost:5984/group-tayari_test",
+				"user":"admin",
+				"password":"admin"
+			},
 			"tusome":{
 				"local":{
 					"db":"http://localhost:5984/group-national_tablet_program_test",

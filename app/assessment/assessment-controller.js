@@ -26,7 +26,7 @@
      */
     function activate() {
       var promises = [AssessmentService.getAssessments()]; 
-      vm.p= promises;
+      
       return $q.all(promises).then(function() {
          vm.observations = AssessmentService.getAssessments();
       });

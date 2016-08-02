@@ -5,15 +5,15 @@
         .module('core.settings')
         .run(settingsRun);
 
-    settingsRun.$inject = ['$rootScope', '$localStorage'];
+    settingsRun.$inject = ['$rootScope', '$localStorage','$http'];
 
-    function settingsRun($rootScope, $localStorage){
+    function settingsRun($rootScope, $localStorage, $http){
 
       // Global Settings
       // -----------------------------------
       $rootScope.app = {
-        name: 'Tangerine Admin Tools',
-        description: 'Tangerine Local Administration Tools',
+        name: 'Tangerine Tools',
+        description: 'Tangerine Tools',
         year: ((new Date()).getFullYear()),
         layout: {
           isFixed: true,

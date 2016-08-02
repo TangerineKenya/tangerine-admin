@@ -12,9 +12,9 @@
     .module('assessment')
     .service('AssessmentService', AssessmentService);
 
-  AssessmentService.$inject = ['DataService',$rootScope]
+  AssessmentService.$inject = ['DataService','$rootScope']
 
-  function AssessmentService(DataService,$rootScope) {
+  function AssessmentService(DataService, $rootScope) {
     var service ={
       init: init,
       trips: {},

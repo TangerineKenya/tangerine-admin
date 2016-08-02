@@ -68,5 +68,9 @@
 
       console.log('Email', vm.email);
     }
+
+    function exportToWord(){
+
+    }
   }
 }());

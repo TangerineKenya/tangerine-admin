@@ -5,11 +5,26 @@
         .module('app')
         .run(appRun);
 
-    appRun.$inject = ['routerHelper', 'logger', '$rootScope'];
+    appRun.$inject = ['routerHelper', 'logger', '$rootScope', '$http'];
     /* @ngInject */
-    function appRun(routerHelper, logger, $rootScope) {
+    function appRun(routerHelper, logger, $rootScope, $http) {
         var otherwise = '/404';
         routerHelper.configureStates(getStates(), otherwise);
+        $rootScope.group = 'default';
+        //load json
+        var json = 'assets/settings.json';
+
+      $http.get(json)
+            .success(success)
+            .error(fail);
+      
+      function success(response){
+        $rootScope.dbSettings = response.settings;
+      }
+
+      function fail(error){
+        console.log(error);
+      }
     }
 
     function getStates() {

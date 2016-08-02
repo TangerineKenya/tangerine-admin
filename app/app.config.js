@@ -13,7 +13,7 @@
     }
 
     var config = {
-        appErrorPrefix: '[Tools] ',
+        appErrorPrefix: '[Tangerine Tools] ',
         appTitle: 'Tangerine Tools'
     };
 
@@ -30,4 +30,5 @@
         exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
     }
+
 })();

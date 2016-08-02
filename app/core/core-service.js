@@ -15,10 +15,6 @@
   CoreService.$inject = ['DataService'];
 
   function CoreService(DataService) {
-    var self = this;
-
-    self.get = function () {
-      return 'Core';
-    };
+    
   }
 }());

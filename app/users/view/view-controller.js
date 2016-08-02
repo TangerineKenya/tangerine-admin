@@ -21,23 +21,28 @@
     var vm =this;
     vm.user = {};
     vm.userId = $stateParams.id;
-
+    vm.update = update;
+    
     activate();
 
+
+    ///////////
     function activate(){
-      var promises = [getUser()];
-      vm.p = promises;
-      return $q.all(promises).then(function() {
-          vm.user = getUser(vm.userId);
-          console.log('User', vm.userId, vm.user);
-      });
+      vm.user = UserService.getUser(vm.userId)
+        .then(success)
+        .catch(fail);
+      
+      function success(resp){
+        vm.user = resp;
+      }
+
+      function fail(err){
+        console.log(err);
+      }
     }
 
-    function getUser(){
-      vm.user = UserService.getUser(vm.userId);
+    function update(){
 
-      return vm.user;
     }
-    
   }
 }());
