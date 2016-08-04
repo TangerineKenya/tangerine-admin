@@ -29,22 +29,6 @@
     "translate": ""
   },
   {
-    "text": "Reports",
-    "sref": "/",
-    "icon": "fa fa-pie-chart",
-    "submenu": [
-      { "text": "Reimbursement", 
-        "sref": "#", 
-        "translate": "" 
-      },
-      { "text": "Observations", 
-        "sref": "#", 
-        "translate": "" 
-      }     
-    ],
-    "translate": ""
-  },
-  {
     "text": "Logout",
     "sref": "",
     "icon": "fa fa-sign-out",

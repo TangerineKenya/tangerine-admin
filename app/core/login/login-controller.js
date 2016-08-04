@@ -20,11 +20,20 @@
     vm.user = {};
     vm.username;
     vm.password;
+    vm.group = '';
+    vm.selectGroup = selectGroup;
 
     ////////////////////////
 
     function login(){
       AuthService.login(vm.username, vm.password);
+
+      $rootScope.group = vm.group;
+    }
+
+    function selectGroup(){
+      $rootScope.group = vm.group;
+      //console.log('Selected', $rootScope.group);
     }
   }
 }());

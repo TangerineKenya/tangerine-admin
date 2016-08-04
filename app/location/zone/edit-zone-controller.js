@@ -53,9 +53,7 @@
         label:vm.zone.name,
         code:vm.zone.code,
         quota:vm.zone.quota,
-        teachers:vm.zone.teachers,
-        educationQuota: vm.zone.educationQuota,
-        healthQuota: vm.zone.healthQuota
+        teachers:vm.zone.teachers
       }*/
       doc[vm.zone.id] = {
         id:vm.zone.id,

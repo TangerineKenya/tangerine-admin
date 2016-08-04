@@ -11,20 +11,13 @@
         var otherwise = '/404';
         routerHelper.configureStates(getStates(), otherwise);
         $rootScope.group = 'default';
-        //load json
+        /*$rootScope.dbSettings = {};
+        
         var json = 'assets/settings.json';
 
-      $http.get(json)
-            .success(success)
-            .error(fail);
-      
-      function success(response){
-        $rootScope.dbSettings = response.settings;
-      }
-
-      function fail(error){
-        console.log(error);
-      }
+        $http.get(json, function(response){
+             $rootScope.dbSettings = response.settings;
+        });*/
     }
 
     function getStates() {
@@ -43,6 +36,7 @@
                 config: {
                     url: '/app',
                     templateUrl: 'layout/shell.html',
+                    resolve: { authenticate: authenticate },
                     title: 'Home'
                 }
             },
@@ -55,5 +49,19 @@
                 }
             }
         ];
+    }
+
+    function authenticate($rootScope, $q, $state, $timeout){
+        if($rootScope.loggedIn = true){
+            return $q.when();
+        }
+        else{
+            $timeout(function() {
+              $state.go('app')
+            })
+
+            // Reject the authentication promise to prevent the state from loading
+            return $q.reject()
+        }
     }
 })();

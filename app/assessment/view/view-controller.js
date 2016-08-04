@@ -29,7 +29,7 @@
 
     activate();
 
-    /////////////////
+    //////////////////////////////
     function activate(){
       var promises = [AssessmentService.getAssessment(vm.assessmentId)]; 
       vm.p= promises;
@@ -65,8 +65,20 @@
     }
 
     function sendEmail(){
+      if(vm.email){
+        var data = {
+          "email": vm.email,
+          "assessment": vm.assessment,
+          "subtests": vm.subtests
+        };
 
-      console.log('Email', vm.email);
+        //prepare to send
+        AssessmentService.sendMail(data);
+
+      }
+      else{
+         console.log('Please provide an email');
+      }
     }
 
     function exportToWord(){

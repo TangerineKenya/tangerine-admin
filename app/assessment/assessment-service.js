@@ -12,16 +12,17 @@
     .module('assessment')
     .service('AssessmentService', AssessmentService);
 
-  AssessmentService.$inject = ['DataService','$rootScope']
+  AssessmentService.$inject = ['DataService', '$rootScope', '$http']
 
-  function AssessmentService(DataService, $rootScope) {
+  function AssessmentService(DataService, $rootScope, $http) {
     var service ={
       init: init,
       trips: {},
       assessments: {},
       getAssessments: getAssessments,
       getAssessment: getAssessment,
-      postAssessment: postAssessment
+      postAssessment: postAssessment,
+      sendMail: sendMail
     };
     
     service.init();
@@ -41,11 +42,16 @@
       function success(response){
         service.trips = response;
         //console.log('trips', response);
-        getAssessmentsByName(response, 'After Observation');
-        getAssessmentsByName(response, 'During Obsevation Tool - Sub-County ECD Coordinator Observation');
+        if($rootScope.group=='tayari'){
+          getAssessmentsByName(response, 'After Observation');
+          getAssessmentsByName(response, 'During Obsevation Tool - Sub-County ECD Coordinator Observation');
+        }
+        else{//rti assessments
+          getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
+          //getAssessmentsByName(response, 'During Obsevation Tool - Sub-County ECD Coordinator Observation');
+        }
         //console.log('Assess', response);
       }
-
       function fail(err){
         console.log('Could not load assessments', err);
       }
@@ -55,7 +61,7 @@
       _.forEach(trip.rows, function(value, key) {
           //if admin display all
           if($rootScope.currentUser.roles[0]==='_admin'){
-            if(value.doc.assessmentName===assessment){
+            if(value.doc.assessmentName===assessment && value.doc.enumerator=='dmutuma' ){
               service.assessments[value.id] = value.doc;
             }
           }
@@ -94,8 +100,26 @@
         }
     }
 
-    function sendMail(){
-      
+    function sendMail(message){
+    
+      $http({
+            method: 'POST',
+            url: 'assets/send-mail.php',
+            data: $.param(message),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }).then(success).catch(fail)
+
+      function success(resp){
+        return resp;
+      }
+
+      function fail(err){
+        console.log('Email Error', err);
+      }
+    }
+
+    function exportToWord(){
+
     }
 
     function getTrips(){
