@@ -12,9 +12,9 @@
     .module('assessment')
     .service('AssessmentService', AssessmentService);
 
-  AssessmentService.$inject = ['DataService', '$rootScope', '$http']
+  AssessmentService.$inject = ['DataService', '$rootScope', '$http','$location']
 
-  function AssessmentService(DataService, $rootScope, $http) {
+  function AssessmentService(DataService, $rootScope, $http, $location) {
     var service ={
       init: init,
       trips: {},
@@ -101,21 +101,9 @@
     }
 
     function sendMail(message){
-    
-      $http({
-            method: 'POST',
-            url: 'assets/send-mail.php',
-            data: $.param(message),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-      }).then(success).catch(fail)
+       var json = 'assets/send-mail.php';
 
-      function success(resp){
-        return resp;
-      }
-
-      function fail(err){
-        console.log('Email Error', err);
-      }
+        $http.get(json, message);
     }
 
     function exportToWord(){
