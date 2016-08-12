@@ -12,9 +12,9 @@
     .module('location')
     .controller('NewZoneCtrl', NewZoneCtrl);
 
-  NewZoneCtrl.$inject = ['LocationService', '$stateParams','$location'];
+  NewZoneCtrl.$inject = ['LocationService', '$stateParams','$location', '$rootScope'];
 
-    function NewZoneCtrl(LocationService, $stateParams,$location) {
+    function NewZoneCtrl(LocationService, $stateParams,$location, $rootScope) {
       var vm = this;
       var doc = { children: {}};
       var path = '';
@@ -39,7 +39,19 @@
         //create new sub doc
         vm.key = LocationService.generateKey();
         
-        doc.children[vm.key]={
+        if($rootScope.group=='tayari'){
+          //tayari zone doc
+          doc.children[vm.key]={
+                  id:vm.key,
+                  label:vm.name,
+                  code:vm.code,
+                  educationQuota: vm.zone.educationQuota,
+                  healthQuota: vm.zone.healthQuota,
+                  children:{}
+                };
+        }else{
+          //tusome zone doc
+          doc.children[vm.key]={
                   id:vm.key,
                   label:vm.name,
                   code:vm.code,
@@ -47,6 +59,8 @@
                   teachers:vm.teachers,
                   children:{}
                 };
+        }
+                
         //get location list
 
         vm.locationList=LocationService.locationList;

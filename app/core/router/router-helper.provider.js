@@ -17,6 +17,9 @@
 
         $locationProvider.html5Mode(true);
 
+        // defaults to dashboard
+        $urlRouterProvider.otherwise('/');
+
         this.configure = function(cfg) {
             angular.extend(config, cfg);
         };

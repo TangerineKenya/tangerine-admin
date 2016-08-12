@@ -11,18 +11,6 @@
     "translate": ""
   },
   {
-    "text": "Locations",
-    "sref": "home.location",
-    "icon": "fa fa-file-o",
-    "translate": ""
-  },
-  {
-    "text": "Users",
-    "sref": "home.users",
-    "icon": "fa fa-users",
-    "translate": ""
-  },
-  {
     "text": "Assessments",
     "sref": "home.assessments",
     "icon": "fa fa-comments",

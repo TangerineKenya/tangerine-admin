@@ -5,6 +5,7 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "nodemailer": "^2.5.0",
     "pouchdb": "^5.3.2"
   },
   "devDependencies": {

@@ -12,25 +12,29 @@
     .module('assessment')
     .service('AssessmentService', AssessmentService);
 
-  AssessmentService.$inject = ['DataService', '$rootScope', '$http','$location']
+  AssessmentService.$inject = ['DataService', '$rootScope', '$http'];
 
-  function AssessmentService(DataService, $rootScope, $http, $location) {
-    var service ={
+  function AssessmentService(DataService, $rootScope, $http) {
+    var service = {
       init: init,
       trips: {},
       assessments: {},
       getAssessments: getAssessments,
       getAssessment: getAssessment,
       postAssessment: postAssessment,
-      sendMail: sendMail
+      sendMail: sendMail,
+      exportToPdf: exportToPdf
     };
-    
+
     service.init();
 
     return service;
 
-    ///////////////////////////////////
-    function init(){
+    /////////////////////////////////// 
+    function init() {
+      //build design doc if dne 
+
+      //query design doc 
       service.trips = DataService.prod.query('t/tutorTrips', {
         startkey: 'trip',
         reduce: false,
@@ -41,14 +45,16 @@
 
       function success(response){
         service.trips = response;
-        //console.log('trips', response);
-        if($rootScope.group=='tayari'){
-          getAssessmentsByName(response, 'After Observation');
-          getAssessmentsByName(response, 'During Obsevation Tool - Sub-County ECD Coordinator Observation');
+        console.log('trips', response);
+        if($rootScope.group=='tayari'){ //
+          getAssessmentsByName(response, 'Pre-Observation Tool - Sub-County ECD Coordinator observation');
+          getAssessmentsByName(response, "During Obsevation Tool - Sub-County ECD Coordinator Observation");
+          getAssessmentsByName(response, 'After Observation'); 
+          getAssessmentsByName(response, 'Tayari Child Health Intervention Tool'); 
         }
-        else{//rti assessments
+        else{
+          //tusome assessments
           getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
-          //getAssessmentsByName(response, 'During Obsevation Tool - Sub-County ECD Coordinator Observation');
         }
         //console.log('Assess', response);
       }
@@ -60,8 +66,8 @@
     function getAssessmentsByName(trip, assessment){
       _.forEach(trip.rows, function(value, key) {
           //if admin display all
-          if($rootScope.currentUser.roles[0]==='_admin'){
-            if(value.doc.assessmentName===assessment && value.doc.enumerator=='dmutuma' ){
+          if($rootScope.currentUser.roles[0]==='_admin' && value.doc.enumerator=='dmutuma' ){ //&& value.doc.enumerator=='catherine odumbe' 
+            if(value.doc.assessmentName===assessment){ //&& value.doc.enumerator=='dmutuma' 
               service.assessments[value.id] = value.doc;
             }
           }
@@ -74,6 +80,12 @@
           }
         });
       return service.assessments;
+    }
+
+    function getCombinedAssesment(trips){
+      _.foreach(trips.rows, function(value, key){
+        
+      });
     }
 
     function getAssessments(){
@@ -100,14 +112,27 @@
         }
     }
 
-    function sendMail(message){
-       var json = 'assets/send-mail.php';
+    function sendMail(to,subject, message){
+  
+      var mailData = {
+          from: $rootScope.currentUser.email,
+          to: to,
+          subject: subject,
+          text: message,
+          html: 'HTML version of the message'
+      };
 
-        $http.get(json, message);
+      //transporter.sendMail(mailData);
+
+      console.log(mailData);
     }
 
     function exportToWord(){
 
+    }
+
+    function exportToPdf(){
+      
     }
 
     function getTrips(){

@@ -12,9 +12,9 @@
     .module('location')
     .controller('EditZoneCtrl', EditZoneCtrl);
 
-  EditZoneCtrl.$inject = ['LocationService', '$stateParams', '$q','$location'];
+  EditZoneCtrl.$inject = ['LocationService', '$stateParams', '$q','$location', '$rootScope'];
 
-  function EditZoneCtrl(LocationService, $stateParams, $q,$location) {
+  function EditZoneCtrl(LocationService, $stateParams, $q,$location, $rootScope) {
     var vm = this;
     var path = '';
     var doc = {};
@@ -48,20 +48,27 @@
     function save(){
       //update zone doc
 
-      /*doc[vm.zone.id] = {
-        id:vm.zone.id,
-        label:vm.zone.name,
-        code:vm.zone.code,
-        quota:vm.zone.quota,
-        teachers:vm.zone.teachers
-      }*/
-      doc[vm.zone.id] = {
-        id:vm.zone.id,
-        label:vm.zone.name,
-        code:vm.zone.code,
-        educationQuota: vm.zone.educationQuota,
-        healthQuota: vm.zone.healthQuota
+      if($rootScope.group=='tayari'){
+        doc[vm.zone.id] = {
+          id:vm.zone.id,
+          label:vm.zone.name,
+          code:vm.zone.code,
+          educationQuota: vm.zone.educationQuota,
+          healthQuota: vm.zone.healthQuota
+        }
       }
+      else{
+        //tusome zone object
+        doc[vm.zone.id] = {
+          id:vm.zone.id,
+          label:vm.zone.name,
+          code:vm.zone.code,
+          quota:vm.zone.quota,
+          teachers:vm.zone.teachers
+        }
+      }
+      /**/
+      
 
       vm.locationList = LocationService.locationList;
       path = 'locations.'+vm.countyId+'.children.'+vm.subId+'.children';

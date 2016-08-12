@@ -5,15 +5,21 @@
         .module('layout.sidebar')
         .service('SidebarLoader', SidebarLoader);
 
-    SidebarLoader.$inject = ['$http'];
-    function SidebarLoader($http) {
+    SidebarLoader.$inject = ['$http', '$rootScope'];
+    function SidebarLoader($http, $rootScope) {
         this.getMenu = getMenu;
 
         ////////////////
 
         function getMenu(onReady, onError) {
-          var menuJson = 'assets/sidebar-menu.json',
+
+          var menuJson = 'assets/user-menu.json',
               menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
+
+          if($rootScope.currentUser.roles[0]==='_admin'){
+            var menuJson = 'assets/sidebar-menu.json',
+              menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
+          }
 
           onError = onError || function() { alert('Failure loading menu'); };
 

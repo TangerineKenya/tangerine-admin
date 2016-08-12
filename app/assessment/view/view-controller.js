@@ -13,9 +13,9 @@
     .controller('ViewCtrl', ViewCtrl);
 
 
-  ViewCtrl.$inject = ['AssessmentService','$stateParams','$q', '$location'];
+  ViewCtrl.$inject = ['AssessmentService','$stateParams','$q', '$http', '$location'];
 
-  function ViewCtrl(AssessmentService, $stateParams, $q, $location) {
+  function ViewCtrl(AssessmentService, $stateParams, $q, $http, $location) {
     var vm = this;
     vm.assessmentId = $stateParams.id;
     vm.assessment = {};
@@ -26,6 +26,7 @@
     vm.sendEmail = sendEmail;
     vm.show = false;
     vm.allowSend = allowSend;
+    vm.exportToPdf = exportToPdf;
 
     activate();
 
@@ -37,7 +38,7 @@
          vm.assessment = AssessmentService.getAssessment(vm.assessmentId);
          vm.notes = vm.assessment.notes;
          getSubtests();
-         console.log('Observation loaded..',vm.subtests);
+         console.log('Observation loaded..',vm.assessment);
       });
     }
 
@@ -66,23 +67,16 @@
 
     function sendEmail(){
       if(vm.email){
-        var data = {
-          "email": vm.email,
-          "assessment": vm.assessment,
-          "subtests": vm.subtests
-        };
-
-        //prepare to send
-        AssessmentService.sendMail(data);
-
+  
       }
       else{
          console.log('Please provide an email');
       }
     }
 
-    function exportToWord(){
-
+    function exportToPdf(){
+      AssessmentService.exportToPdf;
+      console.log('Exporting...');
     }
   }
 }());

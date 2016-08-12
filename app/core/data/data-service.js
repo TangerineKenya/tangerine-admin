@@ -111,5 +111,8 @@
           console.log('User cannot be found', error);
         }
     }
+
+    //data preprocessor - pre-process assessments data by user, month & year & push to db
+
   }
 }());

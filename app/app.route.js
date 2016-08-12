@@ -9,15 +9,11 @@
     /* @ngInject */
     function appRun(routerHelper, logger, $rootScope, $http) {
         var otherwise = '/404';
+
+        //$locationProvider.html5Mode(true);
+
         routerHelper.configureStates(getStates(), otherwise);
         $rootScope.group = 'default';
-        /*$rootScope.dbSettings = {};
-        
-        var json = 'assets/settings.json';
-
-        $http.get(json, function(response){
-             $rootScope.dbSettings = response.settings;
-        });*/
     }
 
     function getStates() {
