@@ -28,7 +28,7 @@
 
     ///////////////////////////////////
     function init(){
-      service.userList = DataService.prod.allDocs({
+      /*service.userList = DataService.prod.allDocs({
           include_docs: true,
           attachments: false,
           startkey: 'user-',
@@ -45,6 +45,20 @@
       function fail(error) {
         console.log(error);
         return {};
+      }*/
+      service.userList = DataService.prod.query('t/byCollection', {
+        key: 'users',
+        reduce: false,
+        include_docs: true
+      })
+      .then(success)
+      .catch(fail);
+
+      function success(response){
+        service.userList = response;
+      }
+      function fail(err){
+        console.log(err);
       }
     }
 

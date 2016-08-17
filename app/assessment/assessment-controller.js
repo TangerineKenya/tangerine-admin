@@ -12,12 +12,13 @@
     .module('assessment')
     .controller('AssessmentCtrl', AssessmentCtrl);
 
-  AssessmentCtrl.$inject = ['AssessmentService', '$q']
+  AssessmentCtrl.$inject = ['AssessmentService','UserService', '$q']
 
-  function AssessmentCtrl(AssessmentService, $q) {
+  function AssessmentCtrl(AssessmentService, UserService, $q) {
     var vm = this;
     vm.ctrlName = 'AssessmentCtrl';
     vm.observations = {};
+    vm.users = {};
 
     activate();
 
@@ -25,10 +26,13 @@
      * Activate the Feedback Controller
      */
     function activate() {
-      var promises = [AssessmentService.getAssessments()];
+      var promises = [AssessmentService.getAssessments(), UserService.getUsers()];
       
       return $q.all(promises).then(function () {
         vm.observations = AssessmentService.getAssessments();
+
+        vm.users = UserService.getUsers();
+
       });
     }
   }

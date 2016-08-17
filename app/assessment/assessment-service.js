@@ -33,9 +33,32 @@
     /////////////////////////////////// 
     function init() {
       //build design doc if dne 
+      service.trips = DataService.prod.query('t/byCollection', {
+        key: 'result',
+        reduce: false,
+        include_docs: true
+      })
+      .then(success)
+      .catch(fail);
 
+      function success(response){
+        service.trips = response;
+        if($rootScope.group=='tayari'){ //
+          getAssessmentsByName(response, 'Pre-Observation Tool - Sub-County ECD Coordinator observation');
+          getAssessmentsByName(response, "During Obsevation Tool - Sub-County ECD Coordinator Observation");
+          getAssessmentsByName(response, 'After Observation'); 
+          getAssessmentsByName(response, 'Tayari Child Health Intervention Tool'); 
+        }
+        else{
+          //tusome assessments
+          //getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
+        }
+      }
+      function fail(err){
+        console.log('Could not load assessments', err);
+      }
       //query design doc 
-      service.trips = DataService.prod.query('t/tutorTrips', {
+      /*service.trips = DataService.prod.query('t/tutorTrips', {
         startkey: 'trip',
         reduce: false,
         include_docs: true
@@ -45,7 +68,7 @@
 
       function success(response){
         service.trips = response;
-        console.log('trips', response);
+        //console.log('trips', response);
         if($rootScope.group=='tayari'){ //
           getAssessmentsByName(response, 'Pre-Observation Tool - Sub-County ECD Coordinator observation');
           getAssessmentsByName(response, "During Obsevation Tool - Sub-County ECD Coordinator Observation");
@@ -54,19 +77,19 @@
         }
         else{
           //tusome assessments
-          getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
+          //getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
         }
         //console.log('Assess', response);
       }
       function fail(err){
         console.log('Could not load assessments', err);
-      }
+      }*/
     }
 
     function getAssessmentsByName(trip, assessment){
       _.forEach(trip.rows, function(value, key) {
           //if admin display all
-          if($rootScope.currentUser.roles[0]==='_admin' && value.doc.enumerator=='dmutuma' ){ //&& value.doc.enumerator=='catherine odumbe' 
+          if($rootScope.currentUser.roles[0]==='_admin' && value.doc.enumerator=='dmutuma' ){  
             if(value.doc.assessmentName===assessment){ //&& value.doc.enumerator=='dmutuma' 
               service.assessments[value.id] = value.doc;
             }

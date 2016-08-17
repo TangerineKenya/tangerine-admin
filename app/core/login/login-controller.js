@@ -20,7 +20,7 @@
     vm.user = {};
     vm.username;
     vm.password;
-    vm.group = '';
+    vm.group = 'Tusome';
     vm.selectGroup = selectGroup;
 
     ////////////////////////
