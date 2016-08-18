@@ -1,39 +1,43 @@
 <h3>My Assessments</h3>
 <div class="panel">
 	<div class="panel-heading">
-		<div class="row">
-			<div class="col-sm-2">
-				<select class="form-control" name="year" required>
-					<option value="2016">2016</option>
-					<option value="2017">2017</option>
-					<option value="2018">2018</option>
-				</select>
+		 <form role="form" ng-submit="vm.search()" name="tripsForm">
+			<div class="row">
+				<div class="col-sm-2">
+					<select class="form-control" ng-model="vm.year" name="year" required>
+						<option value="2016">2016</option>
+						<option value="2017">2017</option>
+						<option value="2018">2018</option>
+					</select>
+				</div>
+				<div class="col-sm-2">
+					<select class="form-control" ng-model="vm.month" name="month" required="">
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<select class="form-control" ng-model="vm.user" name="user" required>
+						<option value="{{user.doc.first}} {{user.doc.last}}" ng-repeat="(key, user) in vm.users.rows">
+							{{user.doc.first}} {{user.doc.last}}
+						</option>
+					</select>
+				</div>
+				<div class="col-sm-2">
+				<button type="submit" class="btn btn-primary">Search</button>
+				</div>
 			</div>
-			<div class="col-sm-2">
-				<select class="form-control" name="month" required="">
-					<option value="1">January</option>
-					<option value="2">February</option>
-					<option value="3">March</option>
-					<option value="4">April</option>
-					<option value="5">May</option>
-					<option value="6">June</option>
-					<option value="7">July</option>
-					<option value="8">August</option>
-					<option value="9">September</option>
-					<option value="10">October</option>
-					<option value="11">November</option>
-					<option value="12">December</option>
-				</select>
-			</div>
-			<div class="col-sm-3">
-				<select class="form-control" name="user" required>
-					<option ng-repeat="(key, user) in vm.users.rows">{{user.doc.first}} {{user.doc.last}}</option>
-				</select>
-			</div>
-			<div class="col-sm-2">
-			<button type="button" class="btn btn-primary">Search</button>
-			</div>
-		</div>
+		</form>
 	</div>
 	<div class="panel-body">
 	<div class="table-responsive">
@@ -42,20 +46,20 @@
 			<!--<caption>Observations</caption>-->
 			<thead>
 				<tr>
-					<th>Assessment Name</th>
+					<th>Trip Date & Time</th>
+					<!--<th>Instrument</th>-->
 					<th>Enumerator</th>
-					<th>Date & Time</th>
 					<th></th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(key, observation) in vm.observations">
-					<td><a ui-sref="home.assessment({ id: observation._id})" >{{observation.assessmentName}}</a></td>
-					<td>{{observation.enumerator}}</td>
-					<td>{{observation.updated}}</td>
+				<tr ng-repeat="(key, trip) in vm.userTrips">
+					<td><a ui-sref="home.assessment({ id: key})">{{trip.date}}</a></td>
+					<!--<td></td>-->
 					<td></td>
-					<td><a ui-sref="home.assessment({ id: observation._id})" ><i class="fa fa-navicon"></i></a></td>
+					<td></td>
+					<td><a ui-sref="home.assessment({ id: key})"><i class="fa fa-navicon"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

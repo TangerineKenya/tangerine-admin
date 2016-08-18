@@ -17,7 +17,7 @@
 
   function ViewCtrl(AssessmentService, $stateParams, $q, $http, $location) {
     var vm = this;
-    vm.assessmentId = $stateParams.id;
+    vm.tripId = $stateParams.id;
     vm.assessment = {};
     vm.subtests =  {};
     vm.notes = '';
@@ -32,24 +32,34 @@
 
     //////////////////////////////
     function activate(){
-      var promises = [AssessmentService.getAssessment(vm.assessmentId)]; 
+      var promises = [getTrip()]; 
       vm.p= promises;
       return $q.all(promises).then(function() {
-         vm.assessment = AssessmentService.getAssessment(vm.assessmentId);
-         vm.notes = vm.assessment.notes;
-         getSubtests();
-         console.log('Observation loaded..',vm.assessment);
+         getTrip();
       });
     }
 
-    function getSubtests(){
-      var sub = vm.assessment.subtestData;
+    function getTrip(){
+      vm.assessment = AssessmentService.getTrip(vm.tripId).then(success).catch(fail);
+
+      function success(resp){
+        vm.assessment = resp.rows;
+        console.log(vm.assessment);
+      }
+
+      function fail(err){
+        console.log(err);
+      }
+    }
+
+    /*function getSubtests(){
+      var sub = vm.assessment;
       _.forEach(sub, function(value, key) {
-          vm.subtests[value.name] = value.data;  
-          //console.log('Subtest', value.data);        
+          //vm.subtests[value.name] = value.data;  
+          console.log('Subtest', key, '-', value);        
         });
       return vm.subtests;
-    }
+    }*/
 
     function postComments(){
       vm.assessment['notes'] = vm.notes;

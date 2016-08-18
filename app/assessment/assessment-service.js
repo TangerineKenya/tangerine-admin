@@ -17,13 +17,10 @@
   function AssessmentService(DataService, $rootScope, $http) {
     var service = {
       init: init,
-      trips: {},
       assessments: {},
-      getAssessments: getAssessments,
-      getAssessment: getAssessment,
-      postAssessment: postAssessment,
-      sendMail: sendMail,
-      exportToPdf: exportToPdf
+      getTrips: getTrips,
+      getTrip: getTrip,
+      trips: {}
     };
 
     service.init();
@@ -32,58 +29,49 @@
 
     /////////////////////////////////// 
     function init() {
-      //build design doc if dne 
-      service.trips = DataService.prod.query('t/byCollection', {
-        key: 'result',
-        reduce: false,
-        include_docs: true
-      })
-      .then(success)
-      .catch(fail);
-
-      function success(response){
-        service.trips = response;
-        if($rootScope.group=='tayari'){ //
-          getAssessmentsByName(response, 'Pre-Observation Tool - Sub-County ECD Coordinator observation');
-          getAssessmentsByName(response, "During Obsevation Tool - Sub-County ECD Coordinator Observation");
-          getAssessmentsByName(response, 'After Observation'); 
-          getAssessmentsByName(response, 'Tayari Child Health Intervention Tool'); 
-        }
-        else{
-          //tusome assessments
-          //getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
-        }
-      }
-      function fail(err){
-        console.log('Could not load assessments', err);
-      }
       //query design doc 
-      /*service.trips = DataService.prod.query('t/tutorTrips', {
-        startkey: 'trip',
-        reduce: false,
-        include_docs: true
+      
+    }
+
+    function getTrips(userKey)
+    {
+      return DataService.prod.query('reporting/userTripsByMonth', {
+        key: userKey,
+        reduce: true
       })
       .then(success)
       .catch(fail);
 
       function success(response){
         service.trips = response;
-        //console.log('trips', response);
-        if($rootScope.group=='tayari'){ //
-          getAssessmentsByName(response, 'Pre-Observation Tool - Sub-County ECD Coordinator observation');
-          getAssessmentsByName(response, "During Obsevation Tool - Sub-County ECD Coordinator Observation");
-          getAssessmentsByName(response, 'After Observation'); 
-          getAssessmentsByName(response, 'Tayari Child Health Intervention Tool'); 
-        }
-        else{
-          //tusome assessments
-          //getAssessmentsByName(response, 'Tusome Worldreader Observation Tool for NTT and RTI');
-        }
-        //console.log('Assess', response);
+        return response;
       }
       function fail(err){
-        console.log('Could not load assessments', err);
-      }*/
+        console.log('Could not load trips', err);
+        return {};
+      }
+    }
+
+    function getTrip(trip){
+      return DataService.prod.query('t/tripsAndUsers', {
+        key: trip,
+        reduce: false,
+        include_docs : true
+      })
+      .then(success)
+      .catch(fail);
+
+      function success(response){
+        service.trips = response;
+        return response;
+      }
+      function fail(err){
+        console.log('Could not load trip', err);
+        return {};
+      }
+    }
+    /*function getUsersAssessments(user, month, year){
+
     }
 
     function getAssessmentsByName(trip, assessment){
@@ -103,12 +91,6 @@
           }
         });
       return service.assessments;
-    }
-
-    function getCombinedAssesment(trips){
-      _.foreach(trips.rows, function(value, key){
-        
-      });
     }
 
     function getAssessments(){
@@ -137,29 +119,10 @@
 
     function sendMail(to,subject, message){
   
-      var mailData = {
-          from: $rootScope.currentUser.email,
-          to: to,
-          subject: subject,
-          text: message,
-          html: 'HTML version of the message'
-      };
-
-      //transporter.sendMail(mailData);
-
-      console.log(mailData);
-    }
-
-    function exportToWord(){
-
-    }
-
-    function exportToPdf(){
-      
     }
 
     function getTrips(){
       return service.trips;
-    }
+    }*/
   }
 }());

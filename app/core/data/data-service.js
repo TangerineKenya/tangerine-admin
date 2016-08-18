@@ -43,7 +43,7 @@
         }
         else if($rootScope.group=='tayari'){
           config = {
-                      "db": "http://localhost:5984/group-tayari_test",
+                      "db": "http://localhost:5984/group-tayari",
                       "user":"admin",
                       "password":"admin"
                     };

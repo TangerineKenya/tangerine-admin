@@ -17,23 +17,48 @@
   function AssessmentCtrl(AssessmentService, UserService, $q) {
     var vm = this;
     vm.ctrlName = 'AssessmentCtrl';
-    vm.observations = {};
+    vm.userTrips = {};
     vm.users = {};
+    vm.user = '';
+    vm.month = '1';
+    vm.year = '2016';
+    vm.search = getTrips;
 
     activate();
 
     /**
-     * Activate the Feedback Controller
+     * Activate the Controller
      */
     function activate() {
-      var promises = [AssessmentService.getAssessments(), UserService.getUsers()];
+      var promises = [UserService.getUsers()];
       
       return $q.all(promises).then(function () {
-        vm.observations = AssessmentService.getAssessments();
-
+   
         vm.users = UserService.getUsers();
 
       });
+    }
+
+    function getTrips() 
+    {
+      var userKey = vm.user+'-'+vm.month+'-'+vm.year;
+
+      var trips= AssessmentService.getTrips(userKey).then(success).catch(fail);
+
+      function success(resp){
+        //vm.userTrips = resp;
+        _.forEach(resp.rows, function(value, key) {
+            vm.userTrips = value.value.trips
+            //console.log(vm.userTrips);
+        });
+        //console.log(userKey, vm.userTrips, resp);
+      }
+
+      function fail(err)
+      {
+        console.log(err);
+      }
+      
     }
   }
 }());

@@ -1,5 +1,5 @@
 <h3>
-<a ui-sref="home.assessments" >Assessment</a> <small>{{vm.assessment.assessmentName}} | Enumerator: {{vm.assessment.enumerator}}</small>
+<a ui-sref="home.assessments" >Assessment</a> <small></small>
 	<!--<span class="pull-right">
 		<a ui-sref="home.assessments" ><i class="fa fa-angle-left"></i></a>
 	</span>-->
@@ -11,25 +11,30 @@
     
       </span>
       <span class="pull-right">
-      	<h5><i class="fa fa-clock-o"></i> Assessment Date - {{vm.assessment.updated}} &nbsp;</h5>
+      	<h5><i class="fa fa-clock-o"></i>&nbsp;</h5>
       </span>		
     </div>
     <div class="panel-body">
       <div class="form-group">
-         <div class="form-group" ng-repeat="(key, value) in vm.subtests">
-            <label class="control-label">{{key}}</label>
-            <table class="table table-reponsive table-striped table-condensed">
-              <thead>
-                <tr>
-                  <th>Question</th>
-                  <th>Response</th>
-                </tr>
-              </thead>
-              <tr ng-repeat="(k, val) in vm.subtests[key]">
-                <td>{{k}}</td>
-                <td>{{vm.subtests[key][k]}}</td>
-              </tr>
-            </table>
+         <div class="form-group" ng-repeat="(key, value) in vm.assessment">
+            <label class="control-label">{{value.doc.assessmentName}}</label>
+            <div class="form-group" ng-repeat="(k, val) in value.doc.subtestData">
+              <label class="control-label">{{val.name}}</label>
+              <div>
+                <table class="table table-reponsive table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Question</th>
+                      <th>Response</th>
+                    </tr>
+                  </thead>
+                  <tr ng-repeat="(ky, valSubtest) in val.data">
+                    <td>{{ky}}</td>
+                    <td>{{valSubtest}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div> 
          </div>
       </div>
       <br>

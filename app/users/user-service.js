@@ -26,29 +26,10 @@
 
     return service;
 
-    ///////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
     function init(){
-      /*service.userList = DataService.prod.allDocs({
-          include_docs: true,
-          attachments: false,
-          startkey: 'user-',
-          endkey: 'user-\uffff'
-        })
-        .then(success)
-        .catch(fail);
-
-      function success(response) {
-        console.log("User List Returned");
-        service.userList=response;
-        return response;
-      }
-      function fail(error) {
-        console.log(error);
-        return {};
-      }*/
-      service.userList = DataService.prod.query('t/byCollection', {
-        key: 'users',
-        reduce: false,
+      service.userList = DataService.prod.query('reporting/userByRole', {
+        //key: 'rti-tayari-team',
         include_docs: true
       })
       .then(success)
@@ -64,6 +45,22 @@
 
     function getUsers(){
       return service.userList;
+    }
+
+    function getUsersByRole(role){
+      return DataService.prod.query('reporting/userByRole', {
+        key: role,
+        include_docs: true
+      })
+      .then(success)
+      .catch(fail);
+
+      function success(response){
+        return response;
+      }
+      function fail(err){
+        console.log(err);
+      }
     }
 
     function getUser(id){
