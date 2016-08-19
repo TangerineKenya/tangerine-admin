@@ -51,7 +51,7 @@
             vm.userTrips = value.value.trips
             //console.log(vm.userTrips);
         });
-        //console.log(userKey, vm.userTrips, resp);
+        console.log(userKey, resp);
       }
 
       function fail(err)

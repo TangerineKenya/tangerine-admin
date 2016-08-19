@@ -22,7 +22,9 @@
       generateKey:generateKey,
       find:find,
       save:save,
-      remove: remove
+      remove: remove,
+      getCounty: getCounty,
+      getZone: getZone
     };
     
     service.init();

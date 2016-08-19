@@ -13,9 +13,9 @@
     .controller('ViewCtrl', ViewCtrl);
 
 
-  ViewCtrl.$inject = ['AssessmentService','$stateParams','$q', '$http', '$location'];
+  ViewCtrl.$inject = ['AssessmentService', 'LocationService', '$stateParams', '$q', '$http', '$location'];
 
-  function ViewCtrl(AssessmentService, $stateParams, $q, $http, $location) {
+  function ViewCtrl(AssessmentService, LocationService, $stateParams, $q, $http, $location) {
     var vm = this;
     vm.tripId = $stateParams.id;
     vm.assessment = {};
@@ -52,20 +52,11 @@
       }
     }
 
-    /*function getSubtests(){
-      var sub = vm.assessment;
-      _.forEach(sub, function(value, key) {
-          //vm.subtests[value.name] = value.data;  
-          console.log('Subtest', key, '-', value);        
-        });
-      return vm.subtests;
-    }*/
-
     function postComments(){
-      vm.assessment['notes'] = vm.notes;
+      //vm.assessment['notes'] = vm.notes;
 
       //console.log(vm.assessment);
-      AssessmentService.postAssessment(vm.assessment);
+      //AssessmentService.postAssessment(vm.assessment);
 
       activate();
       //$location.path('feedback'); 
@@ -87,50 +78,72 @@
 
     function exportToPdf(){
       var docDefinition = {};
-      var comments = vm.subtests['Assessors General Comments'];
-      if(vm.assessment.assessmentName==='Tayari Child Health Intervention Tool'){
-        docDefinition = {
-          pageOrientation: 'landscape',
-          content: [
-            { text: 'Tayari Child Health Intervention Brief', margin: [200, 20, 40, 20], fontSize: 15, bold: true, alignment: 'centered' },
-            { text: 'RTI Officer: '+vm.assessment.enumerator.toUpperCase(), margin: [0, 10, 10, 20] },
-            { text: 'Qualitative Background Information', margin: [0, 20, 40, 0], fontSize: 15 },
-            {
-              table: {
-                headerRows: 1,
-                widths: [ '*', 'auto', '*' ],
+        
+      var assessmentDoc = {};
+      var subtestDoc = {};
 
-                body: [
-                  [ 'WHAT WENT WELL', 'WHAT DID NOT GO WELL', 'ACTIONAL FEEDBACK' ],
-                  [ vm.subtests['Feedback session']['successful_fdbk'], vm.subtests['Feedback session']['motivational_fdbk'], vm.subtests['Feedback session']['Actional_fdbk'] ]
-                ]
-              }
-            },
-            { text: 'Overall Observation And Recomendations', margin: [0, 20, 40, 0], fontSize: 15 },
-            ''+vm.notes,
-          ]
+      _.forEach(vm.assessment, function(value, key){
+          //build each assessment doc
+          assessmentDoc[value.doc.assessmentName] = value.doc;
+
+        _.forEach(value.doc.subtestData, function(val, k){
+          //build sub test doc
+          subtestDoc[val.name] = val.data;
+        });
+
+      });
+
+      var rtiOfficer = assessmentDoc['During Obsevation Tool - Sub-County ECD Coordinator Observation']['enumerator'];
+
+      var activities = {
+          1: 'Language Activities',
+          2: 'Maths Activities',
+          3: 'Social Activities',
+          4: 'Life skills Activities'
         };
-      }else{
-        docDefinition = {
+
+      var preparedness = {
+        1: 'Very well prepared',
+        2: 'Prepared',
+        3: 'Not prepared'
+      };
+
+      var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
+
+      //get data for key
+      var activityKey =  subtestDoc['During reading observation']['teaching_activity'];
+      var prepKey = subtestDoc['During reading observation']['teacher_preparedness'];
+
+      //get location details
+      var countyId = subtestDoc['School Location']['location'][0];
+      var zoneId = subtestDoc['School Location']['location'][1];
+      var schoolId = subtestDoc['School Location']['location'][2];
+
+      var county = LocationService.getCounty(countyId);
+
+      //var zone = _.find(county.chilren, { 'id': zoneId });
+
+      //var school = _.find(zone.chilren, { 'id': schoolId });
+
+      console.log('Subtests', subtestDoc);
+
+      docDefinition = {
           pageOrientation: 'landscape',
           content: [
-            { text: 'LESSON OBSERVATION BRIEF', margin: [240, 20, 40, 20], fontSize: 15, bold: true, alignment: 'centered' },
-            '',
-            'County: ',
+            { text: 'Lesson Observation Brief', margin: [250, 20, 40, 20], fontSize: 15, bold: true, alignment: 'centered' },
+            'County: '+county['label'],
             'Zone/Cluster: ',
             'School: ',
             'Teacher: ',
-            { text: 'RTI Officer: '+vm.assessment.enumerator.toUpperCase(), margin: [0, 1, 0, 20] },
+            { text: 'RTI Officer: '+rtiOfficer, margin: [0, 1, 0, 20] },
             {
               table: {
-                // headers are automatically repeated if the table spans over multiple pages
-                // you can declare how many rows should be treated as headers
                 headerRows: 1,
                 widths: [ '*', '*', '*', '*','*','*','*','*','*' ],
 
                 body: [
                   [ 'Date', 'Activity', 'Week', 'Day','Lesson Duration','Pupils Present','Boys','Girls','Take-up Rating' ],
-                  [ '', 'Value 2', 'Value 3', 'Value 4','','','','','' ]
+                  [ date, activities[activityKey], subtestDoc['Classroom Demographics']['lesson_week'], subtestDoc['Classroom Demographics']['lesson_day'],'','','','', preparedness[prepKey] ]
                 ]
               }
             },
@@ -142,20 +155,17 @@
 
                 body: [
                   [ 'WHAT WENT WELL', 'WHAT DID NOT GO WELL', 'FEEDBACK FROM DICECE', 'FEEDBACK TO DICECE' ],
-                  [ comments['SCC_feedback'], comments['lsda_recmnds'], '', comments['rtio_feedback'] ]
+                  [ '', '', subtestDoc['Remarks after observation']['dicece_suggestion'], subtestDoc['During reading observation']['officer_feedback'] ]
                 ]
               }
             },
             { text: 'Overall Observation And Recomendations', margin: [0, 20, 40, 0], fontSize: 15 },
-            ''+vm.notes,
+            subtestDoc['Remarks after observation']['general_comments'],
           ]
-        };
       }
-
-      // open the PDF in a new window
+      
+      // open in a new window
       pdfMake.createPdf(docDefinition).open();
-
-      console.log('Done..');
     }
   }
 }());

@@ -19,9 +19,9 @@
          <div class="form-group" ng-repeat="(key, value) in vm.assessment">
             <label class="control-label">{{value.doc.assessmentName}}</label>
             <div class="form-group" ng-repeat="(k, val) in value.doc.subtestData">
-              <label class="control-label">{{val.name}}</label>
+              <label ng-if="val.name == 'Findings and recommendations' || val.name == 'Feedback session' || val.name == 'Date and Time' || val.name == 'Classroom Demographics' || val.name == 'During observation' || val.name == 'Remarks after observation' || val.name == 'Assessors General Comments' || val.name == 'School Location'" class="control-label">{{val.name}}</label>
               <div>
-                <table class="table table-reponsive table-striped table-condensed">
+                <table ng-if="val.name == 'Findings and recommendations' || val.name == 'Feedback session' || val.name == 'Date and Time' || val.name == 'Classroom Demographics' || val.name == 'During observation' || val.name == 'Remarks after observation' || val.name == 'Assessors General Comments' || val.name == 'School Location'" class="table table-reponsive table-striped table-condensed">
                   <thead>
                     <tr>
                       <th>Question</th>
@@ -39,7 +39,7 @@
       </div>
       <br>
     	<div class="form-group">
-    		<textarea name="comments" ng-model="vm.notes" placeholder="Comments" rows="8" class="form-control"></textarea>
+    		<textarea name="comments" ng-model="vm.notes" placeholder="Comments" rows="5" class="form-control"></textarea>
     	</div>
       <hr>
       <div class="form-group">
