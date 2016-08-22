@@ -41,22 +41,28 @@
 
     function getTrips() 
     {
-      var userKey = vm.user+'-'+vm.month+'-'+vm.year;
+      if(vm.user){
+        vm.userTrips = {};
+        var userKey = vm.user+'-'+vm.month+'-'+vm.year;
+        var trips= AssessmentService.getTrips(userKey).then(success).catch(fail);
 
-      var trips= AssessmentService.getTrips(userKey).then(success).catch(fail);
+        function success(resp){
+          //vm.userTrips = resp;
+          _.forEach(resp.rows, function(value, key) {
+              vm.userTrips = value.value.trips
+              //console.log(vm.userTrips);
+          });
+          console.log(userKey, resp);
+        }
 
-      function success(resp){
-        //vm.userTrips = resp;
-        _.forEach(resp.rows, function(value, key) {
-            vm.userTrips = value.value.trips
-            //console.log(vm.userTrips);
-        });
-        console.log(userKey, resp);
+        function fail(err)
+        {
+          vm.userTrips = {};
+          console.log(err);
       }
-
-      function fail(err)
-      {
-        console.log(err);
+      }
+      else{
+        alert('Please select staff to view trips');
       }
       
     }

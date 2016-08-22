@@ -1,17 +1,17 @@
-<h3>My Assessments</h3>
+<h3>Trips</h3>
 <div class="panel">
 	<div class="panel-heading">
 		 <form role="form" ng-submit="vm.search()" name="tripsForm">
 			<div class="row">
 				<div class="col-sm-2">
-					<select class="form-control" ng-model="vm.year" name="year" required>
+					<select class="form-control" ng-model="vm.year" name="year" ng-change="vm.search()" required>
 						<option value="2016">2016</option>
 						<option value="2017">2017</option>
 						<option value="2018">2018</option>
 					</select>
 				</div>
 				<div class="col-sm-2">
-					<select class="form-control" ng-model="vm.month" name="month" required="">
+					<select class="form-control" ng-model="vm.month" name="month" ng-change="vm.search()" required>
 						<option value="1">January</option>
 						<option value="2">February</option>
 						<option value="3">March</option>
@@ -27,7 +27,7 @@
 					</select>
 				</div>
 				<div class="col-sm-3">
-					<select class="form-control" ng-model="vm.user" name="user" required>
+					<select class="form-control" ng-model="vm.user" name="user" ng-change="vm.search()" required>
 						<option value="{{user.doc.first}} {{user.doc.last}}" ng-repeat="(key, user) in vm.users.rows">
 							{{user.doc.first}} {{user.doc.last}}
 						</option>
@@ -47,8 +47,8 @@
 			<thead>
 				<tr>
 					<th>Trip Date & Time</th>
-					<!--<th>Instrument</th>-->
-					<th>Enumerator</th>
+					<!--<th>Instrument</th>
+					<th>Enumerator</th>-->
 					<th></th>
 					<th></th>
 				</tr>
@@ -56,8 +56,8 @@
 			<tbody>
 				<tr ng-repeat="(key, trip) in vm.userTrips">
 					<td><a ui-sref="home.assessment({ id: key})">{{trip.date}}</a></td>
-					<!--<td></td>-->
-					<td></td>
+					<!--<td></td>
+					<td></td>-->
 					<td></td>
 					<td><a ui-sref="home.assessment({ id: key})"><i class="fa fa-navicon"></i></a></td>
 				</tr>
