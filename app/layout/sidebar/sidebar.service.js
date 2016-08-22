@@ -13,20 +13,22 @@
 
         function getMenu(onReady, onError) {
 
-          var menuJson = 'assets/user-menu.json',
+          if($rootScope.loggedIn = true){
+            var menuJson = 'assets/user-menu.json',
               menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
 
-          if($rootScope.currentUser.roles[0]==='_admin'){
-            var menuJson = 'assets/sidebar-menu.json',
-              menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
+            if($rootScope.currentUser!=null && $rootScope.currentUser.roles[0]==='_admin'){
+              var menuJson = 'assets/sidebar-menu.json',
+                menuURL  = menuJson + '?v=' + (new Date().getTime()); // jumps cache
+            }
+
+            onError = onError || function() { alert('Failure loading menu'); };
+
+            $http
+              .get(menuURL)
+              .success(onReady)
+              .error(onError);
           }
-
-          onError = onError || function() { alert('Failure loading menu'); };
-
-          $http
-            .get(menuURL)
-            .success(onReady)
-            .error(onError);
         }
     }
 })();

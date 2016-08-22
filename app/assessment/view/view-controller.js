@@ -13,9 +13,9 @@
     .controller('ViewCtrl', ViewCtrl);
 
 
-  ViewCtrl.$inject = ['AssessmentService', 'LocationService', '$stateParams', '$q', '$http', '$location'];
+  ViewCtrl.$inject = ['AssessmentService', 'LocationService', '$stateParams', '$q','$filter', '$http', '$location'];
 
-  function ViewCtrl(AssessmentService, LocationService, $stateParams, $q, $http, $location) {
+  function ViewCtrl(AssessmentService, LocationService, $stateParams, $q, $filter, $http, $location) {
     var vm = this;
     vm.tripId = $stateParams.id;
     vm.assessment = {};
@@ -27,6 +27,8 @@
     vm.show = false;
     vm.allowSend = allowSend;
     vm.exportToPdf = exportToPdf;
+    var assessmentDoc = {};
+    var subtestDoc = {};
 
     activate();
 
@@ -44,7 +46,7 @@
 
       function success(resp){
         vm.assessment = resp.rows;
-        console.log(vm.assessment);
+        //console.log(vm.assessment);
       }
 
       function fail(err){
@@ -67,20 +69,17 @@
     }
 
     function sendEmail(){
-      /*if(vm.email){
-        AssessmentService.sendMail(vm.email, '', '');
+      if(vm.email){
+        
       }
       else{
-         alert('Please provide an email');
-      }*/
+        alert('Please provide an email');
+      }
       
     }
 
     function exportToPdf(){
       var docDefinition = {};
-        
-      var assessmentDoc = {};
-      var subtestDoc = {};
 
       _.forEach(vm.assessment, function(value, key){
           //build each assessment doc
@@ -93,7 +92,11 @@
 
       });
 
-      var rtiOfficer = assessmentDoc['During Obsevation Tool - Sub-County ECD Coordinator Observation']['enumerator'];
+      //console.log(subtestDoc);
+      var rtiOfficer = '';
+      if(assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']!=null){
+        rtiOfficer = assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']['enumerator'];
+      }
 
       var activities = {
           1: 'Language Activities',
@@ -108,64 +111,74 @@
         3: 'Not prepared'
       };
 
-      var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
+      if(subtestDoc['Date and Time']!=null && subtestDoc['Classroom Demographics']!=null && subtestDoc['School Location']!=null && subtestDoc['Lesson observation']!=null && subtestDoc['After lesson observation']!=null){
+        var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
 
-      //get data for key
-      var activityKey =  subtestDoc['During reading observation']['teaching_activity'];
-      var prepKey = subtestDoc['During reading observation']['teacher_preparedness'];
+        //get data for key
+        var activityKey =  subtestDoc['Classroom Demographics']['select_subject'];
+        var prepKey = subtestDoc['Lesson observation']['lessn_present'];
 
-      //get location details
-      var countyId = subtestDoc['School Location']['location'][0];
-      var zoneId = subtestDoc['School Location']['location'][1];
-      var schoolId = subtestDoc['School Location']['location'][2];
+        var pupils = parseInt(subtestDoc['Classroom Demographics']['boys'], subtestDoc['Classroom Demographics']['girls']);
 
-      var county = LocationService.getCounty(countyId);
+        //get location details
+        var countyId = subtestDoc['School Location']['location'][0];
+        var zoneId = subtestDoc['School Location']['location'][1];
+        var schoolId = subtestDoc['School Location']['location'][2];
 
-      //var zone = _.find(county.chilren, { 'id': zoneId });
+        var county = LocationService.getCounty(countyId);
 
-      //var school = _.find(zone.chilren, { 'id': schoolId });
+        //var zone =  $filter('filter')(county.children, function (d) {return d.id === countyId;});
 
-      console.log('Subtests', subtestDoc);
+        //console.log('county', zone);
 
-      docDefinition = {
-          pageOrientation: 'landscape',
-          content: [
-            { text: 'Lesson Observation Brief', margin: [250, 20, 40, 20], fontSize: 15, bold: true, alignment: 'centered' },
-            'County: '+county['label'],
-            'Zone/Cluster: ',
-            'School: ',
-            'Teacher: ',
-            { text: 'RTI Officer: '+rtiOfficer, margin: [0, 1, 0, 20] },
-            {
-              table: {
-                headerRows: 1,
-                widths: [ '*', '*', '*', '*','*','*','*','*','*' ],
+        //var school = _.find(zone.chilren, { 'id': schoolId });
 
-                body: [
-                  [ 'Date', 'Activity', 'Week', 'Day','Lesson Duration','Pupils Present','Boys','Girls','Take-up Rating' ],
-                  [ date, activities[activityKey], subtestDoc['Classroom Demographics']['lesson_week'], subtestDoc['Classroom Demographics']['lesson_day'],'','','','', preparedness[prepKey] ]
-                ]
-              }
-            },
-            { text: 'Qualitative Background Information', margin: [0, 20, 40, 0], fontSize: 15 },
-            {
-              table: {
-                headerRows: 1,
-                widths: [ '*', '*', '*', '*' ],
+        //console.log('Subtests', subtestDoc);
 
-                body: [
-                  [ 'WHAT WENT WELL', 'WHAT DID NOT GO WELL', 'FEEDBACK FROM DICECE', 'FEEDBACK TO DICECE' ],
-                  [ '', '', subtestDoc['Remarks after observation']['dicece_suggestion'], subtestDoc['During reading observation']['officer_feedback'] ]
-                ]
-              }
-            },
-            { text: 'Overall Observation And Recomendations', margin: [0, 20, 40, 0], fontSize: 15 },
-            subtestDoc['Remarks after observation']['general_comments'],
-          ]
+        docDefinition = {
+            pageOrientation: 'landscape',
+            content: [
+              { text: 'Lesson Observation Brief', margin: [250, 20, 40, 20], fontSize: 15, bold: true, alignment: 'centered' },
+              'County: '+county['label'],
+              'Zone/Cluster: ',
+              'School: ',
+              'Teacher: '+subtestDoc['Lesson observation']['teacher_name'],
+              { text: 'RTI Officer: '+rtiOfficer.toUpperCase(), margin: [0, 1, 0, 20] },
+              {
+                table: {
+                  headerRows: 1,
+                  widths: [ '*', '*', '*', '*','*','*','*','*','*' ],
+
+                  body: [
+                    [ 'Date', 'Activity', 'Week', 'Day','Lesson Duration','Pupils Present','Boys','Girls','Take-up Rating' ],
+                    [ date, activities[activityKey], '', '',subtestDoc['Lesson observation']['lssn_duration'],pupils,subtestDoc['Classroom Demographics']['boys'],subtestDoc['Classroom Demographics']['girls'], preparedness[prepKey] ]
+                  ]
+                }
+              },
+              { text: 'Qualitative Background Information', margin: [0, 20, 40, 0], fontSize: 15 },
+              {
+                table: {
+                  headerRows: 1,
+                  widths: [ '*', '*', '*', '*' ],
+
+                  body: [
+                    [ 'WHAT WENT WELL', 'WHAT DID NOT GO WELL', 'FEEDBACK FROM DICECE', 'FEEDBACK TO DICECE' ],
+                    [ subtestDoc['Lesson observation']['tchr_did_well'], subtestDoc['Lesson observation']['tchr_not_undrsnd_well'], subtestDoc['After lesson observation']['SCC_feedback_trtmnt1'], subtestDoc['After lesson observation']['RTI_feedback_trtmnt1'] ]
+                  ]
+                }
+              },
+              { text: 'Overall Observation And Recomendations', margin: [0, 20, 40, 0], fontSize: 15 },
+              subtestDoc['After lesson observation']['general_comment_trtmnt1'],
+              { text: vm.notes, margin: [0, 20, 40, 0] },
+            ]
+        } 
+        
+        // open in a new window
+        pdfMake.createPdf(docDefinition).open();
       }
-      
-      // open in a new window
-      pdfMake.createPdf(docDefinition).open();
+      else{
+        alert('A pdf cannot be generated for this trip.');
+      }
     }
   }
 }());

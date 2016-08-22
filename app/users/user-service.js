@@ -29,7 +29,7 @@
     ////////////////////////////////////////////////////////////////////
     function init(){
       service.userList = DataService.prod.query('reporting/userByRole', {
-        //key: 'rti-tayari-team',
+        key: 'rti-tayari-team',
         include_docs: true
       })
       .then(success)

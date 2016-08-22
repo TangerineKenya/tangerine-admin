@@ -12,9 +12,9 @@
     .module('core.login')
     .controller('LoginCtrl', LoginCtrl);
 
-  LoginCtrl.$inject = ['AuthService','$rootScope'];
+  LoginCtrl.$inject = ['DataService','$rootScope', '$location'];
 
-  function LoginCtrl(AuthService,$rootScope) {
+  function LoginCtrl(DataService,$rootScope, $location) {
     var vm = this;
     vm.login = login;
     vm.user = {};
@@ -23,17 +23,50 @@
     vm.group = 'Tusome';
     vm.selectGroup = selectGroup;
 
-    ////////////////////////
+    /////////////////////////////////////
 
     function login(){
-      AuthService.login(vm.username, vm.password);
+      DataService.prod.login(vm.username, vm.password)
+        .then(success)
+        .catch(fail);
 
-      $rootScope.group = vm.group;
+        function success(response){
+          if(response.ok==true){
+            $rootScope.loggedIn = true;
+            $rootScope.currentUser = response;
+            $rootScope.group = vm.group;
+            //redirect 
+            $rootScope.$apply(function() {
+              $location.path("app");
+            });          
+            console.log('Login successful', $rootScope.currentUser);
+          }
+        }
+
+        function fail(error){
+          ///return error;
+          $rootScope.loggedIn = false;
+          $location.path('/');
+          console.log('Authentication error: ', error);
+        }
     }
 
     function selectGroup(){
       $rootScope.group = vm.group;
       //console.log('Selected', $rootScope.group);
+    }
+
+    function getUserDetails(){
+      return DataService.prod.getUser(vm.username);
+    }
+
+    function logout(){
+      $rootScope.loggedIn = false;
+      DataService.prod.logout(function (err, response) {
+        if (err) {
+          // network error
+        }
+      });
     }
   }
 }());
