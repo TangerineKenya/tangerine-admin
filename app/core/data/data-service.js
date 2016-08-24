@@ -40,7 +40,7 @@
         }
         else if($rootScope.group=='tayari'){
           config = {
-                      "db": "http://localhost:5984/group-tayari",
+                      "db": "http://tayari.tangerinecentral.org/db/group-tayari",
                       "user":"admin",
                       "password":"admin"
                     };

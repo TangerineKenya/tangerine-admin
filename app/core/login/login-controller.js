@@ -23,7 +23,18 @@
     vm.group = 'tusome';
     vm.selectGroup = selectGroup;
 
+    
+    init();
     /////////////////////////////////////
+    
+    function init(){
+      $rootScope.loggedIn = false;
+      /*DataService.prod.logout(function (err, response) {
+        if (err) {
+          // network error
+        }
+      });*/
+    }
 
     function login(){
       DataService.prod.login(vm.username, vm.password)
@@ -61,12 +72,7 @@
     }
 
     function logout(){
-      $rootScope.loggedIn = false;
-      DataService.prod.logout(function (err, response) {
-        if (err) {
-          // network error
-        }
-      });
+      
     }
   }
 }());

@@ -12,9 +12,9 @@
     .module('assessment')
     .service('AssessmentService', AssessmentService);
 
-  AssessmentService.$inject = ['DataService', '$rootScope', '$http'];
+  AssessmentService.$inject = ['DataService', '$rootScope'];
 
-  function AssessmentService(DataService, $rootScope, $http) {
+  function AssessmentService(DataService, $rootScope) {
     var service = {
       init: init,
       assessments: {},
@@ -36,8 +36,7 @@
     function getTrips(userKey)
     {
       return DataService.prod.query('reporting/userTripsByMonth', {
-        key: userKey,
-        reduce: true
+        key: userKey
       })
       .then(success)
       .catch(fail);
@@ -45,6 +44,7 @@
       function success(response){
         service.trips = response;
         return response;
+        console.log(response);
       }
       function fail(err){
         console.log('Could not load trips', err);

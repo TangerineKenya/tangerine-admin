@@ -20,8 +20,9 @@
     vm.userTrips = {};
     vm.users = {};
     vm.user = '';
-    vm.month = '1';
-    vm.year = '2016';
+    
+    vm.month = String(moment().month());
+    vm.year = String(moment().year());
     vm.search = getTrips;
 
     activate();
@@ -44,27 +45,27 @@
       if(vm.user){
         vm.userTrips = {};
         var userKey = vm.user+'-'+vm.month+'-'+vm.year;
-        var trips= AssessmentService.getTrips(userKey).then(success).catch(fail);
+        AssessmentService.getTrips(userKey).then(success).catch(fail);
 
         function success(resp){
-          //vm.userTrips = resp;
           _.forEach(resp.rows, function(value, key) {
               vm.userTrips = value.value.trips
-              //console.log(vm.userTrips);
           });
-          console.log(userKey, resp);
+          if(Object.keys(vm.userTrips).length === 0){
+            alert('The staff has no trips to view.');
+          }
+          console.log(userKey);
         }
 
         function fail(err)
         {
           vm.userTrips = {};
           console.log(err);
-      }
+        }
       }
       else{
         alert('Please select staff to view trips');
       }
-      
     }
   }
 }());
