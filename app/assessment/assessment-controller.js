@@ -49,12 +49,12 @@
 
         function success(resp){
           _.forEach(resp.rows, function(value, key) {
-              vm.userTrips = value.value.trips
+              vm.userTrips[value.value.tripId] = value.value;
           });
           if(Object.keys(vm.userTrips).length === 0){
             alert('The staff has no trips to view.');
           }
-          console.log(userKey);
+          //console.log(vm.userTrips);
         }
 
         function fail(err)

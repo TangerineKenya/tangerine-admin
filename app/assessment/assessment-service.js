@@ -29,14 +29,14 @@
 
     /////////////////////////////////// 
     function init() {
-      //query design doc 
       
     }
 
     function getTrips(userKey)
     {
       return DataService.prod.query('reporting/userTripsByMonth', {
-        key: userKey
+        key: userKey,
+        reduce: false
       })
       .then(success)
       .catch(fail);
@@ -44,7 +44,6 @@
       function success(response){
         service.trips = response;
         return response;
-        console.log(response);
       }
       function fail(err){
         console.log('Could not load trips', err);

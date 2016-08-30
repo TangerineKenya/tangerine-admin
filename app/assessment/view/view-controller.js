@@ -28,6 +28,9 @@
     vm.allowSend = allowSend;
     vm.exportToPdf = exportToPdf;
     vm.exportToWord = exportToWord;
+    vm.county = {};
+    vm.zone = {};
+    vm.school = {};
     var assessmentDoc = {};
     var subtestDoc = {};
 
@@ -48,6 +51,8 @@
       function success(resp){
         vm.assessment = resp.rows;
         buildTripData(vm.assessment);
+
+        console.log(resp);
       }
 
       function fail(err){
@@ -66,6 +71,7 @@
         });
 
       });
+
     }
 
     function postComments(){
@@ -89,7 +95,6 @@
       else{
         alert('Please provide an email');
       }
-      
     }
 
     function exportToPdf(){
@@ -130,9 +135,9 @@
 
         var county = LocationService.getCounty(countyId);
 
-        //var zone =  $filter('filter')(county.children, function (d) {return d.id === countyId;});
+        var zone =  _.filter(county.children, { 'id': zoneId  });
 
-        //console.log('county', zone);
+        console.log('zone', zone);
 
         //var school = _.find(zone.chilren, { 'id': schoolId });
 
@@ -185,7 +190,15 @@
     }
 
     function exportToWord(){
-      
+      if(assessmentDoc['Tayari Child Health Intervention Tool']!=null){
+        exportCHIToolToWord();
+      }
+      else{
+        exportRTIToolToWord();
+      }
+    }
+
+    function exportRTIToolToWord(){
       var rtiOfficer = '';
       if(assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']!=null){
         rtiOfficer = assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']['enumerator'];
@@ -204,14 +217,43 @@
         3: 'Not prepared'
       };
 
-      if(subtestDoc['Date and Time']!=null && subtestDoc['Classroom Demographics']!=null && subtestDoc['School Location']!=null && subtestDoc['Lesson observation']!=null && subtestDoc['After lesson observation']!=null){
+      if(subtestDoc['Date and Time']!=null && subtestDoc['School Location']!=null){
         var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
 
         //get data for key
-        var activityKey =  subtestDoc['Classroom Demographics']['select_subject'];
-        var prepKey = subtestDoc['Lesson observation']['lessn_present'];
+        var activityKey = '';
+        var prepKey = '';
+        var went_well = '';
+        var went_wrong = '';
+        var dicece_feedback = '';
+        var feedback_to_dicece = '';
+        var duration = 0;
+        var comments= '';
+        var teacher = '';
+        var girls = 0;
+        var boys = 0;
+        var pupils = 0;
 
-        var pupils = parseInt(subtestDoc['Classroom Demographics']['boys'], subtestDoc['Classroom Demographics']['girls']);
+        if(subtestDoc['Classroom Demographics']!=null){
+          activityKey =  subtestDoc['Classroom Demographics']['select_subject'];
+          boys = subtestDoc['Classroom Demographics']['boys'];
+          girls = subtestDoc['Classroom Demographics']['girls'];
+          pupils = parseInt(boys)*1 + parseInt(girls)*1;
+        }
+
+        if(subtestDoc['Lesson observation']!=null){
+          prepKey = subtestDoc['Lesson observation']['lessn_present'];
+          went_well = subtestDoc['Lesson observation']['tchr_did_well'];
+          went_wrong = subtestDoc['Lesson observation']['tchr_not_undrsnd_well'];
+          duration = subtestDoc['Lesson observation']['lssn_duration'];
+          teacher = subtestDoc['Lesson observation']['teacher_name'];
+        }
+
+        if(subtestDoc['After lesson observation']!=null){
+          dicece_feedback = subtestDoc['After lesson observation']['SCC_feedback_trtmnt1'];
+          feedback_to_dicece = subtestDoc['After lesson observation']['RTI_feedback_trtmnt1'];
+          comments = subtestDoc['After lesson observation']['general_comment_trtmnt1'];
+        }
 
         //get location details
         var countyId = subtestDoc['School Location']['location'][0];
@@ -220,12 +262,32 @@
 
         var county = LocationService.getCounty(countyId);
 
+        var zone =  {};
+        var school = {};
+
+        _.forEach(county['children'], function(value, key){
+
+          _.forEach(value.children, function(val, k){
+              if(k==zoneId){
+                zone = val;
+              }
+          });
+        });
+
+        _.forEach(zone['children'], function(val, k){
+              if(k==schoolId){
+                school = val;
+              }
+        });
+
+        //console.log(school);
+
         var content = '<html><title>Observations</title><body>'+
                       '<h1 align="center">Lesson Observation Brief</h1>'+
                       '<b>County:</b> '+county['label'].toUpperCase()+'<br/>'+
-                      '<b>Zone/Cluster:</b> '+'<br/>'+
-                      '<b>School:</b> '+'<br/>'+
-                      '<b>Teacher:</b> '+subtestDoc['Lesson observation']['teacher_name']+'<br/>'+
+                      '<b>Zone/Cluster:</b> '+zone['label'].toUpperCase()+'<br/>'+
+                      '<b>School:</b> '+school['label'].toUpperCase()+'<br/>'+
+                      '<b>Teacher:</b> '+teacher.toUpperCase()+'<br/>'+
                       '<b>RTI Officer:</b> '+rtiOfficer.toUpperCase()+'<br/>'+
                       '<br/>'+
                       '<table width="100%" border="1">'+
@@ -245,10 +307,10 @@
                       '<td>'+activities[activityKey]+'</td>'+
                       '<td></td>'+
                       '<td></td>'+
-                      '<td>'+subtestDoc['Lesson observation']['lssn_duration']+'</td>'+
-                      '<td></td>'+
-                      '<td>'+subtestDoc['Classroom Demographics']['girls']+'</td>'+
-                      '<td>'+subtestDoc['Classroom Demographics']['boys']+'</td>'+
+                      '<td>'+duration+'</td>'+
+                      '<td>'+pupils+'</td>'+
+                      '<td>'+girls+'</td>'+
+                      '<td>'+boys+'</td>'+
                       '<td>'+preparedness[prepKey]+'</td>'+
                       '</tr>'+
                       '</table>'+'<br/>'+
@@ -262,31 +324,137 @@
                       '<th>FEEDBACK TO DICECE</th>'+
                       '</tr>'+
                       '<tr>'+
-                      '<td>'+subtestDoc['Lesson observation']['tchr_did_well']+'</td>'+
-                      '<td>'+subtestDoc['Lesson observation']['tchr_not_undrsnd_well']+'</td>'+
-                      '<td>'+subtestDoc['After lesson observation']['SCC_feedback_trtmnt1']+'</td>'+
-                      '<td>'+subtestDoc['After lesson observation']['RTI_feedback_trtmnt1']+'</td>'+
+                      '<td>'+went_well+'</td>'+
+                      '<td>'+went_wrong+'</td>'+
+                      '<td>'+dicece_feedback+'</td>'+
+                      '<td>'+feedback_to_dicece+'</td>'+
                       '</tr>'+
                       '</table>'+
                       '<br/>'+
                       '<h3>Overall Observation And Recommendations</h3>'+
-                      ''+subtestDoc['After lesson observation']['general_comment_trtmnt1']+
+                      ''+comments+
                       '<br/>'+
                       ''+vm.notes+
                       '</body></html>';
 
+        console.log('Document generated');
+
         var converted = htmlDocx.asBlob(content, {orientation: 'landscape', margins: {top: 720}});
         saveAs(converted, 'trip.docx');
-
-        console.log('Document generated');
       }
       else{
         alert('A document cannot be generated for this trip.');
       }
     }
+    function exportCHIToolToWord(){
+      //health tool export
+      if(assessmentDoc['Tayari Child Health Intervention Tool']!=null){
+        if(subtestDoc['Class demographics']!=null && subtestDoc['Feedback session']!=null && subtestDoc['Date and Time']!=null && subtestDoc['School Location']!=null){
+          
+          var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
+          var countyId = subtestDoc['School Location']['location'][0];
+          var zoneId = subtestDoc['School Location']['location'][1];
+          var schoolId = subtestDoc['School Location']['location'][2];
 
-    function exportHealthBriefToWord(){
-      
+          var county = LocationService.getCounty(countyId);
+
+          var zone =  {};
+          var school = {};
+
+          _.forEach(county['children'], function(value, key){
+
+            _.forEach(value.children, function(val, k){
+                if(k==zoneId){
+                  zone = val;
+                }
+            });
+          });
+
+          _.forEach(zone['children'], function(val, k){
+                if(k==schoolId){
+                  school = val;
+                }
+          });
+
+          var went_well = subtestDoc['Feedback session']['successful_fdbk'];
+          var went_wrong = subtestDoc['Feedback session']['motivational_fdbk'];
+          var comments = '';
+          var pupils = 0;
+          
+          var content = '<html><title>Observations</title><body>'+
+                      '<h1 align="center">TAYARI CHILD HEALTH INTERVENTION</h1>'+
+                      '<h3 align="center">Support Observation Feedback Sheet (to be completed by RTI officer/ national level TOT)</h3>'+
+                      '<b>Date of Visit:</b>'+date+'<br/>'+
+                      '<b>County:</b> '+county['label']+'<br/>'+
+                      '<b>Zone/Cluster:</b>'+zone['label']+'<br/>'+
+                      '<b>School:</b>'+school['label']+'<br/>'+
+                      '<b>Teacher:</b> <br/>'+
+                      '<b>Name of CHV:</b> <br/>'+
+                      '<b>Name Of CHA:</b> <br/>'+
+                      '<b>RTI Officer:</b> <br/>'+
+                      '<br/>'+
+                      '<table width="100%" border="1">'+
+                      '<tr>'+
+                      '<td colspan="6">Class Enrollment</td>'+
+                      '<td>Total</td>'+
+                      '</tr>'+
+                      '<tr>'+
+                      '<td colspan="2">Multi-grade</td>'+
+                      '<td colspan="2">PP1</td>'+
+                      '<td colspan="2">PP2</td>'+
+                      '<td></td>'+
+                      '</tr>'+
+                      '<tr>'+
+                      '<th>Boys</th>'+
+                      '<th>Girls</th>'+
+                      '<th>Boys</th>'+
+                      '<th>Girls</th>'+
+                      '<th>Boys</th>'+
+                      '<th>Girls</th>'+
+                      '<th></th>'+
+                      '</tr>'+
+                      '<tr>'+
+                      '<td></td>'+
+                      '<td></td>'+
+                      '<td>'+subtestDoc['Class demographics']['boys_pp1']+'</td>'+
+                      '<td>'+subtestDoc['Class demographics']['girls_pp1']+'</td>'+
+                      '<td>'+subtestDoc['Class demographics']['boys_pp2']+'</td>'+
+                      '<td>'+subtestDoc['Class demographics']['girl_pp2']+'</td>'+
+                      '<td>'+pupils+'</td>'+
+                      '</tr>'+
+                      '</table>'+'<br/>'+
+                      '<br/>'+
+                      '<h3>Assessment of Activity</h3>'+
+                      '<table width="100%" border="1">'+
+                      '<tr>'+
+                      '<th>WHAT WENT WELL</th>'+
+                      '<th>WHAT DID NOT GO WELL</th>'+
+                      '<th>ADVICE FROM THE CHA OFFICER TO CHV</th>'+
+                      '<th>ADVICE TO THE CHA FROM RTI OFFICER</th>'+
+                      '</tr>'+
+                      '<tr>'+
+                      '<td>'+went_well+'</td>'+
+                      '<td>'+went_wrong+'</td>'+
+                      '<td></td>'+
+                      '<td></td>'+
+                      '</tr>'+
+                      '</table>'+
+                      '<br/>'+
+                      '<h3>General Comments And Recommendations</h3>'+
+                      ''+comments+
+                      '<br/>'+
+                      ''+vm.notes+
+                      '</body></html>';
+
+          console.log('Document generated');
+
+          var converted = htmlDocx.asBlob(content, {orientation: 'landscape', margins: {top: 720}});
+          saveAs(converted, 'trip.docx');
+        }
+        else{
+          alert('A document cannot be generated for this trip.');
+        }   
+      }
     }
   }
 }());

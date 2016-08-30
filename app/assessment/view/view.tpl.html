@@ -42,19 +42,19 @@
     		<textarea name="comments" ng-model="vm.notes" placeholder="Comments" rows="5" class="form-control"></textarea>
     	</div>
       <hr>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label><input type="checkbox" name="send" value="true" ng-model="vm.show" ng-click="vm.allowSend()">&nbsp;Forward Assessment To Email</label>
       </div>
 
       <div class="form-group" ng-show="vm.show">
         <input type="email" name="email" class="form-control" ng-model="vm.email" autocomplete="off" placeholder="Enter email address(es) to foward the assessment">
-      </div>
+      </div>-->
     </div>
     <div class="panel-footer">
     	<span>
     		<!--<button ng-click="vm.save()" class="btn btn-primary">Save Comments</button>-->
-        <button ng-click="vm.exportToWord()" class="btn btn-primary">Print</button>
-        <button ng-show="vm.show" ng-click="vm.sendEmail()" class="btn btn-warning">Send Email</button>
+        <button ng-click="vm.exportToWord()" class="btn btn-primary"><i class="fa fa-print"></i> Print</button>
+        <!--<button ng-show="vm.show" ng-click="vm.sendEmail()" class="btn btn-warning"><i class="fa fa-envelope-o"></i> Send Email</button>-->
     	</span>
     </div>
   </form>
