@@ -71,7 +71,28 @@
         });
 
       });
+      //get location details
+        var countyId = subtestDoc['School Location']['location'][0];
+        var zoneId = subtestDoc['School Location']['location'][1];
+        var schoolId = subtestDoc['School Location']['location'][2];
 
+        vm.county = LocationService.getCounty(countyId);
+        //get zone
+        _.forEach(vm.county['children'], function(value, key){
+
+          _.forEach(value.children, function(val, k){
+              if(k==zoneId){
+                vm.zone = val;
+              }
+          });
+        });
+
+        //get school
+        _.forEach(vm.zone['children'], function(val, k){
+              if(k==schoolId){
+                vm.school = val;
+              }
+        });
     }
 
     function postComments(){

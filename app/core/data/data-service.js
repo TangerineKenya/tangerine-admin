@@ -31,9 +31,14 @@
 
       $rootScope.$watch('group', function () {
         
-        if($rootScope.group=='default'){
+        config = {
+                      "db": "http://localhost:5984/group-tayari",
+                      "user":"admin",
+                      "password":"admin"
+                  };
+        /*if($rootScope.group=='default'){
           config = {
-                      "db": "http://localhost:5984/group-national_tablet_program_test",
+                      "db": "http://localhost:5984/group-tayari",
                       "user":"admin",
                       "password":"admin"
                     };
@@ -47,11 +52,11 @@
         }
         else {
           config = {
-                      "db": "http://localhost:5984/group-national_tablet_program_test",
+                      "db": "http://localhost:5984/group-tayari_test",
                       "user":"admin",
                       "password":"admin"
                     };
-        }
+        }*/
 
         //console.log('group', $rootScope.group);
 
