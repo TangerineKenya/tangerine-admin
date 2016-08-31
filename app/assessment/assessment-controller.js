@@ -21,7 +21,7 @@
     vm.users = {};
     vm.user = '';
     
-    vm.month = String(moment().month());
+    vm.month = String(moment().month()+1);
     vm.year = String(moment().year());
     vm.search = getTrips;
 
@@ -31,6 +31,10 @@
      * Activate the Controller
      */
     function activate() {
+
+      var now = moment();
+
+      console.log(now.month());
       var promises = [UserService.getUsers()];
       
       return $q.all(promises).then(function () {
@@ -52,7 +56,7 @@
               vm.userTrips[value.value.tripId] = value.value;
           });
           if(Object.keys(vm.userTrips).length === 0){
-            alert('The staff has no trips to view.');
+            alert('The user has no trip data.');
           }
           //console.log(vm.userTrips);
         }
@@ -64,7 +68,7 @@
         }
       }
       else{
-        alert('Please select staff to view trips');
+        alert('Please select a user to view their trip data');
       }
     }
   }
