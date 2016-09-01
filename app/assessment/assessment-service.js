@@ -62,7 +62,6 @@
 
       function success(response){
         service.trips = response;
-        console.log('Here', response);
         return response;
       }
       function fail(err){

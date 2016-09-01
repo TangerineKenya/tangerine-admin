@@ -41,7 +41,7 @@
         .catch(fail);
 
       function success(response) {
-        //console.log("Location List Returned", response);
+        console.log("Location List Returned", response);
         service.locationList=response;
         return response;
       }

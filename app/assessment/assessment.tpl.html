@@ -29,8 +29,8 @@
 				</div>
 				<div class="col-sm-3">
 					<select class="form-control" ng-model="vm.user" name="user" ng-change="vm.search()" required>
-						<option value="{{user.doc.name}}" ng-repeat="(key, user) in vm.users.rows">
-							{{user.doc.name}}
+						<option value="{{user.doc.first}} {{user.doc.last}}" ng-repeat="(key, user) in vm.users.rows">
+							{{user.doc.first}} {{user.doc.last}}
 						</option>
 					</select>
 				</div>

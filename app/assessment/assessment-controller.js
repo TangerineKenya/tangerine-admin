@@ -20,6 +20,7 @@
     vm.userTrips = {};
     vm.users = {};
     vm.user = '';
+    
     vm.month = String(moment().month()+1);
     vm.year = String(moment().year());
     vm.search = getTrips;
@@ -31,14 +32,14 @@
      */
     function activate() {
 
-      
+      var now = moment();
+
+      console.log(now.month());
       var promises = [UserService.getUsers()];
       
       return $q.all(promises).then(function () {
    
         vm.users = UserService.getUsers();
-
-        //console.log(vm.users);
 
       });
     }
@@ -48,8 +49,7 @@
       if(vm.user){
         vm.userTrips = {};
         var userKey = vm.user+'-'+vm.month+'-'+vm.year;
-        console.log('user', userKey);
-        AssessmentService.getTrips(vm.user+'-'+vm.month+'-'+vm.year).then(success).catch(fail);
+        AssessmentService.getTrips(userKey).then(success).catch(fail);
 
         function success(resp){
           _.forEach(resp.rows, function(value, key) {
@@ -58,7 +58,7 @@
           if(Object.keys(vm.userTrips).length === 0){
             alert('The user has no trip data.');
           }
-          
+          //console.log(vm.userTrips);
         }
 
         function fail(err)

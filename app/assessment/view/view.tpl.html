@@ -17,7 +17,7 @@
     <div class="panel-body">
       <div class="form-group">
          <div class="form-group" ng-repeat="(key, value) in vm.assessment">
-            <!--<label class="control-label">{{value.doc.assessmentName}}</label>-->
+            <label class="control-label">{{value.doc.assessmentName}}</label>
             <div class="form-group" ng-repeat="(k, val) in value.doc.subtestData">
               <label ng-if="val.name == 'After lesson observation' || val.name == 'Lesson observation' || val.name == 'During observation' || val.name == 'Date and Time' || val.name == 'Classroom Demographics' || val.name == 'Feedback session' || val.name == 'Assessors General Comments' || val.name=='During reading observation' || val.name=='Remarks after observation' || val.name == 'School Location'" class="control-label">{{val.name}}</label>
                <div>
@@ -61,7 +61,7 @@
       <!--<div class="form-group">
         <label><input type="checkbox" name="send" value="true" ng-model="vm.show" ng-click="vm.allowSend()">&nbsp;Forward Assessment To Email</label>
       </div>
-    
+
       <div class="form-group" ng-show="vm.show">
         <input type="email" name="email" class="form-control" ng-model="vm.email" autocomplete="off" placeholder="Enter email address(es) to foward the assessment">
       </div>-->
