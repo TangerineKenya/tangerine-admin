@@ -19,7 +19,7 @@
          <div class="form-group" ng-repeat="(key, value) in vm.assessment">
             <label class="control-label">{{value.doc.assessmentName}}</label>
             <div class="form-group" ng-repeat="(k, val) in value.doc.subtestData">
-              <label ng-if="val.name == 'After lesson observation' || val.name == 'Lesson observation' || val.name == 'During observation' || val.name == 'Date and Time' || val.name == 'Classroom Demographics' || val.name == 'Feedback session' || val.name == 'Assessors General Comments' || val.name=='During reading observation' || val.name=='Remarks after observation' || val.name == 'School Location'" class="control-label">{{val.name}}</label>
+              <label ng-if="val.name == 'After lesson observation' || val.name == 'Lesson observation' || val.name == 'During observation' || val.name == 'Date and Time' || val.name == 'Classroom Demographics' || val.name == 'Class demographics' || val.name == 'Feedback session' || val.name == 'Assessors General Comments' || val.name=='During reading observation' || val.name=='Remarks after observation' || val.name == 'School Location'" class="control-label">{{val.name}}</label>
                <div>
                 <table ng-if="val.name == 'School Location'" class="table table-reponsive table-striped table-condensed">
                   <thead>
@@ -37,7 +37,7 @@
                 </table>
               </div>
               <div>
-                <table ng-if="val.name == 'After lesson observation' || val.name == 'Lesson observation' || val.name == 'Date and Time' || val.name == 'During observation' || val.name == 'Classroom Demographics' || val.name == 'Feedback session' || val.name=='During reading observation' || val.name=='Remarks after observation' || val.name == 'Assessors General Comments'" class="table table-reponsive table-striped table-condensed">
+                <table ng-if="val.name == 'After lesson observation' || val.name == 'Lesson observation' || val.name == 'Date and Time' || val.name == 'During observation' || val.name == 'Classroom Demographics' || val.name == 'Class demographics' || val.name == 'Feedback session' || val.name=='During reading observation' || val.name=='Remarks after observation' || val.name == 'Assessors General Comments'" class="table table-reponsive table-striped table-condensed">
                   <thead>
                     <tr>
                       <th>Question</th>

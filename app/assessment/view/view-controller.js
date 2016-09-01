@@ -429,7 +429,12 @@
           rtiOfficer = assessmentDoc['General Information']['enumerator'];
         }
 
-          var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
+        var teacher = '';
+        
+        if(subtestDoc['Class demographics']['teacher_name']!=null){
+            teacher = subtestDoc['Class demographics']['teacher_name'];
+        }
+        var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
          
 
           var went_well = subtestDoc['Feedback session']['successful_fdbk'];
@@ -444,7 +449,7 @@
                       '<b>County:</b> '+vm.county['label'].toUpperCase()+'<br/>'+
                       '<b>Zone/Cluster:</b> ' +vm.zone['label'].toUpperCase()+'<br/>'+
                       '<b>School:</b> '+vm.school['label'].toUpperCase()+'<br/>'+
-                      '<b>Teacher:</b> <br/>'+
+                      '<b>Teacher:</b> '+teacher+'<br/>'+
                       '<b>Name of CHV:</b> <br/>'+
                       '<b>Name Of CHA:</b> <br/>'+
                       '<b>RTI Officer:</b> '+rtiOfficer.toUpperCase()+'<br/>'+
