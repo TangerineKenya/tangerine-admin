@@ -32,9 +32,9 @@
       $rootScope.$watch('group', function () {
         
         config = {
-                      "db": "http://localhost:5984/group-tayari",
-                      "user":"admin",
-                      "password":"admin"
+                      "db": "http://tayari.tangerinecentral.org/db/group-tayari",
+                      "user":"jkisioh",
+                      "password":"k1$10h1984"
                   };
         /*if($rootScope.group=='default'){
           config = {
