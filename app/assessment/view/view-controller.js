@@ -33,15 +33,17 @@
     vm.school = {};
     var assessmentDoc = {};
     var subtestDoc = {};
+    vm.locationList = {};
 
     activate();
 
     //////////////////////////////
     function activate(){
-      var promises = [getTrip()]; 
+      var promises = [getTrip(), LocationService.getLocations()]; 
       vm.p= promises;
       return $q.all(promises).then(function() {
-         getTrip();
+        vm.locationList = LocationService.getLocations();
+        getTrip();
       });
     }
 
@@ -76,7 +78,8 @@
         var zoneId = subtestDoc['School Location']['location'][1];
         var schoolId = subtestDoc['School Location']['location'][2];
 
-        vm.county = LocationService.getCounty(countyId);
+        vm.locationList = LocationService.getLocations();
+        vm.county = vm.locationList['locations'][countyId];
         //get zone
         _.forEach(vm.county['children'], function(value, key){
 
@@ -213,9 +216,12 @@
     function exportToWord(){
       if(assessmentDoc['Tayari Child Health Intervention Tool']!=null){
         exportCHIToolToWord();
+      } 
+      else if(assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']!=null || assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation']!=null){
+        exportRTIToolToWord();
       }
       else{
-        exportRTIToolToWord();
+        alert('A document cannot be generated for this type of trip/observation');
       }
     }
 
@@ -242,7 +248,7 @@
         3: 'Not prepared'
       };
 
-      if(subtestDoc['Date and Time']!=null && subtestDoc['School Location']!=null){
+      if(subtestDoc['Date and Time']!=null && subtestDoc['School Location']!=null && vm.county['label']!=null){
         var date =  subtestDoc['Date and Time']['day']+'/'+subtestDoc['Date and Time']['month']+'/'+subtestDoc['Date and Time']['year']
 
         //get data for key
@@ -264,11 +270,35 @@
 
         if(subtestDoc['Classroom Demographics']!=null){
           activityKey =  subtestDoc['Classroom Demographics']['select_subject'];
-          boys = subtestDoc['Classroom Demographics']['boys'];
-          girls = subtestDoc['Classroom Demographics']['girls'];
-          pupils = parseInt(boys)*1 + parseInt(girls)*1;
+          
           day = subtestDoc['Classroom Demographics']['lesson_day'];
           week = subtestDoc['Classroom Demographics']['lesson_week'];
+
+          if(subtestDoc['Classroom Demographics']['teacher_name']!=null){
+            teacher = subtestDoc['Classroom Demographics']['teacher_name'];
+          }
+
+          if(subtestDoc['Classroom Demographics']['SCC_coach']!=null){
+            coach = subtestDoc['Classroom Demographics']['SCC_coach'];
+          }
+
+          if(subtestDoc['Classroom Demographics']['boys']!=null){
+            boys = subtestDoc['Classroom Demographics']['boys'];
+          }
+
+          if(subtestDoc['Classroom Demographics']['girls']!=null){
+            girls = subtestDoc['Classroom Demographics']['girls'];
+          }
+
+          if(subtestDoc['Classroom Demographics']['boys_present']!=null){
+            boys = subtestDoc['Classroom Demographics']['boys_present'];
+          }
+
+          if(subtestDoc['Classroom Demographics']['girls_present']!=null){
+            girls = subtestDoc['Classroom Demographics']['girls_present'];
+          }
+
+          pupils = parseInt(boys)*1 + parseInt(girls)*1;
         }
 
         if(subtestDoc['Lesson observation']!=null){
@@ -276,7 +306,10 @@
           went_well = subtestDoc['Lesson observation']['tchr_did_well'];
           went_wrong = subtestDoc['Lesson observation']['tchr_not_undrsnd_well'];
           duration = subtestDoc['Lesson observation']['lssn_duration'];
-          teacher = subtestDoc['Lesson observation']['teacher_name'];
+          
+          if(subtestDoc['Lesson observation']['teacher_name']!=null){
+            teacher = subtestDoc['Lesson observation']['teacher_name'];
+          }
         }
 
         if(subtestDoc['During observation']!=null){
@@ -284,9 +317,17 @@
           went_well = subtestDoc['During observation']['what_went_well'];
           went_wrong = subtestDoc['During observation']['lesson_improvement'];
           duration = subtestDoc['During observation']['lesson_duration'];
-          teacher = subtestDoc['During observation']['Teacher_name'];
+          //teacher = subtestDoc['During observation']['Teacher_name'];
           feedback_to_dicece = subtestDoc['During observation']['officer_feedback'];
-          coach = subtestDoc['During observation']['SCC_Coach_name'];
+          //coach = subtestDoc['During observation']['SCC_Coach_name'];
+
+          if(subtestDoc['During observation']['Teacher_name']!=null){
+            teacher = subtestDoc['During observation']['Teacher_name'];
+          }
+
+          if(subtestDoc['During observation']['SCC_Coach_name']!=null){
+            coach = subtestDoc['During observation']['SCC_Coach_name'];
+          }
         }
 
         if(subtestDoc['During reading observation']!=null){
@@ -381,7 +422,7 @@
     function exportCHIToolToWord(){
       //health tool export
       if(assessmentDoc['Tayari Child Health Intervention Tool']!=null){
-        if(subtestDoc['Class demographics']!=null && subtestDoc['Feedback session']!=null && subtestDoc['Date and Time']!=null && subtestDoc['School Location']!=null){
+        if(subtestDoc['Class demographics']!=null && subtestDoc['Feedback session']!=null && subtestDoc['Date and Time']!=null && subtestDoc['School Location']!=null && vm.county['label']!=null){
           
         var rtiOfficer = '';
         if(assessmentDoc['General Information']!=null){
