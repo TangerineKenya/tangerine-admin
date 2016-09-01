@@ -52,7 +52,7 @@
         vm.assessment = resp.rows;
         buildTripData(vm.assessment);
 
-        console.log(resp);
+        console.log('Data', resp);
       }
 
       function fail(err){
@@ -285,10 +285,13 @@
           went_wrong = subtestDoc['During observation']['lesson_improvement'];
           duration = subtestDoc['During observation']['lesson_duration'];
           teacher = subtestDoc['During observation']['Teacher_name'];
-          //activityKey =  subtestDoc['During observation']['teaching_activity'];
           feedback_to_dicece = subtestDoc['During observation']['officer_feedback'];
-          //dicece_feedback = subtestDoc['During observation']['SCC_feedback_trtmnt1'];
           coach = subtestDoc['During observation']['SCC_Coach_name'];
+        }
+
+        if(subtestDoc['During reading observation']!=null){
+          prepKey = subtestDoc['During reading observation']['teacher_preparedness'];
+          went_wrong = subtestDoc['During reading observation']['teacher_not_understand'];
         }
 
         if(subtestDoc['After lesson observation']!=null){
@@ -301,6 +304,12 @@
           dicece_feedback = subtestDoc['Assessors General Comments']['SCC_feedback'];
           feedback_to_dicece = subtestDoc['Assessors General Comments']['rtio_feedback'];
           comments = subtestDoc['Assessors General Comments']['lsda_recmnds'];
+        }
+
+        if(subtestDoc['Remarks after observation']!=null){
+          dicece_feedback = subtestDoc['Remarks after observation']['dicece_suggestion'];
+          feedback_to_dicece = '';
+          comments = subtestDoc['Remarks after observation']['general_comments'];
         }
 
         var content = '<html><title>Observations</title><body>'+
