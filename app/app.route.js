@@ -5,9 +5,9 @@
         .module('app')
         .run(appRun);
 
-    appRun.$inject = ['routerHelper', 'logger', '$rootScope', '$http'];
+    appRun.$inject = ['routerHelper', 'logger', '$rootScope'];
     /* @ngInject */
-    function appRun(routerHelper, logger, $rootScope, $http) {
+    function appRun(routerHelper, logger, $rootScope) {
         var otherwise = '/404';
 
         //$locationProvider.html5Mode(true);
@@ -32,6 +32,15 @@
                 config: {
                     url: '/app',
                     templateUrl: 'layout/shell.html',
+                    resolve: { authenticate: authenticate },
+                    title: 'Home'
+                }
+            },
+            {
+                state: 'home.dashboard',
+                config: {
+                    url: '/dashboard',
+                    templateUrl: 'dashboard/dashboard.tpl.html',
                     resolve: { authenticate: authenticate },
                     title: 'Home'
                 }

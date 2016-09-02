@@ -31,6 +31,7 @@
       'core.data',
       'core.login',
       'users',
-      'assessment'
+      'assessment',
+      'dashboard'
     ]);
 }());

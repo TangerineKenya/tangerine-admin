@@ -32,9 +32,6 @@
      */
     function activate() {
 
-      var now = moment();
-
-      console.log(now.month());
       var promises = [UserService.getUsers()];
       
       return $q.all(promises).then(function () {
@@ -56,7 +53,7 @@
               vm.userTrips[value.value.tripId] = value.value;
           });
           if(Object.keys(vm.userTrips).length === 0){
-            alert('The user has no trip data.');
+            alert('The user has no observations.');
           }
           //console.log(vm.userTrips);
         }
@@ -68,7 +65,7 @@
         }
       }
       else{
-        alert('Please select a user to view their trip data');
+        alert('Please select a user to view their observations');
       }
     }
   }
