@@ -59,33 +59,34 @@ module.exports = function (gulp, $, config) {
   });
 
   // compile scripts and copy into build directory
-  gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
-    var htmlFilter = $.filter('**/*.html', {restore: true})
-      , jsFilter = $.filter('**/*.js', {restore: true});
+  gulp.task('scripts', ['clean', 'analyze', 'markup'], function() { 
 
-    return gulp.src([
-      config.appScriptFiles,
-      config.buildDir + '**/*.html',
-      '!**/*_test.*',
-      '!**/index.html'
-    ])
-      .pipe($.sourcemaps.init())
-      .pipe($.if(isProd, htmlFilter))
-      .pipe($.if(isProd, $.ngHtml2js({
-        // lower camel case all app names
-        moduleName: _.camelize(_.slugify(_.humanize(require('../package.json').name))),
-        declareModule: false
-      })))
-      .pipe($.if(isProd, htmlFilter.restore))
-      .pipe(jsFilter)
-      .pipe($.if(isProd, $.angularFilesort()))
-      .pipe($.if(isProd, $.concat('app.js')))
-      .pipe($.if(isProd, $.ngAnnotate()))
-      .pipe($.if(isProd, $.uglify()))
-      .pipe($.if(isProd, $.rev()))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest(config.buildJs))
-      .pipe(jsFilter.restore);
+    return gulp.src([config.appDir+ '**/*.js', config.appScriptFiles, '!**/*_test.*', '!**/*.spec.js', '!**/index.html'])
+      .pipe($.angularFilesort())
+      .pipe($.concat('app.min.js'))
+      .pipe($.ngAnnotate())
+      .pipe($.uglify({ mangle: false }))
+      .pipe($.sourcemaps.write())
+      .pipe(gulp.dest(config.buildJs));
+  });
+
+  // inject custom CSS and JavaScript into index.html
+  gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
+    var jsFilter = $.filter('**/*.js', {restore: true});
+
+    return gulp.src(config.buildDir + 'index.html')
+      .pipe($.inject(gulp.src([
+          config.buildCss + '**/*',
+          config.buildJs + '**/*'
+        ])
+        .pipe(jsFilter)
+        .pipe($.angularFilesort())
+        .pipe(jsFilter.restore), {
+          addRootSlash: false,
+          ignorePath: config.buildDir
+        })
+      )
+      .pipe(gulp.dest(config.buildDir));
   });
 
   // inject custom CSS and JavaScript into index.html
@@ -114,7 +115,7 @@ module.exports = function (gulp, $, config) {
 
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(cssFilter)
-      .pipe($.if(isProd, $.modifyCssUrls({
+      .pipe($.modifyCssUrls({
         modify: function (url, filePath) {
           if (url.indexOf('data:') === 0) {
             return url;
@@ -129,26 +130,25 @@ module.exports = function (gulp, $, config) {
           url = url.replace(/[/\\]/g, '/');
           return url;
         }
-      })))
-      .pipe($.if(isProd, $.concat('vendor.css')))
-      .pipe($.if(isProd, $.cssmin()))
-      .pipe($.if(isProd, $.rev()))
+      }))
+      .pipe($.concat('vendor.min.css'))
+      //.pipe($.cssmin())
       .pipe(gulp.dest(config.extDir))
       .pipe(cssFilter.restore)
       .pipe(jsFilter)
-      .pipe($.if(isProd, $.concat('vendor.js')))
-      .pipe($.if(isProd, $.uglify({
+      .pipe($.concat('vendor.min.js'))
+      .pipe($.uglify({
         preserveComments: $.uglifySaveLicense
-      })))
-      .pipe($.if(isProd, $.rev()))
+      }))
+      //.pipe($.sourcemaps.write())
       .pipe(gulp.dest(config.extDir))
       .pipe(jsFilter.restore);
   });
+
   // inject bower components into index.html
   gulp.task('bowerInject', ['bowerCopy'], function () {
-    if (isProd) {
-      return gulp.src(config.buildDir + 'index.html')
-        .pipe($.inject(gulp.src([
+    var target = gulp.src(config.buildDir + 'index.html');
+    return target.pipe($.inject(gulp.src([
           config.extDir + 'vendor*.css',
           config.extDir + 'vendor*.js'
         ], {
@@ -159,33 +159,7 @@ module.exports = function (gulp, $, config) {
           addRootSlash: false,
           ignorePath: config.buildDir
         }))
-        .pipe($.htmlmin({
-          collapseWhitespace: true,
-          removeComments: true
-        }))
-        .pipe(gulp.dest(config.buildDir));
-    } else {
-      return gulp.src(config.buildDir + 'index.html')
-        .pipe($.wiredep.stream({
-          exclude: [/bootstrap[.]js/],
-          ignorePath: '../../' + bowerDir.replace(/\\/g, '/'),
-          fileTypes: {
-            html: {
-              replace: {
-                css: function (filePath) {
-                  return '<link rel="stylesheet" href="' + config.extDir.replace(config.buildDir, '') +
-                    filePath + '">';
-                },
-                js: function (filePath) {
-                  return '<script src="' + config.extDir.replace(config.buildDir, '') +
-                    filePath + '"></script>';
-                }
-              }
-            }
-          }
-        }))
-        .pipe(gulp.dest(config.buildDir));
-    }
+    .pipe(gulp.dest(config.buildDir));
   });
 
   // copy Bower fonts and images into build directory

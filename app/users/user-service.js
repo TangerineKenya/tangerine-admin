@@ -12,35 +12,24 @@
     .module('users')
     .service('UserService', UserService);
   
-  UserService.$inject = ['DataService']
+  UserService.$inject = ['DataService', '$cookies', '$location']
 
-  function UserService(DataService) {
+  function UserService(DataService, $cookies, $location) {
+    
     var service ={
       init: init,
       userList: {},
       getUsers: getUsers,
       getUser: getUser
     };
-    
+
     service.init();
 
     return service;
 
     ////////////////////////////////////////////////////////////////////
     function init(){
-      service.userList = DataService.prod.query('reporting/userByRole', {
-        key: 'rti-tayari-team',
-        include_docs: true
-      })
-      .then(success)
-      .catch(fail);
-
-      function success(response){
-        service.userList = response;
-      }
-      function fail(err){
-        console.log(err);
-      }
+      getUsersByRole('rti-tayari-team');
     }
 
     function getUsers(){
@@ -48,7 +37,7 @@
     }
 
     function getUsersByRole(role){
-      return DataService.prod.query('reporting/userByRole', {
+      service.userList = DataService.prod.query('reporting/userByRole', {
         key: role,
         include_docs: true
       })
@@ -56,6 +45,7 @@
       .catch(fail);
 
       function success(response){
+        service.userList =  response;
         return response;
       }
       function fail(err){

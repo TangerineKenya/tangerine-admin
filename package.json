@@ -1,5 +1,5 @@
 {
-  "name": "TangerineAdmin",
+  "name": "app",
   "version": "0.0.0",
   "scripts": {
     "test": "gulp test"
@@ -12,6 +12,7 @@
   "devDependencies": {
     "browser-sync": "^2.2.3",
     "connect-history-api-fallback": "^1.2.0",
+    "connect-modrewrite": "^0.9.0",
     "del": "^2.0.0",
     "eslint-config-angular": "^0.2.0",
     "eslint-config-dustinspecker": "^0.1.0",
@@ -22,7 +23,7 @@
     "gulp": "^3.8.7",
     "gulp-angular-filesort": "^1.0.4",
     "gulp-autoprefixer": "^2.0.0",
-    "gulp-concat": "^2.3.4",
+    "gulp-concat": "^2.6.0",
     "gulp-css-rebase-urls": "0.0.5",
     "gulp-cssmin": "^0.1.6",
     "gulp-eslint": "^1.0.0",
@@ -41,12 +42,12 @@
     "gulp-order": "^1.1.1",
     "gulp-plumber": "^1.0.0",
     "gulp-protractor": "^1.0.0",
-    "gulp-rename": "^1.2.0",
+    "gulp-rename": "^1.2.2",
     "gulp-rev": "^5.1.0",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-tslint": "^3.1.2",
-    "gulp-uglify": "^1.0.0",
+    "gulp-uglify": "^2.0.0",
     "jshint-stylish": "^2.0.1",
     "karma": "^0.13.3",
     "karma-coverage": "^0.4.2",

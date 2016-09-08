@@ -5,19 +5,26 @@
         .module('layout.sidebar')
         .controller('UserBlockController', UserBlockController);
 
-    UserBlockController.$inject = ['$rootScope'];
-    function UserBlockController($rootScope) {
+    UserBlockController.$inject = ['$rootScope', '$cookies'];
+    function UserBlockController($rootScope, $cookies) {
 
         activate();
 
         ////////////////
 
         function activate() {
-          $rootScope.user = {
-            name:     $rootScope.currentUser.name,
-            job:      '',
-            picture:  'images/user/02.jpg'
-          };
+          var user = $cookies.get('currentUser');
+          
+          if(user){
+            $rootScope.user = {
+              name:     user.name,
+              job:      '',
+              picture:  'images/user/02.jpg'
+            };
+          }
+          else{
+            alert('The user cannot be found');
+          }
 
           // Hides/show user avatar on sidebar
           $rootScope.toggleUserBlock = function(){

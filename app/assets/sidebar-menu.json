@@ -6,7 +6,7 @@
   },
   {
     "text": "Dashboard",
-    
+    "sref": "home.dashboard",
     "icon": "fa fa-tachometer",
     "translate": ""
   },

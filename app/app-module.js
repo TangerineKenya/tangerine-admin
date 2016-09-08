@@ -2,7 +2,7 @@
   'use strict';
 
   /* @ngdoc object
-   * @name tangerineAdmin
+   * @name app
    * @description
    *
    */

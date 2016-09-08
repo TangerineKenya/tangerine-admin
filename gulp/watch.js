@@ -1,4 +1,5 @@
 'use strict';
+var modRewrite = require('connect-modrewrite');
 
 module.exports = function (gulp, $, config) {
   gulp.task('browserSync', function () {
@@ -7,7 +8,12 @@ module.exports = function (gulp, $, config) {
       open: 'external',
       port: config.port,
       server: {
-        baseDir: config.buildDir
+        baseDir: config.buildDir,
+        middleware: [
+          modRewrite([
+            '^[^\\.]*$ /index.html [L]'
+          ])
+        ]
       }
     });
   });

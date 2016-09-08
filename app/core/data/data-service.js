@@ -29,13 +29,11 @@
     function init(){
       var config = {};
 
-      $rootScope.$watch('group', function () {
-        
-        config = {
-                      "db": "http://localhost:5984/group-tayari",
-                      "user":"admin",
-                      "password":"admin"
-                  };
+      config = {
+                "db": "http://localhost:5984/group-tayari",
+                "user":"admin",
+                "password":"admin"
+              };
         /*if($rootScope.group=='default'){
           config = {
                       "db": "http://localhost:5984/group-tayari",
@@ -57,7 +55,6 @@
                       "password":"admin"
                     };
         }*/
-
         //console.log('group', $rootScope.group);
 
         service.prod = pouchDB(config.db);
@@ -66,20 +63,18 @@
           if(err){
             if (err.name === 'unauthorized') {
               console.log('name or password incorrect');
+              $location.path('/');
             } else {
               console.log(err);
+              $location.path('/');
             }
           }
           else{
-            console.log('Connected');
+            console.log('Data service init complete');
           }
         });
-      }, true);
     }
  
-    
-
     //data preprocessor - pre-process assessments data by user, month & year & push to db
-
   }
 }());

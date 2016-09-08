@@ -5,15 +5,12 @@
         .module('app')
         .run(appRun);
 
-    appRun.$inject = ['routerHelper', 'logger', '$rootScope'];
+    appRun.$inject = ['routerHelper', 'logger'];
     /* @ngInject */
-    function appRun(routerHelper, logger, $rootScope) {
+    function appRun(routerHelper, logger) {
         var otherwise = '/404';
-
-        //$locationProvider.html5Mode(true);
-
+        
         routerHelper.configureStates(getStates(), otherwise);
-        $rootScope.group = 'default';
     }
 
     function getStates() {
@@ -32,7 +29,7 @@
                 config: {
                     url: '/app',
                     templateUrl: 'layout/shell.html',
-                    resolve: { authenticate: authenticate },
+                    //resolve: { authenticate: authenticate },
                     title: 'Home'
                 }
             },
@@ -41,7 +38,7 @@
                 config: {
                     url: '/dashboard',
                     templateUrl: 'dashboard/dashboard.tpl.html',
-                    resolve: { authenticate: authenticate },
+                    //resolve: { authenticate: authenticate },
                     title: 'Home'
                 }
             },
@@ -56,17 +53,18 @@
         ];
     }
 
-    function authenticate($rootScope, $q, $state, $timeout){
+    /*function authenticate($rootScope, $q, $state, $timeout, $cookies){
+        var loggedIn = $cookies.get('loggedIn');
         if($rootScope.loggedIn = true){
             return $q.when();
         }
         else{
             $timeout(function() {
-              $state.go('app')
+              $state.go('/')
             })
 
             // Reject the authentication promise to prevent the state from loading
             return $q.reject()
         }
-    }
+    }*/
 })();

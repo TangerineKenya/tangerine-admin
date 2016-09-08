@@ -10,12 +10,12 @@
     /* @ngInject */
     function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
         /* jshint validthis:true */
+        $locationProvider.html5Mode(true);//.hashPrefix('!');
+        
         var config = {
             docTitle: undefined,
             resolveAlways: {}
         };
-
-        $locationProvider.html5Mode(true);//.hashPrefix('!');
 
         // defaults to dashboard
         $urlRouterProvider.otherwise('/');
@@ -25,9 +25,9 @@
         };
 
         this.$get = RouterHelper;
-        RouterHelper.$inject = ['$location', '$rootScope', '$state', 'logger'];
+        RouterHelper.$inject = ['$rootScope', '$state', 'logger'];
         /* @ngInject */
-        function RouterHelper($location, $rootScope, $state, logger) {
+        function RouterHelper($rootScope, $state, logger) {
             var handlingStateChangeError = false;
             var hasOtherwise = false;
             var stateCounts = {
@@ -41,6 +41,8 @@
                 stateCounts: stateCounts
             };
 
+            //var loggedIn = $cookies.get('loggedIn');
+
             init();
 
             return service;
@@ -52,6 +54,8 @@
                     state.config.resolve =
                         angular.extend(state.config.resolve || {}, config.resolveAlways);
                     $stateProvider.state(state.state, state.config);
+
+                    //console.log('State', state);
                 });
                 if (otherwisePath && !hasOtherwise) {
                     hasOtherwise = true;
@@ -77,7 +81,6 @@
                             (error.data || '') + '. <br/>' + (error.statusText || '') +
                             ': ' + (error.status || '');
                         logger.warning(msg, [toState]);
-                        $location.path('/');
                     }
                 );
             }
@@ -89,7 +92,9 @@
                 updateDocTitle();
             }
 
-            function getStates() { return $state.get(); }
+            function getStates() { 
+                return $state.get(); 
+            }
 
             function updateDocTitle() {
                 $rootScope.$on('$stateChangeSuccess',

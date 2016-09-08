@@ -12,9 +12,9 @@
     .module('core.login')
     .controller('LoginCtrl', LoginCtrl);
 
-  LoginCtrl.$inject = ['DataService','$rootScope', '$location'];
+  LoginCtrl.$inject = ['DataService','$rootScope', '$location','$cookies'];
 
-  function LoginCtrl(DataService,$rootScope, $location) {
+  function LoginCtrl(DataService,$rootScope, $location, $cookies) {
     var vm = this;
     vm.login = login;
     vm.user = {};
@@ -29,6 +29,8 @@
     
     function init(){
       $rootScope.loggedIn = false;
+      $cookies.put('loggedIn', false);
+      $cookies.remove('currentUser');
       /*DataService.prod.logout(function (err, response) {
         if (err) {
           // network error
@@ -44,19 +46,22 @@
         function success(response){
           if(response.ok==true){
             $rootScope.loggedIn = true;
+            $cookies.put('loggedIn', true);
             $rootScope.currentUser = response;
+            $cookies.putObject('currentUser', response);
             $rootScope.group = vm.group;
             //redirect 
             $rootScope.$apply(function() {
-              $location.path("app");
+              $location.path("app/dashboard");
             });          
-            console.log('Login successful', $rootScope.currentUser);
+            console.log('Login successful');
           }
         }
 
         function fail(error){
           ///return error;
           $rootScope.loggedIn = false;
+          $cookies.put('loggedIn', false);
           $location.path('/');
           console.log('Authentication error: ', error);
         }
@@ -68,7 +73,7 @@
     }
 
     function getUserDetails(){
-      return DataService.prod.getUser(vm.username);
+      //return DataService.prod.getUser(vm.username);
     }
 
     function logout(){
