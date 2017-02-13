@@ -28,7 +28,7 @@
       vm.p= promises;
       return $q.all(promises).then(function() {
          vm.userList = UserService.getUsers();
-         //console.log('Users have been loaded..',vm.userList);
+         console.log('Users have been loaded..',vm.userList);
       });
     }
 

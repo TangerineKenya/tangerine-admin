@@ -51,6 +51,16 @@
       function fail(err){
         console.log(err);
       }
+      /*service.userList = DataService.prod.allDocs({
+          include_docs: true,
+          attachments: true,
+          startkey: 'user',
+          endkey: 'user\uffff'
+        }).then(function (result) {
+          service.userList = result;
+        }).catch(function (err) {
+          console.log(err);
+      });*/
     }
 
     function getUser(id){

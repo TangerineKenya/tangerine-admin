@@ -45,33 +45,33 @@
                   id:vm.key,
                   label:vm.name,
                   code:vm.code,
-                  educationQuota: vm.zone.educationQuota,
-                  healthQuota: vm.zone.healthQuota,
+                  educationQuota: vm.educationQuota,
+                  healthQuota: vm.healthQuota,
                   children:{}
                 };
         }else{
           //tusome zone doc
-          doc.children[vm.key]={
+          /*doc.children[vm.key]={
                   id:vm.key,
                   label:vm.name,
                   code:vm.code,
                   quota:vm.quota,
                   teachers:vm.teachers,
                   children:{}
-                };
+                };*/
         }
                 
         //get location list
 
         vm.locationList=LocationService.locationList;
         path = 'locations.'+vm.countyId+'.children.'+vm.subId; 
-
+ 
         //get & merge to sub county object
 
         subcounty = _.get(vm.locationList, path);
         newDoc = _.merge(subcounty, doc);
-        //merge to location list
-
+        //merge to location list    
+ 
         locList = _.set(vm.locationList,path, newDoc);
         //updated location
 
@@ -81,7 +81,7 @@
         console.log('Zone Saved', locList);
 
         //redirect
-        $location.path('/location');
+        $location.path('/app/locations');
       }
   }
 }());

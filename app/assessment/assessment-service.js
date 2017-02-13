@@ -52,7 +52,7 @@
     }
 
     function getTrip(trip){
-      return DataService.prod.query('t/tripsAndUsers', {
+      return DataService.prod.query('ojai/tripsAndUsers', {
         key: trip,
         reduce: false,
         include_docs : true

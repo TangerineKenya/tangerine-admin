@@ -30,7 +30,7 @@
       var config = {};
 
       config = {
-                "db": "http://localhost:5984/group-tayari",
+                "db": "http://localhost:5984/group-tayari_test",
                 "user":"admin",
                 "password":"admin"
               };

@@ -17,6 +17,12 @@
     "translate": ""
   },
   {
+    "text": "CSV Export",
+    "sref": "home.export",
+    "icon": "fa fa-file-excel-o",
+    "translate": ""
+  },
+  {
     "text": "Logout",
     "sref": "app",
     "icon": "fa fa-sign-out",

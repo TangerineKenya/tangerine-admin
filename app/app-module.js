@@ -32,6 +32,8 @@
       'core.login',
       'users',
       'assessment',
-      'dashboard'
+      'dashboard',
+      'csvexport',
+      'import'
     ]);
 }());

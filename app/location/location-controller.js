@@ -33,6 +33,7 @@
 			vm.p= promises;
 			return $q.all(promises).then(function() {
 				 vm.locationList = LocationService.getLocations();
+				 //addTeachers();
 				 console.log('Everything has been loaded..');
 			});
 		}
@@ -48,6 +49,40 @@
 			}
 		}
 		
+		function addTeachers(){
+			
+			_.forIn(vm.locationList.locations, function(county, ckey) {
+				//add at county level
+				//county['teachers'] = 0;
+				
+				_.forIn(county.children, function(subcounty, skey){
+					//subcounty['teachers'] = 0;
+					if(county['id']==ckey && subcounty['id']==skey)
+					{
+						county['teachers']+=subcounty['teachers'];
+					}
+					//subcounty['teachers'] = 0;
+					_.forIn(subcounty.children, function(zone, zkey){
+						if(zone['teachers']==null){
+							//zone['teachers']=0;
+							//console.log('Empty', zone['label']);
+						}
+						else{
+							if(subcounty['id']==skey && zone['id']==zkey){
+
+								subcounty['teachers'] += zone['teachers'];
+
+								console.log('Subcounty', subcounty['label'], zone['teachers'],subcounty['teachers']);
+							}
+						}
+					});
+				});
+			});
+			LocationService.save(vm.locationList);
+			vm.locationList = LocationService.getLocations();
+			//console.log('Property added to location list...', vm.locationList);
+		}
+
 		function toggle(){
 			
 		}

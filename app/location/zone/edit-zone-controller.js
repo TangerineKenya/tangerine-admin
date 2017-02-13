@@ -54,7 +54,8 @@
           label:vm.zone.name,
           code:vm.zone.code,
           educationQuota: vm.zone.educationQuota,
-          healthQuota: vm.zone.healthQuota
+          healthQuota: vm.zone.healthQuota,
+          children: vm.zone.children
         }
       }
       else{
@@ -88,7 +89,7 @@
       console.log('Zone Updated', vm.locationList);
 
       //redirect
-      $location.path('/locations');
+      
     }
   }
 }());

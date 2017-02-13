@@ -71,7 +71,7 @@
 					    <li ng-repeat="(key, county) in vm.locationList.locations" ui-tree-node data-collapsed="true">
 					      	<div ui-tree-handle>
 			                  <a class="btn btn-success btn-xs" ng-click="toggle(this)"><span class="fa" ng-class="{'fa-chevron-right': collapsed, 'fa-chevron-down': !collapsed}"></span></a>
-			                  {{county.label}}
+			                  {{county.label}} 
 			                  <!--<a class="pull-right btn btn-danger btn-xs"  ng-click=""><span class="fa fa-remove"></span></a>-->
 			                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='home.location.editCounty({ countyID: county.id , name: county.label  })' style="margin-right: 8px;"><span class="fa fa-edit"></span></a>
 			                  <a class="pull-right btn btn-primary btn-xs"  ui-sref='home.location.newSubcounty({id:county.id})' style="margin-right: 8px;"><span class="fa fa-plus"></span></a>
