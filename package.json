@@ -5,7 +5,6 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "nodemailer": "^2.5.0",
     "officegen": "^0.2.10",
     "pouchdb": "^5.3.2"
   },

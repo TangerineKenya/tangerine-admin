@@ -29,7 +29,7 @@
 
     ////////////////////////////////////////////////////////////////////
     function init(){
-      getUsersByRole('rti-tayari-team');
+      getUsersByRole('cso');
     }
 
     function getUsers(){

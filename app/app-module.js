@@ -14,6 +14,7 @@
       'ngSanitize',
       'ngAria',
       'ngplus',
+      //'nodemailer',
       'ngStorage',
       'ui.router',
       'ui.bootstrap',
@@ -33,7 +34,6 @@
       'users',
       'assessment',
       'dashboard',
-      'csvexport',
-      'import'
+      'emailmanager'
     ]);
 }());

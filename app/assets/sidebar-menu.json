@@ -11,6 +11,18 @@
     "translate": ""
   },
   {
+    "text": "Email Manager",
+    "sref": "home.emailmanager",
+    "icon": "fa fa-envelope-o",
+    "translate": ""
+  },
+  {
+    "text": "Assessments",
+    "sref": "home.assessments",
+    "icon": "fa fa-comments",
+    "translate": ""
+  },
+  {
     "text": "Locations",
     "sref": "home.location",
     "icon": "fa fa-file-o",
@@ -20,12 +32,6 @@
     "text": "Users",
     "sref": "home.users",
     "icon": "fa fa-users",
-    "translate": ""
-  },
-  {
-    "text": "Assessments",
-    "sref": "home.assessments",
-    "icon": "fa fa-comments",
     "translate": ""
   },
   {
