@@ -30,9 +30,9 @@
       var config = {};
 
       config = {
-                "db": "http://tools.tayari-tangerine.tangerinecentral.org/db/group-tayari",
+                "db": "http://localhost:5984/group-tayari",
                 "user":"admin",
-                "password":"fun_robot_water_telephone_cake"
+                "password":"admin"
               };
         /*if($rootScope.group=='default'){
           config = {
