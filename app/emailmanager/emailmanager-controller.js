@@ -117,6 +117,15 @@
                 email = user.doc.email;
                 group = 'group-national_tablet_program';
               }
+              //update sent
+              var sent  = vm.year+'-'+moment(vm.month).format('MMM');//moment().format('YYYY-MMM');
+
+              //user.monthsSent.push(sent);
+              
+              //user.monthsSent = _.uniq(user.monthsSent);
+
+              //UserService.postUser(user);
+
               //request
               var request = {
                          method: 'GET',
@@ -125,29 +134,33 @@
                             'Content-Type': 'application/html',
                             "Access-Control-Allow-Origin": "*",
                             'Accept': 'application/html'
-                         }
+                          }
                         }
+                            
               //send
               $http(request)
                 .then(success)
                 .catch(fail);
 
                 function success(resp){
-                  console.log(resp);
+                  toastr.info('The report has been sent to '+user.first+' '+user.last+' ( '+email+' )');
+                  //console.log(resp);
                 }
 
                 function fail(err){
-                  console.log(err);
+                  toastr.error('The report to '+user.first+' '+user.last+' ( '+email+' ) could not be sent. Please try again later.');
+                  //console.log(err);
                 }
-                //alert('');
+                
+                activate();
             }
             else{
-              alert('The user details cannot be found!');
+              toastr.error('The user details cannot be found!');
             }
           } 
 
           function fail(err){
-            console.log(err);
+            toastr.error('Error')
           }
     }
     //delete
@@ -171,8 +184,7 @@
       } else {
           //do nothing
       }
-    }
-    //search
+    }    //search
     function search(){
 
     }

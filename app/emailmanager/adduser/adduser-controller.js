@@ -100,7 +100,7 @@
       var hashId = '';
 
       if(vm.userId == 0){ //new
-        var hash = new Hashids('', 32);
+        hash = new Hashids('', 32);
         hashId = hash.encode(5, 5, 5);
         vm.userId = getUniqueId();
       }
@@ -122,7 +122,8 @@
               "last": vm.last,
               "first": vm.first,
               "email": vm.email,
-              "county": vm.county
+              "county": vm.county,
+              "monthsSent": []
             };
 
       //console.log(doc);
