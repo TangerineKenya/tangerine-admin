@@ -12,9 +12,9 @@
     .module('emailmanager')
     .controller('EmailmanagerCtrl', EmailmanagerCtrl);
 
-  EmailmanagerCtrl.$inject = ['$location', '$q', 'UserService','LocationService', '$scope', '$http', '$route'];
+  EmailmanagerCtrl.$inject = ['$location', '$q', 'UserService','LocationService', '$scope', '$http', '$state'];
 
-  function EmailmanagerCtrl($location, $q, UserService, LocationService, $scope, $http, $route) {
+  function EmailmanagerCtrl($location, $q, UserService, LocationService, $scope, $http, $state) {
     var vm = this;
     vm.userList = [];
     vm.selected = [];
@@ -160,10 +160,13 @@
           if(vm.selected.length> 0){
             for (i = 0; i < vm.selected.length; i++) { 
               UserService.deleteUser(vm.selected[i]);
+              UserService.init();
             }
             toastr.info(vm.selected.length+' user (s) deleted.');
-            activate();//reload
-            $route.reload();
+            activate();
+            //reload
+            $state.reload();
+            //$location.path('app/emailmanager');
           }
       } else {
           //do nothing
