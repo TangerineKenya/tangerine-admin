@@ -52,6 +52,8 @@
   },
   "resolutions": {
     "angular": "~1.4.*",
-    "lodash": "~3.9.0"
+    "lodash": "~3.9.0",
+    "angular-translate-storage-cookie": "~2.14.0",
+    "angular-translate": "^2.11.0"
   }
 }

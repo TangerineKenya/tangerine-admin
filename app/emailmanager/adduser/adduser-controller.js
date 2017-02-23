@@ -80,10 +80,17 @@
     }
     //generate user id
     function getUniqueId() {
-      var hashAlpha = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789";
-      var hashLength = 32;
-      var hash = rangen.id(hashLength, 'o', hashAlpha);
-      return hash;
+      var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+      /*Length of the Random String*/
+      var string_length = 32;
+      var randomstring = '';
+       
+      for (var i = 0; i < string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum, rnum + 1);
+      }
+       
+      return randomstring;
     }
     //add or update user
     function postUser(){
