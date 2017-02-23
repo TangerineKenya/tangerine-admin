@@ -78,15 +78,24 @@
         vm.county = vm.locationList['locations'][vm.user.county]
       }
     }
+    //generate user id
+    function getUniqueId() {
+      var hashAlpha = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      var hashLength = 32;
+      var hash = rangen.id(hashLength, 'o', hashAlpha);
+      return hash;
+    }
     //add or update user
     function postUser(){
       //if id is null/empty new user - else update user details
       var doc = {};
       var name = '';
+      var hashId = '';
 
       if(vm.userId == 0){ //new
-        var id = new Hashids('', 32);
-        vm.userId = id.encode(1);
+        var hash = new Hashids('', 32);
+        hashId = hash.encode(5, 5, 5);
+        vm.userId = getUniqueId();
       }
       //logged in users name
       if($rootScope.currentUser){
@@ -99,7 +108,7 @@
               "_rev": vm.user._rev,
               "editedBy": name,
               "updated": moment().format('MMMM Do YYYY, h:mm:ss a'),
-              "hash": "",
+              "hash": hashId,
               "fromInstanceId": "aaaa-bbbb-cccc",
               "collection": "report-user",
               "title": vm.office,
