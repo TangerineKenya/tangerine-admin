@@ -1,57 +1,49 @@
 {
-  "name": "app",
+  "name": "toools",
   "version": "0.0.0",
   "dependencies": {
     "angular": "~1.4.*",
     "angular-animate": "~1.4.*",
     "angular-aria": "~1.4.*",
-    "angular-bootstrap": "^1.3.2",
     "angular-cookies": "~1.4.*",
-    "angular-sanitize": "~1.4.*",
     "angular-touch": "~1.4.*",
     "angular-ui-router": "~0.2.10",
-    "bootstrap": "~3.2.0",
-    "font-awesome": "~4.2.0",
-    "lodash": "~3.9.0",
-    "rangen": "^0.3.0",
-    "angular-pouchdb": "^4.1.0",
-    "pouchdb-authentication": "^0.5.1",
-    "pouchdb-find": "^0.10.3",
-    "angular-ui-tree": "^2.16.0",
-    "ngSanitize": "^0.0.2",
-    "angular-translate": "^2.11.0",
-    "angular-translate-storage-cookie": "^2.11.0",
-    "angular-translate-storage-local": "^2.11.0",
-    "angular-translate-loader-url": "^2.11.0",
-    "angular-translate-loader-static-files": "^2.11.0",
-    "angular-i18n": "^1.5.7",
-    "angular-route": "^1.5.7",
-    "ngstorage": "^0.3.10",
-    "toastr": "^2.1.2",
-    "moment": "^2.14.1",
-    "extras.angular.plus": "^0.9.3",
-    "pdfmake": "^0.1.20",
-    "html-docx-js": "^0.3.1",
-    "file-saver": "^1.3.2",
-    "chart.js": "^2.3.0",
+    "restangular": "~1.4.0",
+    "angular-sanitize": "~1.4.2",
+    "font-awesome": "~4.3.0",
+    "moment": "~2.10.3",
+    "toastr": "~2.1.1",
+    "ngSanitize": "~0.0.2",
+    "extras.angular.plus": "~0.9.2",
+    "pouchdb": "~3.6.0",
+    "angular-pouchdb": "~2.1.1",
+    "pouchdb-authentication": "~0.4.0",
+    "pouchdb-replication-stream": "~1.2.4",
+    "pouchdb-find": "~0.3.5",
+    "angular-translate": "~2.7.2",
+    "angular-translate-storage-cookie": "~2.7.2",
+    "angular-translate-storage-local": "~2.7.2",
+    "angular-translate-loader-url": "~2.7.2",
+    "angular-translate-loader-static-files": "~2.7.2",
     "jszip": "Stuk/jszip#~2.5.0",
     "js-xlsx": "~0.8.0",
     "js-xls": "~0.7.5",
+    "handsontable": "~0.16.1",
+    "ngHandsontable": "#feature/attributes-unify",
     "angular-dropzone": "~0.1.2",
-    "hashids": "^1.1.1"
+    "lodash": "~3.10.0",
+    "FileSaver.js": "~0.0.2",
+    "angular-uuid-service": "~0.1.0",
+    "hashids": "~1.0.2",
+    "rangen": "~0.2.2",
+    "angular-i18n": "~1.4.3",
+    "ngstorage": "~0.3.7",
+    "angular-route": "~1.4.3",
+    "bootstrap-sass": "~3.3.5",
+    "angular-ui-tree": "~2.11.0"
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.*"
-  },
-  "overrides": {
-    "angular": {
-      "dependencies": {
-        "jquery": "*"
-      }
-    }
-  },
-  "resolutions": {
-    "angular": "~1.4.*",
-    "lodash": "~3.9.0"
+    "angular-mocks": "~1.4.*",
+    "FileSaver.js": "~0.0.2"
   }
 }
