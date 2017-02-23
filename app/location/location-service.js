@@ -66,7 +66,7 @@
         .catch(fail);
 
         function success(response){
-          console.log('Location List Updated');
+          console.log('Updated');
           //update quota & teacher count
           
           //reload location list

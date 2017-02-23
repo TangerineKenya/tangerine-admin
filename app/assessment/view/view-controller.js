@@ -335,7 +335,7 @@
         saveAs(converted, 'trip.docx');
       }
       else{
-        alert('A document cannot be generated for this trip/observation.');
+        toastr.error('A document cannot be generated for this trip/observation.');
       }
     }
 
@@ -434,11 +434,11 @@
           saveAs(converted, 'trip.docx');
         }
         else{
-          alert('A document cannot be generated for this trip/observation.');
+          toastr.error('A document cannot be generated for this trip/observation.');
         }   
       }
       else{
-        alert('A document cannot be generated for this trip/observation.');
+        toastr.error('A document cannot be generated for this trip/observation.');
       }
     }
   }

@@ -1,0 +1,75 @@
+<h3>Email manager</h3>
+<div class="panel">
+<div class="panel-heading">
+	<div class="row">
+		<div class="col-sm-2">
+			<select class="form-control"  name="year" ng-model="vm.year" ng-click="vm.getReportData(vm.year, vm.month)" required>
+				<option value="2015">2015</option>
+				<option value="2016">2016</option>
+				<option value="2017">2017</option>
+				<option value="2018">2018</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" name="month" ng-model="vm.month" ng-click="vm.getReportData(vm.year, vm.month)" required>
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<button ng-click="vm.sendToSelected()" class="btn btn-info"> Send To Selected</button>
+		</div>
+		<div class="col-sm-2">
+			<a ui-sref="home.adduser({id: 0})" class="btn btn-info"><i class="fa fa-plus"></i> Add</a>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-info" ng-click="vm.delete()">Delete</button>
+		</div>
+		<div class="col-sm-2">&nbsp;</div>
+	</div>	
+</div>
+<div class="panel-body">
+	<div class="row">
+		<span class="pull-right">
+			<!--<input type="text" class="form-control" name="param" ng-model="vm.searchParam" placeholder="Name">-->
+		</span>
+	</div>
+	<div>&nbsp;</div>
+	<form name="myForm">
+	<table class="table table-responsive table-striped table-hover">
+		<tr>
+			<th><input type="checkbox" name="all" id="all" ng-checked="vm.isSelected()" ng-click="vm.selectAll($event)"></th>
+			<th>County</th>
+			<th>Office</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="(key, user) in vm.userList.rows">
+			<td><input type="checkbox" name="selected" id="selected" ng-checked="vm.isSelected(user.id)" ng-click="vm.select($event, user.id)"></td>
+			<td>{{vm.locationList['locations'][user.doc.county]['label']}}</td>
+			<td>{{user.doc.title}} </td>
+			<td>{{user.doc.first}} {{user.doc.last}}</td>
+			<td>{{user.doc.email}}</td>
+			<td><span ng-repeat="(k, value) in user.doc.monthsSent">&nbsp;{{value}}<br/></span></td>
+			<td>
+				<a ui-sref="home.adduser({id: user.id})" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a>&nbsp;
+				<button ng-click="vm.sendToUser(user.id)" class="btn btn-info btn-sm"><i class="fa fa-envelope-o"></i> Send </button>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+<div class="panel-footer">&nbsp;</div>
+</div>

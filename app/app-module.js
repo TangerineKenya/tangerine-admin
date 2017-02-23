@@ -20,6 +20,7 @@
       'ui.bootstrap',
       'ui.tree',
       'location',
+      'emailmanager',
       'preloader',
       'layout',
       'core.colors',
@@ -33,7 +34,6 @@
       'core.login',
       'users',
       'assessment',
-      'dashboard',
-      'emailmanager'
+      'dashboard'
     ]);
 }());

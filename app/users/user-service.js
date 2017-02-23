@@ -19,8 +19,12 @@
     var service ={
       init: init,
       userList: {},
+      emailList: {},
+      getEmailList: getEmailList,
       getUsers: getUsers,
-      getUser: getUser
+      getUser: getUser,
+      deleteUser: deleteUser,
+      postUser: postUser
     };
 
     service.init();
@@ -29,13 +33,16 @@
 
     ////////////////////////////////////////////////////////////////////
     function init(){
-      getUsersByRole('cso');
+      getUsersByRole('rti-tayari-team');
+      getEmailUsers();
     }
 
     function getUsers(){
       return service.userList;
     }
-
+    function getEmailList(){
+      return service.emailList;
+    }
     function getUsersByRole(role){
       service.userList = DataService.prod.query('reporting/userByRole', {
         key: role,
@@ -62,20 +69,36 @@
           console.log(err);
       });*/
     }
+    function getEmailUsers(){
+      service.emailList = DataService.prod.query('ojai/byCollection', {
+        key: 'report-user',
+        include_docs: true
+      })
+      .then(success)
+      .catch(fail);
 
-    function getUser(id){
-      return DataService.prod.get(id)
-        .then(success)
-        .catch(fail);
-
-      function success(response) {
-        service.user = response;
+      function success(response){
+        service.emailList =  response;
+        //console.log(response);
         return response;
       }
-      function fail(error) {
-        console.log(error);
-        return {};
+      function fail(err){
+        console.log(err);
       }
+    }
+    function getUser(id){
+      return DataService.prod.get(id);
+    }
+    //delete doc
+    function deleteUser(user){
+      return DataService.prod.get(user).then(function (doc) {
+        doc._deleted = true;
+        return DataService.prod.put(doc);
+      });
+    }
+
+    function postUser(user){
+      return DataService.prod.put(user);
     }
   }
 }());
