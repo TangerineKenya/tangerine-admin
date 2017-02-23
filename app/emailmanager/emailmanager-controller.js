@@ -34,6 +34,8 @@
     ////////////////////
     
     function activate(){
+      UserService.init();
+
       var promises = [UserService.getEmailList(), LocationService.getLocations()]; 
       vm.p= promises;
       return $q.all(promises).then(function() {
