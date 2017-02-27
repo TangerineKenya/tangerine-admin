@@ -100,7 +100,7 @@
       var hashId = '';
 
       if(vm.userId == 0){ //new
-        hash = new Hashids('', 32);
+        var hash = new Hashids('', 32);
         hashId = hash.encode(5, 5, 5);
         vm.userId = getUniqueId();
       }

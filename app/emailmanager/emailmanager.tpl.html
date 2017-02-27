@@ -39,11 +39,10 @@
 	</div>	
 </div>
 <div class="panel-body">
-	<div class="row">
-		<span class="pull-right">
-			<!--<input type="text" class="form-control" name="param" ng-model="vm.searchParam" placeholder="Name">-->
-		</span>
-	</div>
+	<span class="pull-right">
+		<input type="text" class="form-control" name="param" ng-model="vm.searchParam" ng-blur="vm.search()" placeholder="Last name">
+	</span>
+	<span>&nbsp;</span>
 	<div>&nbsp;</div>
 	<form name="myForm">
 	<table class="table table-responsive table-striped table-hover">
@@ -58,11 +57,11 @@
 		</tr>
 		<tr ng-repeat="(key, user) in vm.userList.rows">
 			<td><input type="checkbox" name="selected" id="selected" ng-checked="vm.isSelected(user.id)" ng-click="vm.select($event, user.id)"></td>
-			<td>{{vm.locationList['locations'][user.doc.county]['label']}}</td>
-			<td>{{user.doc.title}} </td>
-			<td>{{user.doc.first}} {{user.doc.last}}</td>
-			<td>{{user.doc.email}}</td>
-			<td><span ng-repeat="(k, value) in user.doc.monthsSent">&nbsp;{{value}}<br/></span></td>
+			<td>{{vm.locationList['locations'][user.value.county]['label']}}</td>
+			<td>{{user.value.title}} </td>
+			<td>{{user.value.first}} {{user.value.last}}</td>
+			<td>{{user.value.email}}</td>
+			<td><span ng-repeat="(k, value) in user.value.monthsSent">&nbsp;{{value}}<br/></span></td>
 			<td>
 				<a ui-sref="home.adduser({id: user.id})" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</a>&nbsp;
 				<button ng-click="vm.sendToUser(user.id)" class="btn btn-info btn-sm"><i class="fa fa-envelope-o"></i> Send </button>

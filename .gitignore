@@ -33,4 +33,4 @@ pids
 *.seed
 
 # module
-data-service.js
+app/core/data/data-service.js

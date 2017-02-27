@@ -98,33 +98,35 @@
 
           function success(user){
             //send email to user
-            if(user && user.county != undefined){
+            if(user){
               //get county
-              var instance = 'tayari';
+              var instance = 'tusome';
               var group = '';
               var email = '';
               var county = '';
-
-              if(instance=='tayari'){
+              var url = '';
+              
+              if(instance == 'tayari'){
                 //get tayari data
                 county = user.county;
                 email = user.email;
                 group = 'group-tayari';
               }
               else{
+                console.log(user);
                 //get tusome data
-                county = user.doc.county;
-                email = user.doc.email;
+                county = user.county;
+                email = user.email;
                 group = 'group-national_tablet_program';
               }
               //update sent
               var sent  = vm.year+'-'+moment(vm.month).format('MMM');//moment().format('YYYY-MMM');
 
-              //user.monthsSent.push(sent);
+              user.monthsSent.push(sent);
               
-              //user.monthsSent = _.uniq(user.monthsSent);
+              user.monthsSent = _.uniq(user.monthsSent);
 
-              //UserService.postUser(user);
+              UserService.postUser(user);
 
               //request
               var request = {
@@ -184,9 +186,26 @@
       } else {
           //do nothing
       }
-    }    //search
+    }    
+    //search
     function search(){
+      vm.userList = UserService.searchUsers(_.capitalize(vm.searchParam))
+        .then(success)
+        .catch(fail);
 
+        function success(resp){
+          vm.userList = resp;
+
+          if(resp.rows.length == 0){
+            toastr.error('The user cannot be found');
+            vm.userList = UserService.getEmailList();
+          }
+          //console.log(resp.rows.length);
+        }
+        
+        function fail(err){
+          console.log(err);
+        }
     }
   }
 }());

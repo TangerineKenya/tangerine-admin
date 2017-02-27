@@ -24,7 +24,8 @@
       getUsers: getUsers,
       getUser: getUser,
       deleteUser: deleteUser,
-      postUser: postUser
+      postUser: postUser,
+      searchUsers: searchUsers
     };
 
     service.init();
@@ -70,10 +71,7 @@
       });*/
     }
     function getEmailUsers(){
-      service.emailList = DataService.prod.query('ojai/byCollection', {
-        key: 'report-user',
-        include_docs: true
-      })
+      service.emailList = DataService.prod.query('reporting/reportUsers')
       .then(success)
       .catch(fail);
 
@@ -99,6 +97,13 @@
 
     function postUser(user){
       return DataService.prod.put(user);
+    }
+    //search
+    function searchUsers(last){
+      return DataService.prod.query('reporting/reportUsers', {
+        key: last,
+        include_docs: true
+      });
     }
   }
 }());

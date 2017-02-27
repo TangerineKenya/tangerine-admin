@@ -28,6 +28,8 @@
       'core.logger',
       'core.router',
       'core.settings',
+      'import',
+      'csvexport',
       'core.translate',
       'core.utils',
       'core.data',
