@@ -53,7 +53,7 @@
         vm.assessment = resp.rows;
         buildTripData(vm.assessment);
 
-        console.log('Data', resp);
+        //console.log('Data', resp);
       }
 
       function fail(err){
@@ -69,6 +69,8 @@
         _.forEach(value.doc.subtestData, function(val, k){
           //build sub test doc
           subtestDoc[val.name] = val.data;
+
+          //console.log('subtests', subtestDoc[val.name]);
         });
 
       });
@@ -82,12 +84,13 @@
         zoneId = subtestDoc['School Location']['location'][1];
         schoolId = subtestDoc['School Location']['location'][2];
       }
-
+      //console.log('location', subtestDoc['School Location']['location']);
       getLocations(countyId, zoneId, schoolId);
     }
     
     function getLocations(countyId, zoneId, schoolId){
-      vm.locationList = LocationService.getLocations();
+      
+      if(vm.locationList['locations']!=null){
         vm.county = vm.locationList['locations'][countyId];
         //get zone
         _.forEach(vm.county['children'], function(value, key){
@@ -105,6 +108,8 @@
                 vm.school = val;
               }
         });
+        //console.log(vm.locationList['locations'][countyId]);
+      }
     }
 
     function postComments(){

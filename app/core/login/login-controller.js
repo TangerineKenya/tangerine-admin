@@ -54,7 +54,7 @@
             $rootScope.$apply(function() {
               $location.path("app/dashboard");
             });          
-            console.log('Login successful');
+            toastr.info('Login successful');
           }
         }
 
@@ -63,7 +63,8 @@
           $rootScope.loggedIn = false;
           $cookies.put('loggedIn', false);
           $location.path('/');
-          console.log('Authentication error: ', error);
+          //console.log('Authentication error: ', error);
+          toastr.error('Username or password is incorrect');
         }
     }
 

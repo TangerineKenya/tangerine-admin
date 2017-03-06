@@ -29,6 +29,7 @@
     vm.searchParam = '';
     vm.locationList ={};
     vm.isSelected =  isSelected;
+    vm.reload = activate;
 
     activate();
     ////////////////////
@@ -84,6 +85,8 @@
           //send
           sendToUser(vm.selected[i]);
         }
+        //reload page
+        $state.reload();
       }
       else
       {
@@ -113,7 +116,7 @@
                 group = 'group-tayari';
               }
               else{
-                console.log(user);
+                //console.log(user);
                 //get tusome data
                 county = user.county;
                 email = user.email;
@@ -121,7 +124,11 @@
               }
               //update sent
               var sent  = vm.year+'-'+moment(vm.month).format('MMM');//moment().format('YYYY-MMM');
-
+              //user object doesn't contain monthSent property
+              if(user.monthsSent == undefined){
+                _.set(user,'monthsSent',[]);
+              }
+              //push the data
               user.monthsSent.push(sent);
               
               user.monthsSent = _.uniq(user.monthsSent);
@@ -146,15 +153,11 @@
 
                 function success(resp){
                   toastr.info('The report has been sent to '+user.first+' '+user.last+' ( '+email+' )');
-                  //console.log(resp);
                 }
 
                 function fail(err){
                   toastr.error('The report to '+user.first+' '+user.last+' ( '+email+' ) could not be sent. Please try again later.');
-                  //console.log(err);
                 }
-                
-                activate();
             }
             else{
               toastr.error('The user details cannot be found!');
