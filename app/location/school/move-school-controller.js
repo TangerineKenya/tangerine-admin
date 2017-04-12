@@ -94,6 +94,7 @@
       vm.locationList['locations'][vm.countyId]['children'][vm.subId]['children'][vm.zoneId]['children'] = _.omit(vm.locationList['locations'][vm.countyId]['children'][vm.subId]['children'][vm.zoneId]['children'],vm.schoolId);
       //insert to new path
       vm.locationList['locations'][vm.county.id]['children'][vm.subcounty.id]['children'][vm.zone.id]['children'] = _.merge(vm.locationList['locations'][vm.county.id]['children'][vm.subcounty.id]['children'][vm.zone.id]['children'],doc);
+      
       //save
       LocationService.save(vm.locationList);
 

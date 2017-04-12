@@ -8,6 +8,7 @@
    */
   angular
     .module('csvexport', [
-      'ui.router'
+      'ui.router',
+      'angular-loading-bar'
     ]);
 }());

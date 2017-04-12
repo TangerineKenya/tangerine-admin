@@ -29,6 +29,7 @@
       vm.quota = 0;
       vm.teachers = 0; 
       ////////////////////////////////////    
+      var instance = 'tusome';
 
       //get county & sub county details
       function getDetails(){
@@ -39,7 +40,7 @@
         //create new sub doc
         vm.key = LocationService.generateKey();
         
-        if($rootScope.group=='tayari'){
+        if( instance =='tayari'){
           //tayari zone doc
           doc.children[vm.key]={
                   id:vm.key,
@@ -51,14 +52,14 @@
                 };
         }else{
           //tusome zone doc
-          /*doc.children[vm.key]={
+          doc.children[vm.key]={
                   id:vm.key,
-                  label:vm.name,
-                  code:vm.code,
-                  quota:vm.quota,
-                  teachers:vm.teachers,
+                  label: vm.name,
+                  code: vm.code,
+                  quota: vm.educationQuota,
+                  teachers: vm.healthQuota,
                   children:{}
-                };*/
+                };
         }
                 
         //get location list

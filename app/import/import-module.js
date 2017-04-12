@@ -9,6 +9,7 @@
   angular
     .module('import', [
       'ui.router',
-      'ngDropzone'
+      'ngDropzone',
+      'ngHandsontable'
     ]);
 }());

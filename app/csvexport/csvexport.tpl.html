@@ -1,4 +1,5 @@
 <h3>CSV Export</h3>
+<form role="form" ng-submit="vm.download()" name="csvForm">
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">CSV Export</h3>
@@ -8,18 +9,17 @@
 			Select the instrument, year and month that you would like to generate
 		</div>
 		<div>
-			Your download will begin immediately.
+			Your download will begin immediately once the data is available.
 		</div>
 		<div class="row">&nbsp;</div>
 		<div class="row">
 			<div class="col-sm-3">
-				<select class="form-control">
-					<option>Select Instrument/Workflow</option>
+				<select class="form-control" ng-model="vm.workflow" name="workflow">
+					<option ng-repeat="(key, workflow) in vm.workflows.rows">{{workflow.id}}</option>
 				</select>
 			</div>
 			<div class="col-sm-2">
-				<select class="form-control">
-					<option>Select Year</option>
+				<select class="form-control" ng-model="vm.year" name="year">
 					<option value="2015">2015</option>
 					<option value="2016">2016</option>
 					<option value="2017">2017</option>
@@ -27,8 +27,7 @@
 				</select>
 			</div>
 			<div class="col-sm-2">
-				<select class="form-control">
-					<option>Select Month</option>
+				<select class="form-control" ng-model="vm.month">
 					<option value="1">January</option>
 					<option value="2">February</option>
 					<option value="3">March</option>
@@ -44,7 +43,7 @@
 				</select>
 			</div>
 			<span>
-				<button type="" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Export</button>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Export</button>
 			</span>
 
 		</div>
@@ -54,3 +53,4 @@
 		&nbsp;
 	</div>
 </div>
+</form>

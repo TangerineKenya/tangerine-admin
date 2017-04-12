@@ -51,7 +51,9 @@
                 knecCode:vm.knec,
                 tsc:vm.tsc,
                 tusome:vm.tusome,
-                address:vm.address
+                address:vm.address,
+                idToBeUsed: "",
+                idAlpha: ""
               };
 
       vm.locationList =  LocationService.locationList;
@@ -63,10 +65,12 @@
       var newDoc = _.merge(schools,doc);
 
       //merge new schools object to location list & save
-      var locList = _.merge(vm.locationList,newDoc);
+      //var locList = _.merge(vm.locationList,newDoc);
+      var locList = _.set(vm.locationList,path, newDoc);
+      //updated location
       LocationService.save(locList);
 
-      console.log('School',doc);
+      console.log('School',locList);
     }
 
    

@@ -22,6 +22,7 @@
       'location',
       'emailmanager',
       'preloader',
+      'cfp.loadingBar',
       'layout',
       'core.colors',
       'core.exception',

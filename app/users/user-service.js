@@ -35,6 +35,7 @@
     ////////////////////////////////////////////////////////////////////
     function init(){
       getUsersByRole('rti-tayari-team');
+      //getUsersByRole('rti-staff');
       getEmailUsers();
     }
 
