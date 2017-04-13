@@ -20,11 +20,13 @@
     vm.worfklow = '';
     vm.month = String(moment().month()+1);
     vm.year = String(moment().year());
-    vm.download = getCsv;
+    vm.download = download;
     vm.trip = {};
     vm.tripKeys = [];
     vm.tutorTrips = {};
     vm.output = [];
+
+    vm.instance = 'tusome';
 
     activate();
 
@@ -35,7 +37,7 @@
 
       CsvexportService.init();
 
-      var promises = [CsvexportService.getWorkflows()];
+      var promises = [CsvexportService.init(), CsvexportService.getWorkflows()];
       
       return $q.all(promises).then(function () {
    
@@ -44,8 +46,19 @@
       });
     }
 
+    function download(){
+      var link = '';
+      if(vm.instance == 'tayari'){
+        link = 'http://localhost/brockman/workflow/group-tayari/'+vm.workflow+'/'+vm.year+'/'+vm.year;
+      }
+      else{
+        link = 'http://localhost/brockman/workflow/group-national_tablet_program/'+vm.workflow+'/'+vm.year+'/'+vm.year;
+      }
+      //download
+      CsvexportService.getCsv(link);
+    }
     //build csv generation
-    function getCsv(){
+    /*function getCsv(){
       console.log('Start processing..');
       
       getTutorTrips();
@@ -91,6 +104,6 @@
         console.log('Trip', vm.trip);
       });
       console.log('Finished getting trip details..');
-    }
+    }*/
   }
 }());

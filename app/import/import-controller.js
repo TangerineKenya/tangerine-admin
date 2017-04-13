@@ -18,7 +18,7 @@
     var vm = this;
     vm.locationList = {};
     vm.droppedData = {};
-    vm.instance = 'tayari';
+    vm.instance = 'tusome';
     vm.exportExcel = exportExcel;
 
     vm.locationTable = [];
@@ -70,9 +70,11 @@
       return $q.all(promises).then(function() {
          vm.locationList = LocationService.getLocations();
          if(vm.instance == 'tayari'){
+            updateTayariQuota();
             flattenLocationListTayari();
           }
           else{
+            updateTusomeQuota();
             flattenLocationListTusome();
           }
          //console.log('Locations have been loaded..', vm.locationList);
@@ -201,17 +203,11 @@
                     tsc: a.Tsc_Code,
                     tusome: a.Tusome_Code,
                     address: a.Address,
-                  };
+                          };
               //console.log(doc);
               var newDoc = _.merge(schools,doc);
               //merge new schools object to location list & save
               locList = _.set(vm.locationList, path, newDoc);
-              //save new location list
-              LocationService.save(locList);
-            }
-            else{
-              //move school
-
             }
           }
         });
@@ -220,9 +216,44 @@
           return obj.County_Id.trim()
         });
 
-        //log
-        console.log(counties);
+        //save new location list
+        LocationService.save(locList);
+        activate();
       }
+    }
+
+    function updateTusomeQuota(){
+      var workingList = _.merge({}, vm.locationList);
+
+      _.forEach(workingList.counties, function(c, cKey) {
+        _.forEach(c.subCounties, function(sc, scKey) {
+          sc.quota = _.reduce(sc.zones, function(sum, obj) {
+            return sum + obj.quota;
+          }, 0);
+        });
+        c.quota = _.reduce(c.subCounties, function(sum, obj) {
+          return sum + obj.quota;
+        }, 0);
+      });
+
+      vm.locationList = workingList;
+    }
+
+    function updateTayariQuota(){
+      var workingList = _.merge({}, vm.locationList);
+
+      _.forEach(workingList.counties, function(c, cKey) {
+        _.forEach(c.subCounties, function(sc, scKey) {
+          sc.educationQuota = _.reduce(sc.zones, function(sum, obj) {
+            return sum + obj.educationQuota;
+          }, 0);
+        });
+        c.educationQuota = _.reduce(c.subCounties, function(sum, obj) {
+          return sum + obj.educationQuota;
+        }, 0);
+      });
+
+      vm.locationList = workingList;
     }
 
     function flattenLocationListTusome() {

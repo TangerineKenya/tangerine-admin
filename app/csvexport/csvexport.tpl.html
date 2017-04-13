@@ -13,17 +13,20 @@
 		</div>
 		<div class="row">&nbsp;</div>
 		<div class="row">
-			<div class="col-sm-3">
+			<div class="col-sm-4">
 				<select class="form-control" ng-model="vm.workflow" name="workflow">
-					<option ng-repeat="(key, workflow) in vm.workflows.rows">{{workflow.id}}</option>
+					<option ng-repeat="(key, workflow) in vm.workflows.rows" value="{{workflow.value._id}}">{{workflow.value.name}}</option>
 				</select>
 			</div>
 			<div class="col-sm-2">
 				<select class="form-control" ng-model="vm.year" name="year">
+					<option value="2014">2014</option>
 					<option value="2015">2015</option>
 					<option value="2016">2016</option>
 					<option value="2017">2017</option>
 					<option value="2018">2018</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
 				</select>
 			</div>
 			<div class="col-sm-2">

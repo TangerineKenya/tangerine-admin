@@ -17,15 +17,21 @@
     "translate": ""
   },
   {
-    "text": "Assessments",
+    "text": "Observations",
     "sref": "home.assessments",
-    "icon": "fa fa-comments",
+    "icon": "fa fa-file-word-o",
     "translate": ""
   },
   {
     "text": "Locations",
     "sref": "home.location",
-    "icon": "fa fa-file-o",
+    "icon": "fa fa-location-arrow",
+    "translate": ""
+  },
+  {
+    "text": "Import Schools",
+    "sref": "home.import",
+    "icon": "fa fa-upload",
     "translate": ""
   },
   {
@@ -37,13 +43,7 @@
   {
     "text": "CSV Export",
     "sref": "home.export",
-    "icon": "fa fa-file-excel-o",
-    "translate": ""
-  },
-  {
-    "text": "Location Excel Import",
-    "sref": "home.import",
-    "icon": "fa fa-file-excel-o",
+    "icon": "fa fa-download",
     "translate": ""
   },
   {

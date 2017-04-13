@@ -11,15 +11,15 @@
     "translate": ""
   },
   {
-    "text": "Assessments",
+    "text": "Observations",
     "sref": "home.assessments",
-    "icon": "fa fa-comments",
+    "icon": "fa fa-file-word-o",
     "translate": ""
   },
   {
     "text": "CSV Export",
     "sref": "home.export",
-    "icon": "fa fa-file-excel-o",
+    "icon": "fa fa-download",
     "translate": ""
   },
   {

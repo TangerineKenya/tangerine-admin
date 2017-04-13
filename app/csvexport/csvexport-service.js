@@ -12,9 +12,9 @@
     .module('csvexport')
     .service('CsvexportService', CsvexportService);
 
-  CsvexportService.$inject = ['DataService', '$rootScope'];
+  CsvexportService.$inject = ['DataService', '$rootScope','$http'];
 
-  function CsvexportService(DataService, $rootScope) {
+  function CsvexportService(DataService, $rootScope, $http) {
     
     var service = {
       init: init,
@@ -25,7 +25,8 @@
       getTutorTrips: getTutorTrips,
       getTrips: getTrips,
       getTrip: getTrip,
-      getSpritRotut: getSpritRotut
+      getSpritRotut: getSpritRotut,
+      getCsv: generateCsv
     };
 
     service.init();
@@ -34,12 +35,9 @@
 
     /////////////////////////////////// 
     function init() {
-      service.workflows = DataService.prod.query('ojai/byCollection', {
-        key: 'workflow',
-        reduce: false
-      })
-      .then(success)
-      .catch(fail);
+      service.workflows = DataService.prod.query('reporting/instruments')
+        .then(success)
+        .catch(fail);
 
       function success(response){
         service.workflows = response;
@@ -97,8 +95,29 @@
     function getTrip(){
       return service.trip;
     }
-    function generateCsv(outputData){
+    //send request to brockman
+    function generateCsv(link){
+      var request = {
+                      method: 'GET',
+                      url: link,
+                      headers: {
+                            'Content-Type': 'application/html',
+                            "Access-Control-Allow-Origin": "*",
+                            'Accept': 'application/html'
+                          }
+                    }
+                            
+        //send
+        $http(request)
+            .then(success)
+            .catch(fail);
 
+        function success(resp){
+          toastr.info('CSV Generated..');
+        }
+        function fail(err){
+          toastr.error('CSV Failed to generate..');
+        }
     }
   }
 }());
