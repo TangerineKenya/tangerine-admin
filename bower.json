@@ -24,8 +24,8 @@
     "angular-translate-storage-local": "^2.11.0",
     "angular-translate-loader-url": "^2.11.0",
     "angular-translate-loader-static-files": "^2.11.0",
-    "angular-i18n": "^1.5.7",
-    "angular-route": "^1.5.7",
+    "angular-i18n": "~1.4.*",
+    "angular-route": "~1.4.*",
     "ngstorage": "^0.3.10",
     "toastr": "^2.1.2",
     "moment": "^2.14.1",
@@ -39,7 +39,6 @@
     "js-xls": "~0.7.5",
     "angular-dropzone": "~0.1.2",
     "hashids": "^1.1.1",
-    "angular-loading-bar": "^0.9.0",
     "ngHandsontable": "^0.13.0",
     "handsontable": "^0.31.2"
   },

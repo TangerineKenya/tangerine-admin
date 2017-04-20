@@ -9,6 +9,6 @@
   angular
     .module('csvexport', [
       'ui.router',
-      'angular-loading-bar'
+      //'angular-loading-bar'
     ]);
 }());

@@ -1,0 +1,38 @@
+[
+  {
+    "text": "Main Navigation",
+    "heading": "true",
+    "translate": "sidebar.heading.HEADER"
+  },
+  {
+    "text": "Dashboard",
+    "sref": "home.dashboard",
+    "icon": "fa fa-tachometer",
+    "translate": ""
+  },
+  {
+    "text": "Locations",
+    "sref": "home.location",
+    "icon": "fa fa-file-o",
+    "translate": ""
+  },
+  {
+    "text": "Location Import",
+    "sref": "home.import",
+    "icon": "fa fa-upload",
+    "translate": ""
+  },
+  {
+    "text": "CSV Export",
+    "sref": "home.export",
+    "icon": "fa fa-download",
+    "translate": ""
+  },
+  {
+    "text": "Logout",
+    "sref": "app",
+    "icon": "fa fa-sign-out",
+    "translate": ""
+  }
+
+]

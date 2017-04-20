@@ -43,6 +43,8 @@
    
         vm.workflows = CsvexportService.getWorkflows();
 
+
+        console.log(vm.workflows);
       });
     }
 
