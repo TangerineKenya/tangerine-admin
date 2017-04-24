@@ -12,20 +12,20 @@
     .module('csvexport')
     .service('CsvexportService', CsvexportService);
 
-  CsvexportService.$inject = ['DataService', '$rootScope','$http', '$window'];
+  CsvexportService.$inject = ['DataService', '$rootScope','$http'];
 
-  function CsvexportService(DataService, $rootScope, $http, $window) {
+  function CsvexportService(DataService, $rootScope, $http) {
     
     var service = {
       init: init,
       workflows: {},
-      //tutorTrips: {},
-      //trip: {},
+      tutorTrips: {},
+      trip: {},
       getWorkflows: getWorkflows,
-      //getTutorTrips: getTutorTrips,
-      // getTrips: getTrips,
-      //getTrip: getTrip,
-      //getSpritRotut: getSpritRotut,
+      getTutorTrips: getTutorTrips,
+      getTrips: getTrips,
+      getTrip: getTrip,
+      getSpritRotut: getSpritRotut,
       getCsv: generateCsv
     };
 
@@ -60,7 +60,7 @@
       return service.workflows;
     }
     //get data from tutor trip view
-    /*function getTutorTrips(year, month, workflowId){
+    function getTutorTrips(year, month, workflowId){
       var tutorKey = 'year'+year+'month'+month+'workflowId'+workflowId;
       return DataService.prod.query('ojai/tutorTrips', {
         key: tutorKey,
@@ -100,20 +100,20 @@
     }
     function getTrip(){
       return service.trip;
-    }*/
+    }
     //send request to brockman
     function generateCsv(workflow, month, year){
       settings =  DataService.config;
-      //console.log(settings);
-      //var link = settings.host+'brockman/workflow/'+settings.group+'/'+workflow+'/'+year+'/'+month;
-      return $window.location = 'http://qa.tools.tusome.tangerinecentral.org/brockman/workflow/'+settings.group+'/'+workflow+'/'+year+'/'+month;
-      /*var request = {
+      console.log(settings);
+      var link = settings.host+'brockman/workflow/'+settings.group+'/'+workflow+'/'+year+'/'+month;
+      
+      var request = {
                       method: 'GET',
                       url: link,
                       headers: {
-                            'Content-Type': 'text/csv',
-                            'download': workflow,
-                            'target': '_self',
+                            'Content-Type': 'application/html',
+                            "Access-Control-Allow-Origin": "*",
+                            'Accept': 'application/html'
                           }
                     }
                             
@@ -123,12 +123,11 @@
                 .catch(fail);
 
           function success(resp){
-            return $resp;
             toastr.info('CSV Generated..', resp);
           }
           function fail(err){
-            toastr.error('CSV Failed to generate..');
-          }*/
+            toastr.error('CSV Failed to generate..', settings);
+          }
     }
   }
 }());
