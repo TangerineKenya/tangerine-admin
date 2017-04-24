@@ -34,3 +34,4 @@ pids
 
 # module
 app/core/data/data-service.js
+app/assets/settings.json

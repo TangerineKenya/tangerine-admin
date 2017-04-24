@@ -132,15 +132,15 @@ module.exports = function (gulp, $, config) {
         }
       }))
       .pipe($.concat('vendor.min.css'))
-      //.pipe($.cssmin())
+      .pipe($.cssmin())
       .pipe(gulp.dest(config.extDir))
       .pipe(cssFilter.restore)
       .pipe(jsFilter)
       .pipe($.concat('vendor.min.js'))
-      /*.pipe($.uglify({
+      .pipe($.uglify({
         preserveComments: $.uglifySaveLicense
-      }))*/
-      //.pipe($.sourcemaps.write())
+      }))
+      .pipe($.sourcemaps.write())
       .pipe(gulp.dest(config.extDir))
       .pipe(jsFilter.restore);
   });
