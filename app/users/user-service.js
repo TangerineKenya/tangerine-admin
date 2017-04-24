@@ -34,9 +34,9 @@
 
     ////////////////////////////////////////////////////////////////////
     function init(){
-      getUsersByRole('rti-tayari-team');
+      getUsersByRole('earc');
       //getUsersByRole('rti-staff');
-      getEmailUsers();
+      //getEmailUsers();
     }
 
     function getUsers(){

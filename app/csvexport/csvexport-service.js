@@ -29,19 +29,25 @@
       getCsv: generateCsv
     };
 
+    var settings = {};
+
     service.init();
 
     return service;
 
     /////////////////////////////////// 
     function init() {
+      //data
+      
+      //console.log(settings);
+      //get
       service.workflows = DataService.prod.query('reporting/instruments')
         .then(success)
         .catch(fail);
 
       function success(response){
         service.workflows = response;
-        //console.log('Workflow', response);
+        console.log('Workflow', response);
         return response;
       }
       function fail(err){
@@ -96,7 +102,11 @@
       return service.trip;
     }
     //send request to brockman
-    function generateCsv(link){
+    function generateCsv(workflow, month, year){
+      settings =  DataService.config;
+      console.log(settings);
+      var link = settings.host+'brockman/workflow/'+settings.group+'/'+workflow+'/'+year+'/'+month;
+      
       var request = {
                       method: 'GET',
                       url: link,
@@ -108,16 +118,16 @@
                     }
                             
         //send
-        $http(request)
-            .then(success)
-            .catch(fail);
+        return $http(request)
+                .then(success)
+                .catch(fail);
 
-        function success(resp){
-          toastr.info('CSV Generated..');
-        }
-        function fail(err){
-          toastr.error('CSV Failed to generate..');
-        }
+          function success(resp){
+            toastr.info('CSV Generated..', resp);
+          }
+          function fail(err){
+            toastr.error('CSV Failed to generate..', settings);
+          }
     }
   }
 }());

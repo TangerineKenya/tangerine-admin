@@ -26,8 +26,6 @@
     vm.tutorTrips = {};
     vm.output = [];
 
-    vm.instance = 'tusome';
-
     activate();
 
     /**
@@ -49,15 +47,9 @@
     }
 
     function download(){
-      var link = '';
-      if(vm.instance == 'tayari'){
-        link = 'http://localhost/brockman/workflow/group-tayari/'+vm.workflow+'/'+vm.year+'/'+vm.year;
-      }
-      else{
-        link = 'http://localhost/brockman/workflow/group-national_tablet_program/'+vm.workflow+'/'+vm.year+'/'+vm.year;
-      }
+      console.log('Starting..');
       //download
-      CsvexportService.getCsv(link);
+      return CsvexportService.getCsv(vm.workflow, vm.month, vm.year);
     }
     //build csv generation
     /*function getCsv(){

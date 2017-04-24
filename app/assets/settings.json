@@ -1,5 +1,6 @@
 {
-	"host":  "http://localhost:5984/",
+	"host":  "localhost:5984/",
 	"group": "group_national_tablet_program",
-	"login": "admin:admin"
+	"user": "admin",
+	"password": "admin"
 }
