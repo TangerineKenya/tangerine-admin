@@ -12,14 +12,15 @@
     .module('core.data')
     .service('DataService', DataService);
   
-  DataService.$inject = ['pouchDB','$rootScope', '$location'];
+  DataService.$inject = ['pouchDB','$rootScope', '$location', '$http'];
   
-  function DataService(pouchDB, $rootScope, $location) {
+  function DataService(pouchDB, $rootScope, $location, $http) {
  
     var service = {
       db: null, 
       remote: null,
       init: init,
+      settings: {}
     };
 
     service.init();
@@ -29,8 +30,10 @@
     function init(){
       var config = {};
 
+      getSettings();
+      
       config = {
-                "db": "http://localhost:5984/group-national_tablet_program_test",
+                "db": "http://localhost/group-national_tablet_program",
                 "user":"admin",
                 "password":"admin"
               };
@@ -74,7 +77,22 @@
           }
         });
     }
- 
+    
+    //get settings json file
+    function getSettings()
+    {
+      return $http.get('assets/settings.json')
+              .then(success)
+              .catch(error);
+
+        function success(resp){
+          service.settings = resp;
+          return resp;
+        }
+        function error(error){
+          toastr.error('Could not find settings file.');
+        }
+    }
     //data preprocessor - pre-process assessments data by user, month & year & push to db
   }
 }());
