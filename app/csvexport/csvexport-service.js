@@ -22,10 +22,10 @@
       tutorTrips: {},
       trip: {},
       getWorkflows: getWorkflows,
-      getTutorTrips: getTutorTrips,
-      getTrips: getTrips,
-      getTrip: getTrip,
-      getSpritRotut: getSpritRotut,
+      //getTutorTrips: getTutorTrips,
+      //getTrips: getTrips,
+      //getTrip: getTrip,
+      //getSpritRotut: getSpritRotut,
       getCsv: generateCsv
     };
 
@@ -47,7 +47,7 @@
 
       function success(response){
         service.workflows = response;
-        console.log('Workflow', response);
+        //console.log('Workflow', response);
         return response;
       }
       function fail(err){
@@ -61,7 +61,7 @@
     }
     //send request to brockman
     function generateCsv(workflow, month, year){     
-      $windows.location = settings.host+'brockman/workflow/'+settings.group+'/'+workflow+'/'+year+'/'+month;
+      $window.location = 'http://localhost/brockman/workflow/group-national_tablet_program/'+workflow+'/'+year+'/'+month;
     }
   }
 }());

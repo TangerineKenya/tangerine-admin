@@ -42,7 +42,7 @@
         vm.workflows = CsvexportService.getWorkflows();
 
 
-        console.log(vm.workflows);
+        //console.log(vm.workflows);
       });
     }
 

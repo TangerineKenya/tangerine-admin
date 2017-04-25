@@ -12,15 +12,14 @@
     .module('import')
     .controller('ImportCtrl', ImportCtrl);
 
-  ImportCtrl.$inject = ['LocationService','logger', '$scope','$q', 'hotRegisterer'];
+  ImportCtrl.$inject = ['LocationService','logger', '$scope','$q', 'hotRegisterer', '$rootScope'];
 
-  function ImportCtrl(LocationService, logger, $scope, $q, hotRegisterer) {
+  function ImportCtrl(LocationService, logger, $scope, $q, hotRegisterer, $rootScope) {
     var vm = this;
     vm.locationList = {};
     vm.droppedData = {};
     vm.instance = 'tusome';
     vm.exportExcel = exportExcel;
-
     vm.locationTable = [];
     vm.locationTable.header = "";
     vm.locationTable.data = undefined;
@@ -65,19 +64,20 @@
     //activate
 
     function activate(){
+      
       var promises = [LocationService.getLocations()]; //[getMessageCount(), getSchools(), ];
       vm.p= promises;
       return $q.all(promises).then(function() {
          vm.locationList = LocationService.getLocations();
          if(vm.instance == 'tayari'){
-            updateTayariQuota();
+            //updateTayariQuota();
             flattenLocationListTayari();
           }
           else{
-            updateTusomeQuota();
+            //updateTusomeQuota();
             flattenLocationListTusome();
           }
-         //console.log('Locations have been loaded..', vm.locationList);
+         console.log('Locations have been loaded..');
       });
     }
 
@@ -103,7 +103,7 @@
               var doc = {};
               doc[a.County_Id] = {
                                    id: a.County_Id,
-                                   label: a.County_Name,
+                                   label: _.capitalize(a.County_Name),
                                    children: {}
                                  };
               locList = _.set(vm.locationList,vm.locationList.locations, doc);
@@ -115,7 +115,7 @@
               var doc = {};
               doc[a.SubCounty_Id] = {
                                       id: a.SubCounty_Id,
-                                      label: a.SubCounty_Name,
+                                      label: _.capitalize(a.SubCounty_Name),
                                       children: {}
                                     };
               var newDoc = _.merge(subCounties,doc);
@@ -128,7 +128,7 @@
               var doc = {};
               doc[a.Zone_Id] = {
                                   id: a.Zone_Id,
-                                  label: a.Zone_Name,
+                                  label: _.capitalize(a.Zone_Name),
                                   educationQuota: 0,
                                   healthQuota: 0,
                                   children: {}
@@ -143,7 +143,6 @@
             var schools = _.get(vm.locationList,path);
             
             if(schools != "undefined"){
-              //console.log('gtg', schools);
                 var doc = {};
                 doc[key]= {
                     id: key,

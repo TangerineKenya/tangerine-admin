@@ -23,6 +23,12 @@
     "translate": ""
   },
   {
+    "text": "Import Schools",
+    "sref": "home.import",
+    "icon": "fa fa-upload",
+    "translate": ""
+  },
+  {
     "text": "Logout",
     "sref": "app",
     "icon": "fa fa-sign-out",

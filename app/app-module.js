@@ -12,6 +12,7 @@
       'ngAnimate',
       'ngRoute',
       'ngSanitize',
+      'ngCsv',
       'ngAria',
       'ngplus',
       //'nodemailer',

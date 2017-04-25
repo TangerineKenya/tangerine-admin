@@ -34,9 +34,9 @@
 
     ////////////////////////////////////////////////////////////////////
     function init(){
-      getUsersByRole('earc');
+      getUsersByRole('cso');
       //getUsersByRole('rti-staff');
-      //getEmailUsers();
+      getEmailUsers();
     }
 
     function getUsers(){
@@ -47,7 +47,7 @@
     }
     function getUsersByRole(role){
       service.userList = DataService.prod.query('reporting/userByRole', {
-        key: role,
+        //key: role,
         include_docs: true
       })
       .then(success)
