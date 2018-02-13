@@ -1,6 +1,6 @@
 {
 	"host":  "localhost:5984/",
-	"group": "group_national_tablet_program",
+	"group": "group_tayari_test",
 	"user": "admin",
 	"password": "admin"
 }

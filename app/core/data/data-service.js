@@ -33,7 +33,7 @@
       getSettings();
       
       config = {
-                "db": "http://localhost/group-national_tablet_program",
+                "db": "http://localhost:5984/group-tayari_test",
                 "user":"admin",
                 "password":"admin"
               };
@@ -63,6 +63,7 @@
         service.prod = pouchDB(config.db);
        
         service.prod.login(config.user, config.password, function (err, resp){
+          //console.log('here'+err);
           if(err){
             if (err.name === 'unauthorized') {
               console.log('name or password incorrect');

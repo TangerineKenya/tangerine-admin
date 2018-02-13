@@ -53,7 +53,7 @@
         vm.assessment = resp.rows;
         buildTripData(vm.assessment);
 
-        //console.log('Data', resp);
+        //console.log('Data', vm.assessment);
       }
 
       function fail(err){
@@ -66,11 +66,11 @@
           //build each assessment doc
           assessmentDoc[value.doc.assessmentName] = value.doc;
 
+          //console.log('subtests', value);
+
         _.forEach(value.doc.subtestData, function(val, k){
           //build sub test doc
           subtestDoc[val.name] = val.data;
-
-          //console.log('subtests', subtestDoc[val.name]);
         });
 
       });
@@ -139,7 +139,7 @@
       if(assessmentDoc['Tayari Child Health Intervention Tool']!=null){
         exportCHIToolToWord();
       } 
-      else if(assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']!=null || assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation']!=null){
+      else if(assessmentDoc['Lesson Observation RTI']!=null || assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']!=null || assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation']!=null){
         exportRTIToolToWord();
       }
       else{
@@ -153,15 +153,19 @@
         rtiOfficer = assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation - treatment 1']['enumerator'];
       }
 
+      if(assessmentDoc['Lesson Observation RTI']!=null){
+        rtiOfficer = assessmentDoc['Lesson Observation RTI']['enumerator'];
+      }
+
       if(assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation']!=null){
         rtiOfficer = assessmentDoc['Pre-Observation Tool - Sub-County ECD Coordinator observation']['enumerator'];
       }
        
       var activities = {
-          2: 'Language Activities',
-          3: 'Maths Activities',
-          4: 'Social Activities',
-          5: 'Life skills Activities'
+          "language": 'Language Activities',
+          "math": 'Maths Activities',
+          "social": 'Social Activities',
+          "life_skills": 'Life skills Activities'
       };
 
       var preparedness = {
@@ -226,6 +230,42 @@
           pupils = parseInt(boys)*1 + parseInt(girls)*1;
         }
 
+        if(subtestDoc['Class Demographics']!=null){
+                    
+          if(subtestDoc['Class Demographics']['select_subject']!=null){
+            activityKey =  subtestDoc['Class Demographics']['select_subject'];
+          }
+
+          day = subtestDoc['Class Demographics']['ls_dy'];
+          week = subtestDoc['Class Demographics']['ls_wk'];
+
+          if(subtestDoc['Class Demographics']['teacher_name']!=null){
+            teacher = subtestDoc['Class Demographics']['teacher_name'];
+          }
+
+          if(subtestDoc['Class Demographics']['SCC_coach']!=null){
+            coach = subtestDoc['Class Demographics']['SCC_coach'];
+          }
+
+          if(subtestDoc['Class Demographics']['tl_enr_by']!=null){
+            boys = subtestDoc['Class Demographics']['tl_enr_by'];
+          }
+
+          if(subtestDoc['Class Demographics']['tl_enr_gl']!=null){
+            girls = subtestDoc['Class Demographics']['tl_enr_gl'];
+          }
+
+          if(subtestDoc['Class Demographics']['tl_by']!=null && subtestDoc['Class Demographics']['tl_by'] != 'logicSkipped'){
+            boys = subtestDoc['Class Demographics']['tl_by'];
+          }
+
+          if(subtestDoc['Class Demographics']['tl_gl']!=null && subtestDoc['Class Demographics']['tl_gl'] != 'logicSkipped'){
+            girls = subtestDoc['Class Demographics']['tl_gl'];
+          }
+
+          pupils = parseInt(boys)*1 + parseInt(girls)*1;
+        }
+
         if(subtestDoc['Lesson observation']!=null){
           prepKey = subtestDoc['Lesson observation']['lessn_present'];
           went_well = subtestDoc['Lesson observation']['tchr_did_well'];
@@ -255,6 +295,24 @@
           }
         }
 
+        if(subtestDoc['During Observation']!=null){
+          prepKey = subtestDoc['During Observation']['teacher_preparedness'];
+          went_well = subtestDoc['During Observation']['what_went_well'];
+          went_wrong = subtestDoc['During Observation']['lesson_improvement'];
+          duration = subtestDoc['During Observation']['lesson_duration'];
+          //teacher = subtestDoc['During observation']['Teacher_name'];
+          feedback_to_dicece = subtestDoc['During Observation']['officer_feedback'];
+          //coach = subtestDoc['During observation']['SCC_Coach_name'];
+
+          /*if(subtestDoc['During Observation']['Teacher_name']!=null){
+            teacher = subtestDoc['During Observation']['Teacher_name'];
+          }
+
+          if(subtestDoc['During Observation']['SCC_Coach_name']!=null){
+            coach = subtestDoc['During Observation']['SCC_Coach_name'];
+          }*/
+        }
+
         if(subtestDoc['During reading observation']!=null){
           prepKey = subtestDoc['During reading observation']['teacher_preparedness'];
           went_wrong = subtestDoc['During reading observation']['teacher_not_understand'];
@@ -270,6 +328,12 @@
           dicece_feedback = subtestDoc['Assessors General Comments']['SCC_feedback'];
           feedback_to_dicece = subtestDoc['Assessors General Comments']['rtio_feedback'];
           comments = subtestDoc['Assessors General Comments']['lsda_recmnds'];
+        }
+
+        if(subtestDoc["Assessor's General Comments"]!=null){
+          dicece_feedback = subtestDoc["Assessor's General Comments"]['SCC_feedback'];
+          feedback_to_dicece = subtestDoc["Assessor's General Comments"]['rtio_feedback'];
+          comments = subtestDoc["Assessor's General Comments"]['lsda_recmnds'];
         }
 
         if(subtestDoc['Remarks after observation']!=null){

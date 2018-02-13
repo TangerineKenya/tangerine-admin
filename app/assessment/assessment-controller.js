@@ -37,7 +37,7 @@
       return $q.all(promises).then(function () {
    
         vm.users = UserService.getUsers();
-
+        console.log(vm.users);
       });
     }
 
